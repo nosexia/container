@@ -3,11 +3,16 @@ import { Observable } from 'rxjs';
 import { HttpService } from '../http/http.service';
 import HTTP_URL from '../../datas/http-url.data';
 import { StorageService } from '../storage-type/storage.service';
-let colorsshandian = ['#bc0a11','#f8ab66', '#13b054'];
+import { NzModalService, NzMessageService } from 'ng-zorro-antd';
+let colorsshandian = ['#f5222d','#FD883E', '#13b054'];
 let colors = ['#78a7d0','#318eba', '#0d5481'];
-// 初始图标
-let initData1 = [[]];
-let initData2 = [[]];
+// 初始数据
+let x1 = [];
+let y1 = [];
+
+let x2 = [];
+let y2 = [[]];
+
 @Injectable({
   providedIn: 'root'
 })
@@ -15,7 +20,9 @@ export class StatisticalService {
   datas: any;
   constructor(
     private httpService: HttpService,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private modalService: NzModalService,
+    private message: NzMessageService
   ) { 
     this.resetData()
   }
@@ -85,29 +92,33 @@ export class StatisticalService {
 
       chartOptions1: {
         title: {
-          text: 'test1'
+          text: 'Average'
+        },
+        legend: {
+          enabled: false
+        },
+        credits: {
+          enabled: false
         },
         xAxis: [{
-          title: { text: 'Data' },
-          // gridLineColor: '#ffffff',
+          title: { text: '' },
           gridLineWidth: 0,
-
+          labels: {
+            rotation: 90
+          }
         }, {
-          title: { text: 'Bell curve' },
+          title: { text: '' },
           opposite: true
         }],
         yAxis: [{
-          title: { text: 'Data' }
-        }, {
-          title: { text: 'Bell curve' },
-          opposite: true
+          title: { text: 'Fx' }
         }],
         series: [{
           name: 'Bell curve',
           type: 'bellcurve',
           xAxis: 1,
-          yAxis: 1,
-          data: initData1,
+          yAxis: 0,
+          data: x1,
           baseSeries: 1,
           zoneAxis: 'x',
           zones: [{
@@ -129,7 +140,7 @@ export class StatisticalService {
         }, {
           name: 'Data',
           type: 'scatter',
-          data: initData1,
+          data: y1,
           marker: {
             radius: 4,
             symbol: 'circle'
@@ -153,29 +164,32 @@ export class StatisticalService {
 
       chartOptions2: {
         title: {
-          text: 'test2'
+          text: 'Median'
+        },
+        legend: {
+          enabled: false
+        },
+        credits: {
+          enabled: false
         },
         xAxis: [{
-          title: { text: 'Data' },
+          title: { text: '' },
           // gridLineColor: '#ffffff',
           gridLineWidth: 0,
 
         }, {
-          title: { text: 'Bell curve' },
+          title: { text: '' },
           opposite: true
         }],
         yAxis: [{
-          title: { text: 'Data' }
-        }, {
-          title: { text: 'Bell curve' },
-          opposite: true
+          title: { text: 'Fx' }
         }],
         series: [{
           name: 'Bell curve',
           type: 'bellcurve',
           xAxis: 1,
-          yAxis: 1,
-          data: initData2,
+          yAxis: 0,
+          data: x2,
           baseSeries: 1,
           zoneAxis: 'x',
           zones: [{
@@ -197,7 +211,7 @@ export class StatisticalService {
         }, {
           name: 'Data',
           type: 'scatter',
-          data: initData2,
+          data: y2,
           marker: {
             radius: 4,
             symbol: 'circle'
@@ -405,148 +419,154 @@ export class StatisticalService {
    * @param type 温度65 湿度66 加速度67
    */
   showStatisticsData(pas: any, type: number) {
-        // this.httpService.post(HTTP_URL.statistics, {
-    //   token: this.storageService.getStorage.token,
-    //   opUserId: this.storageService.getStorage.userId,
-    //   sensorTag: type,
-    //   containerId: pas.containerId
-    // }).subscribe(res => {
-    //   debugger;
-    //   res.data.forEach((item, index) => {
-    //     // debugger;
-    //   });
-    // });
-    initData1 = [[26,0.2],[26.8,0.4],[28,0.1],[29,0.2],[25,0.1],[24,0.1]];
-    this.datas.chartOptions1 = {
-      title: {
-        text: 'test1'
-      },
-      xAxis: [{
-        title: { text: 'Data' },
-        gridLineWidth: 0,
-      }, {
-        title: { text: 'Bell curve' },
-        opposite: true
-      }],
-      yAxis: [{
-        title: { text: 'Data' }
-      }, {
-        title: { text: 'Bell curve' },
-        opposite: true
-      }],
-      series: [{
-        name: 'Bell curve',
-        type: 'bellcurve',
-        xAxis: 1,
-        yAxis: 1,
-        data: initData1,
-        baseSeries: 1,
-        zoneAxis: 'x',
-        zones: [{
-          value: 0,
-          color: colors[0],
-        }, {
-          value: 0.1,
-          color: colors[1],
-        }, {
-          value: 0.3,
-          color: colors[2],
-        }, {
-          value: 0.4,
-          color: colors[0],
-        }, {
-          color: colors[2],
-        }],
-        followPointer: true
-      }, {
-        name: 'Data',
-        type: 'scatter',
-        data: initData1,
-        marker: {
-          radius: 4,
-          symbol: 'circle'
-        },
-        zones: [{
-          value: 0.1,
-          color: colorsshandian[0],
-        }, {
-          value: 0.2,
-          color: colorsshandian[1],
-        }, {
-          value: 0.3,
-          color: colorsshandian[2],
-        }, {
-          value: 0.4,
-          color: colorsshandian[2],
-        }]
-      }]
-    }
+    this.httpService.post(HTTP_URL.statistics, {
+      token: this.storageService.getStorage.token,
+      opUserId: this.storageService.getStorage.userId,
+      sensorTag: type,
+      containerId: pas.containerId
+    }).subscribe(res => {
+      res.forEach((item, index) => {
+        if (0 === index) {
+          x1 = item.x;
+          y1 = [10, 20, 30, 40, 50];
+          // y1 = [];
+          // item.data.forEach(item => {
+          //   y1.push([item.tag, item.fx]);
+          // });
+        } else {
+          x2 = item.x;
+          y2 = [];
+          item.data.forEach(item => {
+            y2.push([item.tag, item.fx]);
+          });           
+        }
+      this.datas.chartOptions1 = {
+          title: {
+            text: 'Average'
+          },
+          legend: {
+            enabled: false
+          },
+          credits: {
+            enabled: false
+          },
+          xAxis: [{
+            title: { text: '' },
+            gridLineWidth: 0,
+            tickAmount: x1.length,
+            labels: {
+              rotation: 90
+            }
+          }, {
+            title: { text: '' },
+            opposite: true,
+            visible: false
+          }],
+          yAxis: [{
+            title: { text: 'Fx' },
+            ceiling: 1
+          }],
+          series: [{
+            name: 'Bell curve',
+            type: 'line',
+            xAxis: 1,
+            yAxis: 0,
+            data: x1,
+            baseSeries: 1,
+            zoneAxis: 'x',
+            followPointer: true
+          }, {
+            name: 'Data',
+            type: 'scatter',
+            data: y1,
+            marker: {
+              radius: 4,
+              symbol: 'circle'
+            }
+          }]
+        }
 
-    initData2 = [[26,0.2],[26.8,0.4],[35,0.1],[38,0.2],[25,0.1],[24,0.1]];
-    this.datas.chartOptions2 = {
-      title: {
-        text: 'test2'
-      },
-      xAxis: [{
-        title: { text: 'Data' },
-        gridLineWidth: 0,
-      }, {
-        title: { text: 'Bell curve' },
-        opposite: true
-      }],
-      yAxis: [{
-        title: { text: 'Data' }
-      }, {
-        title: { text: 'Bell curve' },
-        opposite: true
-      }],
-      series: [{
-        name: 'Bell curve',
-        type: 'bellcurve',
-        xAxis: 1,
-        yAxis: 1,
-        data: initData2,
-        baseSeries: 1,
-        zoneAxis: 'x',
-        zones: [{
-          value: 0,
-          color: colors[0],
-        }, {
-          value: 0.1,
-          color: colors[1],
-        }, {
-          value: 0.3,
-          color: colors[2],
-        }, {
-          value: 0.4,
-          color: colors[0],
-        }, {
-          color: colors[2],
-        }],
-        followPointer: true
-      }, {
-        name: 'Data',
-        type: 'scatter',
-        data: initData2,
-        marker: {
-          radius: 4,
-          symbol: 'circle'
-        },
-        zones: [{
-          value: 0.1,
-          color: colorsshandian[0],
-        }, {
-          value: 0.2,
-          color: colorsshandian[1],
-        }, {
-          value: 0.3,
-          color: colorsshandian[2],
-        }, {
-          value: 0.4,
-          color: colorsshandian[2],
-        }]
-      }]
-    }
+
+        this.datas.chartOptions2 = {
+          title: {
+            text: 'Median'
+          },
+          legend: {
+            enabled: false
+          },
+          credits: {
+            enabled: false
+          },
+          xAxis: [{
+            title: { text: '' },
+            gridLineWidth: 0,
+            tickAmount: x1.length,
+            labels: {
+              rotation: 45,
+              step: 2
+            }
+          }, {
+            title: { text: '' },
+            opposite: true,
+            visible: false
+          }],
+          yAxis: [{
+            title: { text: 'Fx' },
+            ceiling: 1
+          }],
+          series: [{
+            name: 'Bell curve',
+            type: 'bellcurve',
+            xAxis: 1,
+            yAxis: 0,
+            data: x2,
+            baseSeries: 1,
+            zoneAxis: 'x',
+            zones: [{
+              value: 0,
+              color: colors[0],
+            }, {
+              value: 0.1,
+              color: colors[1],
+            }, {
+              value: 0.3,
+              color: colors[2],
+            }, {
+              value: 0.4,
+              color: colors[0],
+            }, {
+              color: colors[2],
+            }],
+            followPointer: true
+          }, {
+            name: 'Data',
+            type: 'scatter',
+            data: y2,
+            marker: {
+              radius: 4,
+              symbol: 'circle'
+            },
+            zones: [{
+              value: 0.1,
+              color: colorsshandian[0],
+            }, {
+              value: 0.2,
+              color: colorsshandian[1],
+            }, {
+              value: 0.4,
+              color: colorsshandian[2],
+            }, {
+              value: 0.6,
+              color: colorsshandian[2],
+            }, {
+              value: 0.8,
+              color: colorsshandian[1],
+            }]
+          }]
+        }
+
+      });
+    }); 
   }
   getThonevone (body: any): Observable<any> {
     return this.httpService.post(HTTP_URL.thonevone, body)

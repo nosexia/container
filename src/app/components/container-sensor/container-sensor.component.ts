@@ -149,9 +149,7 @@ export class ContainerSensorComponent implements OnInit {
           this.chartOptions.series[0].deviceName.shift();
           this.chartOptions.xAxis.categories.shift();
         }
-        if (this.chartOptions.series[0].deviceName) {
-          this.chartOptions.series[0].deviceName.push(null)
-        }
+        this.chartOptions.series[0].deviceName.push(null);
         this.chartOptions.series[0].name = title;
         this.chartOptions.title.text = title;
         this.chartOptions.series[0].data.push(null);
@@ -164,6 +162,7 @@ export class ContainerSensorComponent implements OnInit {
         }
         if (deviceName) {
           this.chartOptions.series[0].deviceName.push(deviceName);
+          console.log(deviceName)
         }
         this.chartOptions.series[0].name = title;
         this.chartOptions.title.text = title; 
@@ -176,9 +175,7 @@ export class ContainerSensorComponent implements OnInit {
         this.chartOptions.series[0].deviceName.shift();
         this.chartOptions.xAxis.categories.shift();
       }
-      if (this.chartOptions.series[0].deviceName) {
-        this.chartOptions.series[0].deviceName.push(null)
-      }
+      this.chartOptions.series[0].deviceName.push(null);
       this.chartOptions.series[0].name = title;
       this.chartOptions.title.text = title;
       this.chartOptions.series[0].data.push(null);

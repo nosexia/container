@@ -4,6 +4,6 @@ export interface RulesetItem {
     enterpriseId:  String,
     status:  number,
     ruleGroupRels: Array<any>,
-    groupType: number,
+    groupType: any,
     checked?: boolean
 }

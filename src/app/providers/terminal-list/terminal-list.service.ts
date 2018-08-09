@@ -18,17 +18,17 @@ import { VehicleInformationService } from '../vehicle-information/vehicle-inform
 import HTTP_URL from '../../datas/http-url.data';
 import { AllMapService } from '../../providers/all-map/all-map.service';
 import { StateBridgService} from '../../providers/state-bridge/state-bridg.service';
-import { HomeTypeService } from '../../providers/home-type/home-type.service'
 @Injectable({
   providedIn: 'root'
 })
 export class TerminalListService {
+
   containerList: any[];
   deviceList: any[];
   isClick: boolean = false;
   showRight: boolean = true;
   terminalListData: TerminalList;
-  clickId: string = '0';
+  // clickId: string = '0';
   deviceIds: string = '0'
   firstJouney: boolean = true;
   constructor(
@@ -46,11 +46,10 @@ export class TerminalListService {
     private fromToMarkerService: FromToMarkerService,
     private vehicleInformationService: VehicleInformationService,
     private allMapService: AllMapService,
-    private stateBridgService: StateBridgService,
-    private homeTypeService: HomeTypeService
+    private stateBridgService: StateBridgService
   ) {
     // 打破循环
-    // this.allMapService.setTerminalListService(this);
+    this.allMapService.setTerminalListService(this);
   }
   setShowRight (value: boolean) {
     this.showRight = value;
@@ -66,7 +65,7 @@ export class TerminalListService {
         opUserId: this.storageService.getStorage.userId,
         journeyId: id
       }
-      // this.allMapService.DallShows = false
+      this.allMapService.DallShows = false
       this.fromToMarkerService.resetParams();
     } else {
       bodys = {
@@ -110,6 +109,7 @@ export class TerminalListService {
       journeyId: id
     })
     .subscribe(res => {
+      console.log(res)
       res.journey.fromLatitude = Number(res.journey.fromLatitude)
       res.journey.toLatitude = Number(res.journey.toLatitude)
       res.journey.fromLongitude = Number(res.journey.fromLongitude)
@@ -137,8 +137,6 @@ export class TerminalListService {
     })
   }
   seachTerminalData (deviceType: number, id: string) {
-    if (this.clickId === id) return
-    this.clickId = id
     this.temperatureService.resetData();
     this.humidityService.resetData();
     this.accelerationService.resetData();
@@ -173,7 +171,7 @@ export class TerminalListService {
         console.log('获取的加速度' + this.getSensors(67, datas.sensors)[0].value);        
         this.accelerationService.addData(this.getSensors(67, datas.sensors)[0].value, this.getSensors(1, datas.sensors)[0].value, datas.deviceName);
       }
-      // this.setRightStatus(datas, '1');
+      this.setRightStatus(datas, '1');
     })
   }
   // setDeviceState () {
@@ -225,37 +223,23 @@ export class TerminalListService {
     () => console.log('结束')
   }
   getSocketData (data: string) {
+    if (!this.isClick) return
     let datas = JSON.parse(data);
-    this.setRightStatus(datas);
+    console.log(datas)
+    this.setRightStatus(datas, null);
     // this.containerAndDeviceStatusService.setStatus(0)
   }
-  setRightStatus (datas: any) {
+  setRightStatus (datas: any, isclick: string) {
     // 调用reqmydata告诉服务器推哪个数据过来
-      // if (isclick) {
-        // this.queryStatus(datas.deviceType, datas.terminalId, datas.bandDeviceId)
-      // } else {
-        // 如果是contianer的数据
-        if (datas.deviceType === 0) {
-          if (datas.bandDeviceId !== '0') {
-            this.containerAndDeviceStatusService.setDeviceId(datas.bandDeviceId)
-            this.containerAndDeviceStatusService.setDeviceName(datas.deviceName)
-            this.containerAndDeviceStatusService.setDeviceState(datas.state)
-            this.containerAndDeviceStatusService.setContainerId(datas.terminalId)
-            this.containerAndDeviceStatusService.setContainerName(datas.containerName)
-            this.containerAndDeviceStatusService.setContainerState(datas.state)
-          } else {
-            // 表示断开连接了
-            this.containerAndDeviceStatusService.setDeviceState(3)
-            this.containerAndDeviceStatusService.setContainerId(datas.terminalId)
-            this.containerAndDeviceStatusService.setContainerName(datas.containerName)
-            this.containerAndDeviceStatusService.setContainerState(datas.state)
-          }
-        } else if (datas.deviceType === 1) {
-          // 推送过来的数据是device的情况
-          this.containerAndDeviceStatusService.setDeviceId(datas.terminalId)
-          this.containerAndDeviceStatusService.setDeviceName(datas.deviceName)
-          this.containerAndDeviceStatusService.setDeviceState(datas.state)
-        }
+      // if (datas.deviceType === 1) {
+      //   this.setShowRight(false)
+      //   this.containerAndDeviceStatusService.setState(datas.state);
+      // } else if (datas.deviceType === 0) {
+      //   this.setShowRight(true)
+      // }
+      if (isclick) {
+        this.queryStatus(datas.deviceType, datas.terminalId, datas.bandDeviceId)
+      } else {
         if (datas.sensors.length <= 3) {
           if (this.getSensors(65, datas.sensors)[0].value !== null) {
             // 判断温度
@@ -271,44 +255,73 @@ export class TerminalListService {
             this.deviceBatteryService.setWarn(true);
           }
         }
-      // }
-      // if (!this.allMapService.DallShows) {
-      //   var device = this.deviceList.filter(item => {
-      //     // debugger
-      //     return item.deviceId === datas.bandDeviceId
-      //   })
-      //   var container = this.containerList.filter(item => {
-      //     return item.containerId === datas.terminalId
-      //   })
-      // } else {
-      //   if (datas.deviceType === 0) {
-      //     var device = this.allMapService.deviceList.filter(item => {
-      //       return item.deviceId === datas.bandDeviceId
-      //     })
-      //   } else if (datas.deviceType === 1) {
-      //     var device = this.allMapService.deviceList.filter(item => {
-      //       return item.deviceId === datas.terminalId
-      //     })
-      //   }
-      //   var container = this.allMapService.containerList.filter(item => {
-      //     return item.containerId === datas.terminalId
-      //   })
-      // }
+      }
+      if (!this.allMapService.DallShows) {
+        var device = this.deviceList.filter(item => {
+          // debugger
+          return item.deviceId === datas.bandDeviceId
+        })
+        var container = this.containerList.filter(item => {
+          return item.containerId === datas.terminalId
+        })
+        // 将左边的list状态改变下
+        // this.deviceList.forEach(item => {
+        //   if (item.deviceId === datas.bandDeviceId) {
+        //     item.state = datas.state
+        //   }
+        // })
+        // this.containerList.forEach(item => {
+        //   if (item.containerId === datas.terminalId) {
+        //     item.state = datas.state
+        //   }
+        // })
+      } else {
+        if (datas.deviceType === 0) {
+          var device = this.allMapService.deviceList.filter(item => {
+            return item.deviceId === datas.bandDeviceId
+          })
+        } else if (datas.deviceType === 1) {
+          var device = this.allMapService.deviceList.filter(item => {
+            return item.deviceId === datas.terminalId
+          })
+        }
+        var container = this.allMapService.containerList.filter(item => {
+          return item.containerId === datas.terminalId
+        })
+        // if (datas.deviceType === 0) {
+        //   this.allMapService.deviceList.forEach(item => {
+        //     if (item.deviceId === datas.bandDeviceId) {
+        //       item.state = datas.state
+        //     }
+        //   })
+        // } else if (datas.deviceType === 1) {
+        //   this.allMapService.deviceList.forEach(item => {
+        //     if (item.deviceId === datas.terminalId) {
+        //       item.state = datas.state
+        //     }
+        //   })
+        // }
+        // this.allMapService.containerList.forEach(item => {
+        //   if (item.containerId === datas.terminalId) {
+        //     item.state = datas.state
+        //   }
+        // })
+      }
       // 如果推送过来的数据id不是选中的数据
       // console.log(datas.terminalId === this.clickId)
       // if (datas.terminalId !== this.clickId) return;
-      // if (container.length !== 0) {
-      //   this.containerAndDeviceStatusService.setContainerId(container[0].containerId)
-      //   this.containerAndDeviceStatusService.setContainerName(container[0].containerName)
-      // }
-      // if (device.length !== 0) {
-      //   this.containerAndDeviceStatusService.setDeviceId(device[0].deviceId)
-      //   this.containerAndDeviceStatusService.setDeviceName(device[0].deviceName)
-      //   this.vehicleInformationService.setParams('deviceName', device[0].deviceName);
-      // }
-      // console.log('状态为集装箱的状态为' + datas.state);
+      if (container.length !== 0) {
+        this.containerAndDeviceStatusService.setContainerId(container[0].containerId)
+        this.containerAndDeviceStatusService.setContainerName(container[0].containerName)
+      }
+      if (device.length !== 0) {
+        this.containerAndDeviceStatusService.setDeviceId(device[0].deviceId)
+        this.containerAndDeviceStatusService.setDeviceName(device[0].deviceName)
+        this.vehicleInformationService.setParams('deviceName', device[0].deviceName);
+      }
+      console.log('状态为集装箱的状态为' + datas.state);
+      this.containerAndDeviceStatusService.setState(datas.state);
       // this.containerAndDeviceStatusService.setContainerState(datas.state);
-      // this.containerAndDeviceStatusService.setDeviceState(datas.state);
       if (this.getSensors(65, datas.sensors)[0].value !== null) {
         console.log('获取的温度' + this.getSensors(65, datas.sensors)[0].value)
         this.temperatureService.addData(this.getSensors(65, datas.sensors)[0].value, this.getSensors(1, datas.sensors)[0].value, datas.deviceName);
@@ -374,8 +387,13 @@ export class TerminalListService {
         (this.getSensors(35, datas.sensors)[0].value === null ? '' : this.getSensors(35, datas.sensors)[0].value.toString()) + ',' + 
         (this.getSensors(36, datas.sensors)[0].value === null ? '' : this.getSensors(36, datas.sensors)[0].value.toString())
       )
+    // } 
+    // else if (datas.deviceType === 1) {
+    //   console.log('推过来的为设备')
+    // }
   }
   getSensors(sensorTag: number, sensors: Array<any>): Array<any>  {
+    console.log(sensorTag)
     let newSensors = sensors.filter(item => {
       return item.sensorTag === sensorTag
     })
@@ -386,30 +404,26 @@ export class TerminalListService {
     }
     return newSensors[0].rules
   }
-  queryStatus (type: number, item: any) {
+  queryStatus (deviceType: number, terminalId: string, deviceId: string) {
     // 0是contianer 1是device
     this.getReqMyData({
       token: this.storageService.getStorage.token,
       opUserId: this.storageService.getStorage.userId,
-      deviceType: type,
-      terminalId: type === 0 ? item.containerId : item.deviceId
+      deviceType: deviceType,
+      terminalId: deviceType === 0 ? terminalId : deviceId
     })
     .subscribe(res => {
+      console.log('获取channelReqmydata', res)
       if (res.respCode !== '00000') {
-        console.log('获取状态失败')
-        return false
+        console.log('查询失败')
       }
-      // 点击将右边显示
-      if (type === 0) {
-        this.homeTypeService.showTab = true;
-        this.containerAndDeviceStatusService.setRightTab(item)
-      } else {
-        this.homeTypeService.showTab = false;
-        this.containerAndDeviceStatusService.setRightOnly(item);
+      this.setClick()
+      // this.clickId = terminalId;
+      if (deviceType === 1) {
+        this.socketConnect(deviceId, res.user.channel)
+      } else if (deviceType === 0) {
+        this.socketConnect(terminalId, res.user.channel)
       }
-      this.homeTypeService.showRight = true;
-      // 建立socket连接
-      type === 0 ? this.socketConnect(item.containerId, res.user.channel) : this.socketConnect(item.deviceId, res.user.channel)
     })
   }
   getReqMyData (body: any) {

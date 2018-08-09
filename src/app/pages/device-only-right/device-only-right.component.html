@@ -1,12 +1,16 @@
 <div class="device-only-right-content">
     <div class="engine-table-content">
+        <div nz-row class="engine-table-header-top" *ngIf="deviceShow" >
+          Device
+        </div>
         <div nz-row class="engine-table-header">
             <div nz-col nzSpan="10" class="engine-table-only-header-left">
+                <!-- <p>Container：<span class="name-color">{{containerAndDeviceStatusService.containerName}}</span></p> -->
                 <p>Device：<span class="name-color">{{containerAndDeviceStatusService.deviceName}}</span></p>
             </div>
             <div nz-col nzSpan="6"></div>
             <div nz-col nzSpan="8" class="engine-table-header-right">
-              <span [ngClass]="{'device-status': true}" [style.backgroundColor]="containerAndDeviceStatusService.deviceState | containerStateColor">{{containerAndDeviceStatusService.deviceState | deviceStatus}}</span> 
+              <span [ngClass]="{'device-status': true, 'offline': containerAndDeviceStatusService.state === 0 || null, 'connected': containerAndDeviceStatusService.state === 1, 'attached': containerAndDeviceStatusService.state === 2, 'activated': containerAndDeviceStatusService.state === 3}">{{containerAndDeviceStatusService.state | deviceStatus}}</span> 
             </div>
         </div>
         <div nz-row class="engine-table-body">

@@ -101,8 +101,9 @@ export class JourneyFormDialogComponent implements OnInit {
     }, 3000);
   }
 
-  handleCancel(): void {
+  handleCancel(event: Event): void {
     this.isVisible = false;
+    event.preventDefault();
   }
   submitForm(): void {
     for (const i in this.validateForm.controls) {

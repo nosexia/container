@@ -60,6 +60,7 @@ export class FromToMarkerService {
         latitude: this.fromto.roadmaps[val].latitude,
         longitude: this.fromto.roadmaps[val].longitude
       })
+      console.log(this.fromto.livePositionLine)
     });
   }
   enRoute () {

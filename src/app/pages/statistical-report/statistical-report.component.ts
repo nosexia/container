@@ -23,10 +23,6 @@ export class StatisticalReportComponent implements OnInit {
         title: '',
         value: 2
       }
-
-      setInterval(() => {
-        this.btnType(this.statisticalQueryComponent.type);
-      }, 20000);
   }
   queryInput (value: any): void {
     // this.statisticalService.commonList(value, this.statisticalQueryComponent.type);

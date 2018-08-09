@@ -3,6 +3,6 @@ export interface RuleListBody {
     opUserId: Number,
     sensorName?: String,
     sensorTag?: String,
-    groupId?: String,
-    groupType?: number
+    groupId?: any,
+    groupType?: Number
 }

@@ -7,7 +7,8 @@
             </div>
             <div nz-col nzSpan="6"></div>
             <div nz-col nzSpan="8" class="engine-table-header-right">
-              <span [ngClass]="{'device-status': true}" [style.backgroundColor]="containerAndDeviceStatusService.containerState | containerStateColor">{{containerAndDeviceStatusService.containerState | deviceStatus}}</span>
+                {{containerAndDeviceStatusService.state}}
+              <span [ngClass]="{'device-status': true, 'offline': containerAndDeviceStatusService.state === 0, 'connected': containerAndDeviceStatusService.state === 1, 'attached': containerAndDeviceStatusService.state === 2}">{{containerAndDeviceStatusService.state | deviceStatus}}</span>
             </div>
         </div>
     </div>

@@ -39,18 +39,26 @@ export class RulesetFormDialogComponent implements OnInit {
       groupType: [ null, [Validators.required] ]
     });
   }
+  getAllRuleList(groupId: Number) {
+    // 选择是哪种类型，是container为1， device为2
+    if (groupId) {
+      groupId = 2;
+    } else {
+      groupId = 1;
+    } 
+    this.ruleListService.getAllRuleList(groupId);
+  }
   // 0是add，1是更新信息
   showModal(item: RulesetItem, typePrams: Number): void {
     this.type = typePrams;
     this.isVisible = true;
     this.validateForm.reset();
     if (typePrams === 0) {
-      this.ruleListService.getAllRuleList();
       this.enterpriseListService.getAllEnterprise();
       this.validateForm.reset();
     } else if (typePrams === 1) {
       console.log('修改');
-      this.ruleListService.getAllRuleList();
+      // this.ruleListService.getAllRuleList();
       this.ruleListService.getRuleList({
         token: this.storageService.getStorage.token,
         opUserId: this.storageService.getStorage.userId,

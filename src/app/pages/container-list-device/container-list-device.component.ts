@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { TerminalListService } from '../../providers/terminal-list/terminal-list.service';
 import { AllMapService } from '../../providers/all-map/all-map.service';
 import { FromToMarkerService } from '../../providers/from-to-marker/from-to-marker.service';
+import { NzMessageService } from 'ng-zorro-antd';
 import { VehicleInformationService } from '../../providers/vehicle-information/vehicle-information.service';
 import { interval } from 'rxjs';
-import { HomeTypeService } from '../../providers/home-type/home-type.service'
 @Component({
   selector: 'app-container-list-device',
   templateUrl: './container-list-device.component.html',
@@ -16,8 +16,7 @@ export class ContainerListDeviceComponent implements OnInit {
     public terminalListService: TerminalListService,
     public fromToMarkerService: FromToMarkerService,
     public vehicleInformationService: VehicleInformationService,
-    public allMapService: AllMapService,
-    public homeTypeService: HomeTypeService
+    public allMapService: AllMapService
   ) { 
   }
   ngOnInit() {

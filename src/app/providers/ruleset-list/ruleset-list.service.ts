@@ -66,12 +66,13 @@ export class RulesetListService {
     });
   }
   getDeviceRuleList () {
+    debugger;
     // groupType = 0  container
     // groupType = 1  device
     this.getRuleList({
       token: this.storageService.getStorage.token,
       opUserId: this.storageService.getStorage.userId,
-      groupType: 1
+      groupType: 2
     }).subscribe(res => {
       const newData = res.data.map(item => {
         return {
@@ -97,7 +98,7 @@ export class RulesetListService {
     this.getRuleList({
       token: this.storageService.getStorage.token,
       opUserId: this.storageService.getStorage.userId,
-      groupType: 0
+      groupType: 1
     }).subscribe(res => {
       const newData = res.data.map(item => {
         return {

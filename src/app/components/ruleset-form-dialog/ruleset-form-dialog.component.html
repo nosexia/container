@@ -13,19 +13,19 @@
             </nz-form-control>
           </nz-form-item>
           <nz-form-item>
-            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="ruleGroupRels" nzRequired>RuleSet</nz-form-label>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="groupType" nzRequired>RuleType</nz-form-label>
             <nz-form-control [nzSm]="14" [nzXs]="24">
-              <nz-select nzMode="tags" id="ruleGroupRels" formControlName="ruleGroupRels" nzPlaceHolder="Select RuleSet">
-                <nz-option *ngFor="let option of ruleListService.ruleData" [nzLabel]="option.sensorName" [nzValue]="option.sensorName"></nz-option>
+              <nz-select id="groupType" formControlName="groupType" nzPlaceHolder="Select RuleType" (ngModelChange)="getAllRuleList($event)">
+                <nz-option [nzLabel]="'Container'" [nzValue]="0"></nz-option>
+                <nz-option [nzLabel]="'Device'" [nzValue]="1"></nz-option>
               </nz-select>
             </nz-form-control>
           </nz-form-item>
           <nz-form-item>
-            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="groupType" nzRequired>RuleType</nz-form-label>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="ruleGroupRels" nzRequired>RuleSet</nz-form-label>
             <nz-form-control [nzSm]="14" [nzXs]="24">
-              <nz-select id="groupType" formControlName="groupType" nzPlaceHolder="Select RuleType">
-                <nz-option [nzLabel]="'Container'" [nzValue]="0"></nz-option>
-                <nz-option [nzLabel]="'Device'" [nzValue]="1"></nz-option>
+              <nz-select nzMode="tags" id="ruleGroupRels" formControlName="ruleGroupRels" nzPlaceHolder="Select RuleSet">
+                <nz-option *ngFor="let option of ruleListService.ruleData" [nzLabel]="option.sensorName + '－' + option.ruleName" [nzValue]="option.sensorName"></nz-option>
               </nz-select>
             </nz-form-control>
           </nz-form-item>

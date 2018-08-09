@@ -31,10 +31,11 @@ export class RuleListService {
     this.allChecked = allChecked;
     this.indeterminate = (!allChecked) && (!allUnChecked);
   }
-  getAllRuleList (): void {
+  getAllRuleList (groupId: Number): void {
     this.getRuleList({
       token: this.storageService.getStorage.token,
-      opUserId: this.storageService.getStorage.userId
+      opUserId: this.storageService.getStorage.userId,
+      groupId: groupId
     }).subscribe(res => {
       const newData = res.ruleConfigs.map((item: RuleItem) => {
         return {
