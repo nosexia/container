@@ -1,0 +1,16 @@
+<div class="temperature-graph-content">
+  <img src="../../../assets//images/device_warn.gif" *ngIf="warn" />  
+  <h4 class="charts-title">{{barChartData[0].label}}</h4>
+  <!-- <v-chart [forceFit]="forceFit" [height]="height" [padding]="padding" [data]="data" [scale]="scale">
+    <v-tooltip></v-tooltip>
+    <v-axis></v-axis>
+    <v-line [position]="'time*' + title" shape="smooth"></v-line>
+  </v-chart> -->
+  <canvas baseChart
+            [datasets]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [legend]="barChartLegend"
+            [colors]="myColors"
+            [chartType]="barChartType"></canvas>
+</div>

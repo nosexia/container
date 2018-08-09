@@ -1,0 +1,41 @@
+<div class="device-right-content">
+    <div class="engine-table-content">
+        <div nz-row class="engine-table-header-top" *ngIf="deviceShow" >
+          Device
+        </div>
+        <div nz-row class="engine-table-header">
+            <div nz-col nzSpan="10" class="engine-table-header-left">
+                <p>Container：<span class="name-color">{{containerAndDeviceStatusService.containerName}}</span></p>
+                <p>Device：<span class="name-color">{{containerAndDeviceStatusService.deviceName}}</span></p>
+            </div>
+            <div nz-col nzSpan="6"></div>
+            <div nz-col nzSpan="8" class="engine-table-header-right">
+              <span [ngClass]="{'device-status': true}" [style.backgroundColor]="containerAndDeviceStatusService.deviceState | containerStateColor">{{containerAndDeviceStatusService.deviceState | deviceStatus}}</span>
+            </div>
+        </div>
+        <div nz-row class="engine-table-body">
+            <div nz-col nzSpan="12">
+                <app-gpu-dash-board [statusService]="cpuStatusService"></app-gpu-dash-board>
+            </div>
+            <div nz-col nzSpan="12">
+                <!-- class="door-open-content" -->
+                <!-- <div class="door-open-top">
+                    <i class="anticon anticon-solution"></i>
+                </div>
+                <div class="door-open-bottom">{{ 'DEVICECHARTS.DOOROPEN' | translate }} </div> -->
+                <app-gpu-dash-board [statusService]="memoryStatusService"></app-gpu-dash-board>
+            </div>
+        </div>
+    </div>
+
+    <div class="graph-map-content">
+        <!-- <app-temperature-graph></app-temperature-graph> -->
+      <app-device-battery [BarreryValue]="deviceBatteryService.value" [warn]="deviceBatteryService.warn"></app-device-battery>
+    </div>
+    <div class="graph-map-content">
+      <app-cell-signal [signalValue]="signalService.value" [warn]="signalService.warn"></app-cell-signal>
+    </div>
+    <!-- <div class="graph-map-content">
+      <app-temperature-graph></app-temperature-graph>
+    </div> -->
+</div>

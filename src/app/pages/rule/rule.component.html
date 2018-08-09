@@ -1,0 +1,69 @@
+<nz-modal [nzWidth]="1000" [(nzVisible)]="isVisible" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]="null" (nzOnCancel)="handleCancel()">
+    <ng-template #modalTitle>
+      RuleSet
+    </ng-template>
+    <ng-template #modalContent>
+        <div class="rule-contents">
+            <div nz-row class="container-nav">
+              <div nz-col nzSpan="12">
+              </div>
+              <div nz-col nzSpan="9"></div>
+            </div>
+            <div [ngClass]="'data-table-contents'">
+              <nz-table
+                #rowSelectionTable
+                [nzShowPagination]="false"
+                [nzData]="ruleData"
+                [nzPageSize]="ruleData.length"
+                [nzTotal]="ruleData.length"
+                >
+                <!-- (nzCurrentPageDataChange)="ruleListService.currentPageDataChange($event)"
+                (nzPageIndexChange)="ruleListService.refreshStatus()"
+                (nzPageSizeChange)="ruleListService.refreshStatus()"
+                [nzShowQuickJumper]="true"
+                [nzPageSize]="10"
+                [nzTotal]="ruleListService.dataTotal" -->
+                <thead>
+                  <tr>
+                    <!-- <th nzShowCheckbox [(nzChecked)]="ruleListService.allChecked" [nzIndeterminate]="ruleListService.indeterminate" (nzCheckedChange)="ruleListService.checkAll($event)"></th> -->
+                    <th>Sensor Name</th>
+                    <th>Sensor Tag</th>
+                    <th>Rule Name</th>
+                    <th>Rule Tag</th>
+                    <th>Rule Len</th>
+                    <th>Unit</th>
+                    <th>Rule Value</th>
+                    <th *ngIf="!disabled">Operation</th>                    
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let data of rowSelectionTable.data">
+                    <!-- <td nzShowCheckbox [(nzChecked)]="data.checked" [nzDisabled]="data.disabled" (nzCheckedChange)="ruleListService.refreshStatus($event)"></td> -->
+                    <td>
+                        <!-- (click)="dialogOpen(data, 1)" -->
+                      {{data.sensorName}}
+                    </td>
+                    <td>{{data.sensorTag}}</td>
+                    <td>{{data.ruleName}}</td>
+                    <td>{{data.ruleTag}}</td>
+                    <td>{{data.ruleLen}}</td>
+                    <td>{{data.unit}}</td>
+                    <td>
+                        <nz-input-number *ngIf="!disabled" [(ngModel)]="data.ruleValue"  [nzStep]="1" [nzMin]="data.valueRange.split('-')[0]" [nzMax]="data.valueRange.split('-')[1]"
+ ></nz-input-number>
+                        <span *ngIf="disabled">{{data.ruleValue}}</span>
+                      <!-- {{data.ruleValue}} -->
+                    </td>
+                    <td *ngIf="!disabled">
+                        <button nz-button nzType="primary" nzSize="small" (click)="changValue(data)" [nzGhost]="true">
+                            Confrim
+                        </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </nz-table>
+              
+            </div>
+          </div>
+    </ng-template>
+</nz-modal>

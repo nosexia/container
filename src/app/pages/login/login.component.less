@@ -1,0 +1,30 @@
+@login_bg_color: #0e3140;
+.app-login {
+    height: 100%;
+    .logo {
+        width: 100%;
+        line-height: 30px;
+        margin: 16px 24px 16px 0;
+        font-size: 20px;
+        color: #fff;
+        img {
+            height: 40px;
+        }
+        span {
+            margin-left: 20px;
+            position: relative;
+            top: 3px;
+        }
+    }
+    .ant-layout-header {
+        background: @login_bg_color;
+        height: 75px;
+    }
+    .ant-layout-footer {
+        background: @login_bg_color;
+        padding: 35px 50px;
+    }
+    .content-bg {
+        background-image: url('../../../assets/images/login_bg.jpg')
+    }
+}

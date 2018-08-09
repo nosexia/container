@@ -1,0 +1,7 @@
+.dialog-form-content [nz-form] {
+  max-width: 600px;
+}
+.dialog-form-content .button-comfirm {
+  margin-left: 8px;
+  width: 76px;
+}

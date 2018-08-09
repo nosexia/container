@@ -1,0 +1,20 @@
+export interface DeviceItem {
+    updateDate: String,
+    enterpriseId: Number,
+    deviceId: Number,
+    imei: String,
+    imsi: String,
+    networkModuleSn: String,
+    iccid: String,
+    status: Number,
+    deviceName: String,
+    checked: Boolean,
+    disabled: Boolean,
+    latitude: number,
+    longitude: number,
+    rulesetName: string,
+    rulesetId: number,
+    isOpen: boolean,
+    simName?: String,
+    diagnosisInfo?: String
+}

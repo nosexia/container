@@ -1,0 +1,21 @@
+<div class="device-list-only-left-content">
+    <h4 class="container-list-left-title">Device List
+      <!-- <span class="journey-id">(Journey {{fromToMarkerService.fromto.journeyId}})</span> -->
+    </h4>
+    <div class="container-list-left-body">
+      <div nz-row [ngClass]="'container-item-body'" *ngFor="let item of allMapService.deviceList | paginate: { currentPage: current, pageSize: pageSize };let i = index" (click)="getDevice(item)" #devices (mouseenter)="toggleState(true, i)" (mouseleave)="toggleState(false, i)">
+        <div nz-col nzSpan="8" [ngClass]="'container-item-title'">
+          {{item.deviceName}}
+        </div>
+        <div nz-col nzSpan="13" [ngClass]="'container-item-bind-device'">
+          <span class="bind-information" [ngStyle]="{'display': 'none'}">{{item.deviceId | allBindContainer : 1 : item.state}}</span>
+        </div>
+        <div nz-col nzSpan="3" [ngClass]="'container-item-status'">
+            <span [ngClass]="{'offline': item.state === 0 || item.state === null, 'connected': item.state === 1, 'attached': item.state === 2, 'activated': item.state === 3}" ></span>
+        </div>
+      </div>
+      <div class="device-pagination">
+          <nz-pagination *ngIf="allMapService.deviceList" [(nzPageIndex)]="current" [nzPageSize]="pageSize" [nzTotal]="allMapService.deviceList.length" [nzSize]="'small'"></nz-pagination>
+      </div>
+    </div>
+</div>

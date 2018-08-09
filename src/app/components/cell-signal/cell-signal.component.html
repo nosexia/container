@@ -1,0 +1,34 @@
+<div class="cell-signal-content">
+    <div nz-row class="signal-title">
+      <img src="../../../assets//images/device_warn.gif" *ngIf="warn" />
+      Cell Signal
+    </div>
+    <div class="signal-bars mt1 sizing-box good four-bars" *ngIf="signalValue === 4" >
+      <div class="first-bar bar"></div>
+      <div class="second-bar bar"></div>
+      <div class="third-bar bar"></div>
+      <div class="fourth-bar bar"></div>
+      <h3 class="signal-value">strong</h3>
+    </div>
+    <div class="signal-bars mt1 sizing-box ok three-bars" *ngIf="signalValue === 3">
+      <div class="first-bar bar"></div>
+      <div class="second-bar bar"></div>
+      <div class="third-bar bar"></div>
+      <div class="fourth-bar bar"></div>
+      <h3 class="signal-value">good</h3>
+    </div>
+    <div class="signal-bars mt1 sizing-box bad two-bars" *ngIf="signalValue === 2">
+      <div class="first-bar bar"></div>
+      <div class="second-bar bar"></div>
+      <div class="third-bar bar"></div>
+      <div class="fourth-bar bar"></div>
+      <h3 class="signal-value">general</h3>
+    </div>
+    <div class="signal-bars mt1 sizing-box bad one-bar" *ngIf="signalValue === 1">
+      <div class="first-bar bar"></div>
+      <div class="second-bar bar"></div>
+      <div class="third-bar bar"></div>
+      <div class="fourth-bar bar"></div>
+      <h3 class="signal-value">bad</h3>
+    </div>
+</div>

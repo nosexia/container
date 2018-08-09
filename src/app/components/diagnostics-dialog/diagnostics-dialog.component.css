@@ -1,0 +1,44 @@
+.dialog-form-content {
+  margin-top: 10px;
+  border: 1px solid #eeeeee;
+}
+.dialog-form-content [nz-form] {
+  max-width: 600px;
+}
+.dialog-form-content .button-cancel {
+  margin-left: 8px;
+}
+.dialog-form-content .line-content {
+  line-height: 47px;
+}
+.dialog-form-content .content-left-style {
+  padding-top: 10px;
+}
+.dialog-form-content .content-left-key {
+  font-size: 15px;
+  font-weight: bold;
+}
+.dialog-form-content .content-left-vaule {
+  font-size: 15px;
+  font-weight: bolder;
+}
+.dialog-form-content .item-content-style {
+  background: #ffffff;
+  height: 60px;
+  line-height: 60px;
+}
+.dialog-form-content .content-img {
+  padding-left: 20px;
+}
+.dialog-form-content .content-title {
+  color: #5aa234;
+  font-size: 15px;
+  font-weight: bold;
+}
+.dialog-form-content .content-text {
+  border-left: 1px solid #eeeeee;
+  padding-left: 30px;
+  color: #999999;
+  font-size: 15px;
+  background: #f2f2f2;
+}

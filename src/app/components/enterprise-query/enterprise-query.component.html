@@ -1,0 +1,33 @@
+<div class="enterprise-query-form">
+  <form nz-form [nzLayout]="'inline'" [formGroup]="validateForm" (ngSubmit)="submitForm()">
+    <nz-form-item *ngIf="oneSelect" >
+      <nz-form-control>
+          <!-- <nz-select style="width: 200px;" id="enterpriseId" formControlName="enterpriseId" nzPlaceHolder="Query Type" (ngModelChange)="checksChange($event)">
+            <nz-option *ngFor="let option of queryType" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
+          </nz-select> -->
+          <nz-select style="width: 200px;" id="enterpriseId" formControlName="enterpriseId" nzPlaceHolder="Select Enterprise">
+            <nz-option *ngFor="let option of enterpriseListService.enterpriseData" [nzLabel]="option.enterpriseName" [nzValue]="option.enterpriseId"></nz-option>
+          </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+          <nz-select style="width: 200px;" id="checks" formControlName="checks" nzPlaceHolder="Query Type" [nzAllowClear]="true" (ngModelChange)="checksChange($event)">
+            <nz-option *ngFor="let option of queryType" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
+          </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <nz-input-group>
+          <input formControlName="query" class="query-search" id="query" nz-input placeholder="{{ 'CONTAINER.SEARCHCONTENT' | translate }}">
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <button nz-button nzType="primary"><i class="anticon anticon-search"></i>{{ 'CONTAINER.SEARCHBUTTON' | translate }}</button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</div>

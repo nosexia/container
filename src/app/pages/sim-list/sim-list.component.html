@@ -1,0 +1,59 @@
+<div class="sim-contents">
+    <div nz-row class="container-nav">
+      <div nz-col nzSpan="16">
+        <!-- <app-enterprise-query [queryType]="queryType" (queryInput)="queryInput($event)"></app-enterprise-query>         -->
+      </div>
+      <div nz-col nzSpan="5">  
+      </div>
+      <div nz-col nzSpan="3" style="text-align:right; padding-right:10px;">
+          <button nz-button nzType="primary" (click)="dialogOpen(null, 0)"><i class="anticon anticon-plus-circle-o"></i>{{ 'DEVICE.ADDBUTTON' | translate }}</button>
+      </div>
+    </div>
+    <div [ngClass]="'data-table-contents'">
+      <nz-table
+        #rowSelectionTable
+        [nzData]="simListService.simListData" 
+        (nzCurrentPageDataChange)="simListService.currentPageDataChange($event)"
+        (nzPageIndexChange)="simListService.refreshStatus()"
+        (nzPageSizeChange)="simListService.refreshStatus()"
+        [nzShowQuickJumper]="true"
+        [nzPageSize]="5"
+        [nzTotal]="simListService.dataTotal">
+        <thead>
+          <tr>
+            <th>SIM-ICCID</th>
+            <th>SIM Name</th>
+            <th>IMSI</th>
+            <th>Status</th>
+            <th>Operation</th>
+          </tr> 
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of simListService.simListData">
+            <td>
+                <div>{{data.iccid}}</div>
+            </td>
+            <td>
+              {{data.simName}}
+            </td>
+            <td>{{data.imsi}}</td>
+            <td *ngIf="data.status === 0"><nz-tag [nzColor]="'#B3B3B3'" >unuse</nz-tag></td>
+            <td *ngIf="data.status === 1"><nz-tag [nzColor]="'#FD883E'" >inuse</nz-tag></td>
+            <td *ngIf="data.status === 2"><nz-tag [nzColor]="'#108ee9'" >activated</nz-tag></td>
+            <td>
+                <button nz-button nzType="primary" nzSize="small" (click)="simListService.getICCID(data.iccid)" [nzGhost]="true" style="margin-right: 10px;">
+                    <i class="anticon anticon-profile"></i>Data
+                </button>
+                <button nz-button *ngIf="!data.status" nzType="primary" nzSize="small" (click)="dialogOpen(data, 1)" [nzGhost]="true" style="margin-right: 10px;">
+                    <i class="anticon anticon-edit"></i>Modify
+                </button>
+                <button nz-button *ngIf="!data.status" nzType="danger" nzSize="small" (click)="deleteSim(data.id)" [nzGhost]="true">
+                    <i class="anticon anticon-delete"></i>Delete
+                </button>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+      <app-sim-form-dialog (upDateSim)="upDateSim($event)" (addSim)="addSim($event)"></app-sim-form-dialog> 
+    </div>
+  </div>

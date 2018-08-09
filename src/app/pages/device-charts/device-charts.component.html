@@ -1,0 +1,25 @@
+<div class="device-charts-content">
+    <div class="engine-table-content">
+        <div nz-row class="engine-table-header">
+            <div nz-col nzSpan="8" class="engine-table-header-left">{{ 'DEVICECHARTS.DEVICENAME' | translate }} Device E</div>
+            <div nz-col nzSpan="8"></div>
+            <div nz-col nzSpan="8" class="engine-table-header-right">
+                <button nz-button nzType="primary">Attached</button>
+            </div>
+        </div>
+        <div nz-row class="engine-table-body">
+            <div nz-col nzSpan="15">
+                <app-gpu-dash-board></app-gpu-dash-board>
+            </div>
+            <div nz-col nzSpan="9" class="door-open-content">
+                <div class="door-open-top">
+                    <i class="anticon anticon-solution"></i>
+                </div>
+                <div class="door-open-bottom">{{ 'DEVICECHARTS.DOOROPEN' | translate }} </div>
+            </div>
+        </div>
+    </div>
+    <div class="graph-map-content">
+        <!-- <app-temperature-graph></app-temperature-graph> -->
+    </div>
+</div>

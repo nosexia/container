@@ -1,0 +1,4 @@
+<nz-tag [nzColor]="'#B3B3B3'" *ngIf="!status">{{status | deviceStatus}}</nz-tag>
+<nz-tag [nzColor]="'#FD883E'" *ngIf="status === 1">{{status | deviceStatus}}</nz-tag>
+<nz-tag [nzColor]="'#108ee9'" *ngIf="status === 2">{{status | deviceStatus}}</nz-tag>
+<nz-tag [nzColor]="'#87d068'" *ngIf="status === 3">{{status | deviceStatus}}</nz-tag>

@@ -1,0 +1,86 @@
+<nz-modal [nzWidth]="600" [(nzVisible)]="isVisible" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]="null" (nzOnCancel)="handleCancel($event)">
+  <ng-template #modalTitle>
+    Info
+  </ng-template>
+
+  <ng-template #modalContent>
+    <div class="dialog-form-content">
+      <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+        <nz-form-item>
+          <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="deviceId">Device SN</nz-form-label>
+          <nz-form-control [nzSm]="14" [nzXs]="24">
+            <input nz-input [readOnly]="type" formControlName="deviceId" id="deviceId" nzPlaceHolder="Device SN">
+            <nz-form-explain *ngIf="validateForm.get('deviceId').dirty && validateForm.get('deviceId').errors?.required">Please input Device ID!</nz-form-explain>
+            <nz-form-explain *ngIf="validateForm.get('deviceId').dirty && validateForm.get('deviceId').errors?.minlength || validateForm.get('deviceId').errors?.maxlength">Device ID must be between 3 and 19 characters!</nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="deviceName" nzRequired>Device Name</nz-form-label>
+          <nz-form-control [nzSm]="14" [nzXs]="24">
+            <input nz-input id="deviceName" formControlName="deviceName" nzPlaceHolder="Device Name">
+            <nz-form-explain *ngIf="validateForm.get('deviceName').dirty && validateForm.get('deviceName').errors?.required">Please input Device Name!</nz-form-explain>
+            <nz-form-explain *ngIf="validateForm.get('deviceName').dirty && validateForm.get('deviceName').errors?.minlength || validateForm.get('deviceName').errors?.maxlength">Device Name must be between 3 and 50 characters!</nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="enterpriseId" nzRequired>Enterprise Name</nz-form-label>
+          <nz-form-control [nzSm]="14" [nzXs]="24">
+            <nz-select id="enterpriseId" formControlName="enterpriseId" nzPlaceHolder="Select Enterprise">
+              <nz-option *ngFor="let option of enterpriseListService.enterpriseData" [nzLabel]="option.enterpriseName" [nzValue]="option.enterpriseId"></nz-option>
+            </nz-select>
+            <nz-form-explain *ngIf="validateForm.get('enterpriseId').dirty && validateForm.get('enterpriseId').errors">Please input enterprise Id!</nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="iccid" nzRequired>SIM Name</nz-form-label>
+          <nz-form-control [nzSm]="14" [nzXs]="24">
+            <nz-select id="iccid" formControlName="iccid" nzPlaceHolder="SIM Name">
+              <nz-option *ngFor="let option of simListService.selectData" [nzLabel]="option.simName" [nzValue]="option.iccid"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+        <!-- <nz-form-item>
+          <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="imei">Module-IMEI</nz-form-label>
+          <nz-form-control [nzSm]="14" [nzXs]="24">
+            <input nz-input id="imei" formControlName="imei">
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="networkModuleSn">Module-SN</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24">
+              <input nz-input id="networkModuleSn" formControlName="networkModuleSn">
+            </nz-form-control>
+        </nz-form-item> -->
+        <nz-form-item *ngIf="type">
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="status">Status</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24">
+              <input nz-input id="status" formControlName="status">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item *ngIf="type">
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="updateDate">RcvTime</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24">
+              <input nz-input id="updateDate" formControlName="updateDate">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="rulesetId" nzRequired>RuleSet Name</nz-form-label>
+          <nz-form-control [nzSm]="14" [nzXs]="24">
+            <!-- <input nz-input id="enterpriseId" formControlName="enterpriseId"> -->
+            <nz-select id="rulesetId" formControlName="rulesetId" nzPlaceHolder="Select RuleSet Name">
+              <nz-option *ngFor="let option of rulesetListService.setDeviceRuleData" [nzLabel]="option.groupName" [nzValue]="option.groupId"></nz-option>
+            </nz-select>
+            <nz-form-explain *ngIf="validateForm.get('rulesetId').dirty && validateForm.get('rulesetId').errors">Please input rulesetName!</nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control [nzOffset]="6" [nzSpan]="12">
+            <button nz-button (click)="handleCancel($event)">Cancel</button>
+            <button nz-button nzType="primary" [ngClass]="'button-confirm'" [disabled]="!validateForm.valid">Ok</button>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+    </div>
+  </ng-template>
+</nz-modal>
+

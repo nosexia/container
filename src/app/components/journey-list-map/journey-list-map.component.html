@@ -1,0 +1,17 @@
+<agm-map [ngStyle]="{'height': 'calc(100vh - 60px)'}" [latitude]="lat" [longitude]="lng" [zoom]="zoomValue">
+    <agm-polyline *ngFor="let i of journeyListService.journeyData" [strokeColor]="'red'" >
+        <ng-container *ngFor="let point of i.roadmaps">
+          <agm-polyline-point [latitude]="point.latitude" [longitude]="point.longitude">
+          </agm-polyline-point>
+        </ng-container>
+    </agm-polyline>
+    <!-- <agm-marker [latitude]="vehicle.latitude" [longitude]="vehicle.longitude" (markerClick)="markerClick()" [iconUrl]="iconUrl">
+      <agm-snazzy-info-window [showCloseButton]="false"  [maxWidth]="350" [maxHeight]="370" padding="0" [isOpen]="isOpen">
+        <ng-template>
+          <app-device-info-window (closeWin)="closeWin()" [vehicles]="vehicle"></app-device-info-window>
+        </ng-template>
+      </agm-snazzy-info-window>
+    </agm-marker> -->
+    <!-- <agm-marker *ngFor="let item of journeyListService.journeyData" [latitude]="item.fromLatitude" [longitude]="fromto.fromLongitude" [iconUrl]="toUrl"></agm-marker>
+    <agm-marker *ngFor="let item of journeyListService.journeyData" [latitude]="item.toLatitude" [longitude]="item.toLongitude" [iconUrl]="toUrl"></agm-marker> -->
+</agm-map>

@@ -1,0 +1,44 @@
+.sim-contents {
+  width: 97%;
+  height: 93%;
+  margin: 15px auto;
+  background: #fff;
+  line-height: 60px;
+}
+.sim-contents .container-list-device-content {
+  height: 100%;
+}
+.sim-contents .container-list-device-content nz-layout {
+  height: 100%;
+  background: #fff;
+}
+.sim-contents .container-list-device-content nz-layout .device-split-right {
+  background: #fafafa;
+}
+.sim-contents .container-list-device-content nz-layout nz-sider {
+  background: #fff;
+  border-right: 1px solid #e8e8e8;
+}
+.sim-contents .container-list-device-content nz-layout nz-sider .c-list-title {
+  line-height: 36px;
+  margin-bottom: 0;
+  border-bottom: 1px solid #e8e8e8;
+  padding-left: 14px;
+}
+.sim-contents .container-nav {
+  margin-top: 10px;
+  line-height: 60px;
+}
+.sim-contents .container-nav .delete-button {
+  margin-left: 5px;
+}
+.sim-contents .data-table-contents {
+  padding: 0 10px;
+}
+.sim-contents .data-table-contents .i-link {
+  color: #409eff;
+  cursor: pointer;
+}
+.sim-contents .data-table-contents .i-link:hover {
+  text-decoration: underline;
+}

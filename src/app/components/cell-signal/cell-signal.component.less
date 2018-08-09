@@ -1,0 +1,54 @@
+@signal-strength-bar-height: 100%;
+@signal-strength-bar-width: 140px;
+.cell-signal-content {
+    padding: 20px 0 45px;
+    text-align: center;
+    height: 250px;
+    .signal-title {
+        text-align: left;
+        padding-bottom: 10px;
+    }
+    // .signal-value {
+        
+    // }
+    .sizing-box {
+        height: @signal-strength-bar-height;
+        width: @signal-strength-bar-width;
+    }
+    .signal-bars {
+        display: inline-block;
+    }
+    
+    .signal-bars .bar {
+        width: 16%;
+        margin-left: 7%;
+        min-height: 20%;
+        display: inline-block;
+    }
+    .signal-bars .bar.first-bar  { height: 20%; }
+    .signal-bars .bar.second-bar { height: 40%; }
+    .signal-bars .bar.third-bar  { height: 60%; }
+    .signal-bars .bar.fourth-bar { height: 80%; }
+    .signal-bars .bar.fifth-bar  { height: 99%; }
+    
+    .good .bar {
+        background-color: #50AE54;
+        // border: thin solid darken(#16a085, 7%);
+    }
+    .bad .bar {
+        background-color: #e74c3c;
+        // border: thin solid darken(#e74c3c, 20%);
+    }
+    .ok .bar {
+        background-color: #FEEA4C;
+        // border: thin solid darken(#f1c40f, 7%);
+    }
+    .four-bars .bar.fifth-bar,
+    .three-bars .bar.fifth-bar,
+    .three-bars .bar.fourth-bar,
+    .one-bar .bar:not(.first-bar),
+    .two-bars .bar:not(.first-bar):not(.second-bar) { 
+        background-color: #fafafa;
+        // border: thin solid #f3f3f3;
+    }
+}

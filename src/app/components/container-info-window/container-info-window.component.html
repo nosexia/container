@@ -1,0 +1,84 @@
+<div [ngClass]="'container-infowindow-content'" >
+  <div nz-row [ngClass]="{'window-status-bar': true, 'offline': item.state === 0 || null, 'connected': item.state === 1, 'attached': item.state === 2, 'activated': item.state === 3}">
+    <div nz-col nzSpan="12">
+      <span [ngClass]="'dev-name'">{{item.containerName}}</span>
+      <span [ngClass]="'{dev-attached}'"></span>
+    </div>
+    <div nz-col nzSpan="12" class="dev-bar-icon-content">
+      <span></span>
+      <i class="anticon anticon-close" (click)="closeInfoWindow()"></i>
+    </div>
+  </div>
+  <div nz-row [ngClass]="'dev-info-electricity-content'">
+    <div nz-col nzSpan="24" [ngClass]="'dev-info-electricity-left'">
+      <div nz-row class="dev-info-left-content">
+        <div nz-col nzSpan="12">
+          <span [ngClass]="'dev-info-b-title'">Container ID：</span>
+        </div>
+        <div nz-col nzSpan="12">
+          <span [ngClass]="'dev-info-b-ftitle'">{{item.containerId}}</span>
+        </div>
+      </div>
+    </div>
+    <div nz-col nzSpan="24" [ngClass]="'dev-info-electricity-left'">
+    <div nz-row class="dev-info-left-content">
+      <div nz-col nzSpan="12">
+        <span [ngClass]="'dev-info-b-title'">Enterprise：</span>
+      </div>
+      <div nz-col nzSpan="12">
+        <span [ngClass]="'dev-info-b-ftitle'">{{item.enterpriseId | enterpriseName}}</span>
+      </div>
+    </div>
+  </div>
+  <div nz-col nzSpan="24" [ngClass]="'dev-info-electricity-left'">
+      <div nz-row class="dev-info-left-content">
+        <div nz-col nzSpan="12">
+          <span [ngClass]="'dev-info-b-title'">DeviceID：</span>
+        </div>
+        <div nz-col nzSpan="12">
+          <span [ngClass]="'dev-info-b-ftitle'">{{item.deviceId}}</span>
+        </div>
+      </div>
+    </div>
+    <div nz-col nzSpan="24" [ngClass]="'dev-info-electricity-left'">
+      <div nz-row class="dev-info-left-content">
+        <div nz-col nzSpan="12">
+          <span [ngClass]="'dev-info-b-title'">Create Date：</span>
+        </div>
+        <div nz-col nzSpan="12">
+          <span [ngClass]="'dev-info-b-ftitle'">{{item.createDate}}</span>
+        </div>
+        </div>
+      </div>
+      <div nz-col nzSpan="24" [ngClass]="'dev-info-electricity-left'">
+        <div nz-row class="dev-info-left-content">
+          <div nz-col nzSpan="12">
+            <span [ngClass]="'dev-info-b-title'">Update Date：</span>
+          </div>
+          <div nz-col nzSpan="12">
+            <span [ngClass]="'dev-info-b-ftitle'">{{item.updateDate}}</span>
+          </div>
+        </div>
+      </div>
+      <div nz-col nzSpan="24" [ngClass]="'dev-info-electricity-left'">
+        <div nz-row class="dev-info-left-content">
+          <div nz-col nzSpan="12">
+            <span [ngClass]="'dev-info-b-title'">Latitude：</span>
+          </div>
+          <div nz-col nzSpan="12">
+            <span [ngClass]="'dev-info-b-ftitle'">{{item.latitude / 1000000}}</span>
+          </div>
+        </div>
+      </div>
+      <div nz-col nzSpan="24" [ngClass]="'dev-info-electricity-left'">
+        <div nz-row class="dev-info-left-content">
+          <div nz-col nzSpan="12">
+            <span [ngClass]="'dev-info-b-title'">Longitude：</span>
+          </div>
+          <div nz-col nzSpan="12">
+            <span [ngClass]="'dev-info-b-ftitle'">{{item.longitude / 1000000}}</span>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>

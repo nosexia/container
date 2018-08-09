@@ -1,0 +1,56 @@
+.container-list-only-left-content {
+    height: 50%;
+    .container-list-left-title {
+        padding-left: 10px;
+        background: #dcdfe6;
+        margin-bottom: 0;
+        height: 44px;
+        line-height: 44px;
+        .journey-id {
+            color: #1890ff;
+            margin-left: 10px;
+        }
+    }
+    .container-list-left-body {
+        height: calc(100% - 44px);
+        .contianer-pagination {
+            text-align: center;
+            margin-top: 10px;
+        } 
+        overflow-y: scroll;
+        .container-item-body:hover {
+            background: #F6F7FB;
+        }
+        .container-item-body {
+            cursor: pointer;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            .container-item-title {
+                font-size: 10px;
+            }
+            .container-item-status {
+                text-align: right;
+                span {
+                    width: 10px;
+                    height: 10px;
+                    display: inline-block;
+                    background: rgb(179, 179, 179);
+                    margin-right: 10px;
+                    border-radius: 20px;
+                }
+                .offline {
+                    background: #B3B3B3;
+                }
+                .connected {
+                    background: #FD883E;
+                }
+                .attached {
+                    background: #87d068;
+                }
+                .activated {
+                    background: #108ee9;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,36 @@
+<div class="small-tab-list-contents">
+  <nz-tabset nzSize="samll" [nzShowPagination]="false">
+      <nz-tab nzTitle="{{ 'HOME.CONTAINERLISTTAB.ALL' | translate }}" >
+          <nz-list [nzDataSource]="data" nzBordered nzSize="small"
+                    [nzRenderItem]="item">
+            <ng-template #item let-item>
+              <nz-list-item>
+                {{item.title}}<i class="device-status"></i>
+              </nz-list-item>
+            </ng-template>
+          </nz-list>
+      </nz-tab>
+      <nz-tab nzTitle="{{ 'HOME.CONTAINERLISTTAB.ONLINE' | translate }}">
+          <nz-list [nzDataSource]="data" nzBordered nzSize="small"
+          [nzRenderItem]="item">
+            <ng-template #item let-item>
+              <nz-list-item>
+                {{item.title}}<i class="device-status"></i>
+              </nz-list-item>
+            </ng-template>
+          </nz-list>
+      </nz-tab>
+      <nz-tab nzTitle="{{ 'HOME.CONTAINERLISTTAB.OFFLINE' | translate }}">
+        <div class="tab-list-no-data">{{ 'HOME.CONTAINERLISTTAB.NODATA' | translate }}</div>
+      </nz-tab>
+      <nz-tab nzTitle="{{ 'HOME.CONTAINERLISTTAB.WARN' | translate }}">
+        <div class="tab-list-no-data">{{ 'HOME.CONTAINERLISTTAB.NODATA' | translate }}</div>
+      </nz-tab>
+      <nz-tab nzTitle="{{ 'HOME.CONTAINERLISTTAB.UNUSED' | translate }}">
+        <div class="tab-list-no-data">{{ 'HOME.CONTAINERLISTTAB.NODATA' | translate }}</div>
+      </nz-tab>
+      <nz-tab nzTitle="{{ 'HOME.CONTAINERLISTTAB.ATTENTION' | translate }}">
+        <div class="tab-list-no-data">{{ 'HOME.CONTAINERLISTTAB.NODATA' | translate }}</div>
+      </nz-tab>
+    </nz-tabset>`
+</div>

@@ -1,0 +1,32 @@
+.journey-contents {
+  width: 97%;
+  height: 93%;
+  margin: 15px auto;
+  background: #fff;
+  line-height: 60px;
+}
+.journey-contents .show-map-list {
+  width: 300px;
+  position: absolute;
+  z-index: 9;
+  right: 0;
+}
+.journey-contents .show-map-list .delete-button {
+  margin-left: 10px;
+}
+.journey-contents .container-nav {
+  margin-top: 10px;
+}
+.journey-contents .container-nav .delete-button {
+  margin-left: 5px;
+}
+.journey-contents .data-table-contents {
+  padding: 0 10px;
+}
+.journey-contents .data-table-contents .i-link {
+  color: #409eff;
+  cursor: pointer;
+}
+.journey-contents .data-table-contents .i-link:hover {
+  text-decoration: underline;
+}

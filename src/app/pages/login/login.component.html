@@ -1,0 +1,23 @@
+<div [ngClass]="'app-login'" >
+  <nz-layout class="layout">
+    <nz-header>
+      <div class="logo">
+        <img src="../../../assets/images/logo2.png" />
+        <span style="margin-left: 10px;font-weight: bold;">E2E Logistics Solution</span>
+      </div>
+    </nz-header>
+    <nz-content style="padding:100px 50px;" [ngClass]="'content-bg'" >
+      <div nz-row>
+        <div nz-col nzSpan="18"></div>
+        <div nz-col nzSpan="6">
+          <app-login-form (onLoginFormValue)="onLoginFormValue($event)"></app-login-form>
+        </div>
+      </div>
+    </nz-content>
+    <nz-footer style="text-align: center;">
+      <!-- Version 4.0 Build.20180417
+      Copyright © 2009-2018 All Rights Reserved
+      ICP备000000号-3 -->
+    </nz-footer>
+  </nz-layout>
+</div>

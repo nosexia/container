@@ -1,0 +1,104 @@
+<div [ngClass]="'device-item-infowindow-content'">
+    <div nz-row [ngClass]="{'window-status-bar': true, 'activated': item.status === 1, 'offline': item.status === 0 || item.status === null, 'alert-activated': item.status === 2}">
+      <div nz-col nzSpan="12">
+        <span [ngClass]="'dev-name'">{{item.deviceName}}</span>
+        <span [ngClass]="'{dev-attached}'"></span>
+      </div>
+      <div nz-col nzSpan="12" class="dev-bar-icon-content">
+        <span></span>
+        <i class="anticon anticon-close" (click)="closeInfoWindow()"></i>
+      </div>
+    </div>
+    <div nz-row [ngClass]="'dev-info-electricity-content'">
+      <div nz-col nzSpan="24" [ngClass]="'dev-info-electricity-left'">
+        <div nz-row class="dev-info-left-content">
+          <div nz-col nzSpan="12">
+            <span [ngClass]="'dev-info-b-title'">Device ID：</span>
+          </div>
+          <div nz-col nzSpan="12">
+            <span [ngClass]="'dev-info-b-ftitle'">{{item.deviceId}}</span>
+          </div>
+        </div>
+      </div>
+      <div nz-col nzSpan="24" [ngClass]="'dev-info-electricity-left'">
+      <div nz-row class="dev-info-left-content">
+        <div nz-col nzSpan="12">
+          <span [ngClass]="'dev-info-b-title'">Enterprise：</span>
+        </div>
+        <div nz-col nzSpan="12">
+          <span [ngClass]="'dev-info-b-ftitle'">{{item.enterpriseId | enterpriseName}}</span>
+        </div>
+      </div>
+    </div>
+    <div nz-col nzSpan="24" [ngClass]="'dev-info-electricity-left'">
+        <div nz-row class="dev-info-left-content">
+          <div nz-col nzSpan="12">
+            <span [ngClass]="'dev-info-b-title'">Module-IMEI：</span>
+          </div>
+          <div nz-col nzSpan="12">
+            <span [ngClass]="'dev-info-b-ftitle'">{{item.imei}}</span>
+          </div>
+        </div>
+      </div>
+      <div nz-col nzSpan="24" [ngClass]="'dev-info-electricity-left'">
+        <div nz-row class="dev-info-left-content">
+          <div nz-col nzSpan="12">
+            <span [ngClass]="'dev-info-b-title'">SIM-ICCID：</span>
+          </div>
+          <div nz-col nzSpan="12">
+            <span [ngClass]="'dev-info-b-ftitle'">{{item.iccid}}</span>
+          </div>
+          </div>
+        </div>
+        <div nz-col nzSpan="24" [ngClass]="'dev-info-electricity-left'">
+          <div nz-row class="dev-info-left-content">
+            <div nz-col nzSpan="12">
+              <span [ngClass]="'dev-info-b-title'">SIM-IMEI：</span>
+            </div>
+            <div nz-col nzSpan="12">
+              <span [ngClass]="'dev-info-b-ftitle'">{{item.imsi}}</span>
+            </div>
+          </div>
+        </div>
+        <!-- <div nz-col nzSpan="24" [ngClass]="'dev-info-electricity-left'">
+            <div nz-row class="dev-info-left-content">
+              <div nz-col nzSpan="12">
+                <span [ngClass]="'dev-info-b-title'">State：</span>
+              </div>
+              <div nz-col nzSpan="12">
+                <span [ngClass]="'dev-info-b-ftitle'">{{item.latitude}}</span>
+              </div>
+            </div>
+          </div> -->
+          <div nz-col nzSpan="24" [ngClass]="'dev-info-electricity-left'">
+            <div nz-row class="dev-info-left-content">
+              <div nz-col nzSpan="12">
+                <span [ngClass]="'dev-info-b-title'">RcvTime：</span>
+              </div>
+              <div nz-col nzSpan="12">
+                <span [ngClass]="'dev-info-b-ftitle'">{{item.updateDate}}</span>
+              </div>
+            </div>
+          </div>
+        <div nz-col nzSpan="24" [ngClass]="'dev-info-electricity-left'">
+          <div nz-row class="dev-info-left-content">
+            <div nz-col nzSpan="12">
+              <span [ngClass]="'dev-info-b-title'">Latitude：</span>
+            </div>
+            <div nz-col nzSpan="12">
+              <span [ngClass]="'dev-info-b-ftitle'">{{item.latitude / 1000000}}</span>
+            </div>
+          </div>
+        </div>
+        <div nz-col nzSpan="24" [ngClass]="'dev-info-electricity-left'">
+          <div nz-row class="dev-info-left-content">
+            <div nz-col nzSpan="12">
+              <span [ngClass]="'dev-info-b-title'">Longitude：</span>
+            </div>
+            <div nz-col nzSpan="12">
+              <span [ngClass]="'dev-info-b-ftitle'">{{item.longitude / 1000000}}</span>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>

@@ -1,0 +1,689 @@
+{
+  "/rest/1.1/User/login": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/rest/1.1/User/login" : "/rest/1.1/User/login"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/Device/deviceList": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/rest/1.1/Device/deviceList" : "/rest/1.1/Device/deviceList"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/Device/editDevice": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/rest/1.1/Device/editDevice" : "/rest/1.1/Device/editDevice"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/Device/addDevice": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/rest/1.1/Device/addDevice" : "/rest/1.1/Device/addDevice"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/Device/delDevice": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/rest/1.1/Device/delDevice" : "/rest/1.1/Device/delDevice"
+    },
+    "logLevel": "debug"
+  },
+
+  "/rest/1.1/User/userList": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/rest/1.1/User/userList" : "/rest/1.1/User/userList"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/User/editUser": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/editUser" : "/rest/1.1/User/editUser"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/User/addUser": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/rest/1.1/User/addUser" : "/rest/1.1/User/addUser"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/User/delUser": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/rest/1.1/User/delUser" : "/rest/1.1/User/delUser"
+    },
+    "logLevel": "debug"
+  },
+
+  "/rest/1.1/Enterprise/enterpriseList": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/rest/1.1/Enterprise/enterpriseList" : "/rest/1.1/Enterprise/enterpriseList"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/Enterprise/enterpriseOne": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/rest/1.1/Enterprise/enterpriseOne" : "/rest/1.1/Enterprise/enterpriseOne"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/Enterprise/editEnterprise": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/rest/1.1/Enterprise/editEnterprise" : "/rest/1.1/Enterprise/editEnterprise"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/Enterprise/addEnterprise": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/rest/1.1/Enterprise/addEnterprise" : "/rest/1.1/Enterprise/addEnterprise"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/Enterprise/delEnterprise": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/rest/1.1/Enterprise/delEnterprise" : "/rest/1.1/Enterprise/delEnterprise"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/Container/containerList": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/rest/1.1/Container/containerList" : "/rest/1.1/Container/containerList"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/Container/editContainer": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/editContainer" : "/rest/1.1/Container/editContainer"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/Container/addContainer": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/rest/1.1/Container/addContainer" : "/rest/1.1/Container/addContainer"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/Container/delContainer": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/rest/1.1/Container/delContainer" : "/rest/1.1/Container/delContainer"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/Rule/ruleList": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/rest/1.1/Rule/ruleList" : "/rest/1.1/Rule/ruleList"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/Rule/editRule": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/rest/1.1/Rule/editRule" : "/rest/1.1/Rule/editRule"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/User/userOne": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/rest/1.1/User/userOne" : "/rest/1.1/User/userOne"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/Device/deviceOne": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/rest/1.1/Device/deviceOne" : "/rest/1.1/Device/deviceOne"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/Journey/journeyOne": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/rest/1.1/Journey/journeyOne" : "/rest/1.1/Journey/journeyOne"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/Journey/addJourney": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/rest/1.1/Journey/addJourney" : "/rest/1.1/Journey/addJourney"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/Journey/delJourney": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/rest/1.1/Journey/delJourney" : "/rest/1.1/Journey/delJourney"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/Journey/journeyList": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/rest/1.1/Journey/journeyList" : "/rest/1.1/Journey/journeyList"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/Journey/editJourney": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/rest/1.1/Journey/editJourney" : "/rest/1.1/Journey/editJourney"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/Journey/cityList": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/rest/1.1/Journey/cityList" : "/rest/1.1/Journey/cityList"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/Journey/terminalList": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/rest/1.1/Journey/terminalList" : "/rest/1.1/Journey/terminalList"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/Journey/reqMyData": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/rest/1.1/Journey/reqMyData" : "/rest/1.1/Journey/reqMyData"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/Journey/terminalState": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/rest/1.1/Journey/terminalState" : "/rest/1.1/Journey/terminalState"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/Journey/startJourney": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/rest/1.1/Journey/startJourney" : "/rest/1.1/Journey/startJourney"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/Journey/endJourney": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/rest/1.1/Journey/endJourney" : "/rest/1.1/Journey/endJourney"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/Journey/terminalData": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/rest/1.1/Journey/terminalData" : "/rest/1.1/Journey/terminalData"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/Temperature/one2one": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/rest/1.1/Temperature/one2one" : "/rest/1.1/Temperature/one2one"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/Acceleration/one2one": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/rest/1.1/Acceleration/one2one" : "/rest/1.1/Acceleration/one2one"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/Humidity/one2one": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/rest/1.1/Humidity/one2one" : "/rest/1.1/Humidity/one2one"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/Temperature/one2many": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/rest/1.1/Temperature/one2many" : "/rest/1.1/Temperature/one2many"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/Acceleration/one2many": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/rest/1.1/Acceleration/one2many" : "/rest/1.1/Acceleration/one2many"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/Humidity/one2many": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/rest/1.1/Humidity/one2many" : "/rest/1.1/Humidity/one2many"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/Temperature/many2many": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/rest/1.1/Temperature/many2many" : "/rest/1.1/Temperature/many2many"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/Acceleration/many2many": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/rest/1.1/Acceleration/many2many" : "/rest/1.1/Acceleration/many2many"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/Humidity/many2many": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/rest/1.1/Humidity/many2many" : "/rest/1.1/Humidity/many2many"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/Device/deviceCtdUsages": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/rest/1.1/Device/deviceCtdUsages" : "/rest/1.1/Device/deviceCtdUsages"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/Line/addLine": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/rest/1.1/Line/addLine" : "/rest/1.1/Line/addLine"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/Line/list": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/rest/1.1/Line/list" : "/rest/1.1/Line/list"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/Rule/groupList": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/rest/1.1/Rule/groupList" : "/rest/1.1/Rule/groupList"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/Rule/addRuleGroup": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/rest/1.1/Rule/groupList" : "/rest/1.1/Rule/addRuleGroup"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/Rule/editRuleGroup": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/rest/1.1/Rule/editRuleGroup" : "/rest/1.1/Rule/editRuleGroup"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/Sim/delete": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/rest/1.1/Sim/delete" : "/rest/1.1/Sim/delete"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/Sim/list": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/rest/1.1/Sim/list" : "/rest/1.1/Sim/list"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/Sim/add": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/rest/1.1/Sim/add" : "/rest/1.1/Sim/add"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/Sim/update": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/rest/1.1/Sim/update" : "/rest/1.1/Sim/update"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/Device/dignostics": {
+    "target":  {
+       "host": "47.52.194.140",
+       "protocol": "http:"
+     },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/rest/1.1/Device/dignostics" : "/rest/1.1/Device/dignostics"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/statistics/statistics": {
+    "target":  {
+      "host": "47.52.194.140",
+      "protocol": "http:"
+    },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "/rest/1.1/statistics/statistics": "/rest/1.1/statistics/statistics"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/Device/delBand": {
+    "target":  {
+      "host": "47.52.194.140",
+      "protocol": "http:"
+    },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "/rest/1.1/Device/delBand": "/rest/1.1/Device/delBand"
+    },
+    "logLevel": "debug"
+  },
+  "/rest/1.1/Rule/deleteRuleGroup": {
+    "target":  {
+      "host": "47.52.194.140",
+      "protocol": "http:"
+    },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "/rest/1.1/Rule/deleteRuleGroup": "/rest/1.1/Rule/deleteRuleGroup"
+    },
+    "logLevel": "debug"
+  }
+}
+

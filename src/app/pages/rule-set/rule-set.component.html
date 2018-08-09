@@ -1,0 +1,133 @@
+<div class="ruleset-contents">
+  <!-- <div class="show-map-list">
+  </div>
+  <div nz-row class="container-nav">
+    <div nz-col nzSpan="16">
+        
+    </div>
+    <div nz-col nzSpan="5">
+        <button nz-button nzType="default" (click)="dialogOpen(null, 0)">{{ 'CONTAINER.ADDBUTTON' | translate }}</button>
+        <button nz-button nzType="default" class="delete-button" (click)="deleteContainer()">{{ 'CONTAINER.DELETEBUTTON' | translate }}</button>
+    </div>
+    <div nz-col nzSpan="3">  
+    </div>
+  </div>
+  <div [ngClass]="'data-table-contents'" >
+    <nz-table
+      #rowSelectionTable
+      [nzData]="rulesetItemService.rulesetData"
+      (nzPageIndexChange)="rulesetItemService.refreshStatus()"
+      (nzPageSizeChange)="rulesetItemService.refreshStatus()"
+      [nzShowQuickJumper]="true"
+      [nzPageSize]="10"
+      [nzTotal]="rulesetItemService.dataTotal">
+      <thead>
+        <tr>
+          <th nzShowCheckbox [(nzChecked)]="rulesetItemService.allChecked" [nzIndeterminate]="rulesetItemService.indeterminate" (nzCheckedChange)="rulesetItemService.checkAll($event)"></th>
+          <th>SetValue</th>
+          <th>Add</th>
+          <th>use</th>
+          <th>Group id</th>
+          <th>Group name</th>
+          <th>Enterprise id</th>
+          <th>Status</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of rowSelectionTable.data">
+          <td nzShowCheckbox [(nzChecked)]="data.checked" [nzDisabled]="data.disabled" (nzCheckedChange)="rulesetItemService.refreshStatus($event)"></td>
+          <td>
+              <div [ngClass]="'i-link'">
+                <button nz-button nz-popconfirm nzType="primary" nzTitle="Sure to start up?" nzOkText="ok" nzCancelText="cancel" (nzOnConfirm)="journeyStart(data.journeyId)">set value</button>
+              </div>
+            </td>
+          <td><button  nz-button nz-popconfirm nzType="primary"  nzOkText="ok" nzCancelText="cancel" (nzOnConfirm)="journeyStart(data.journeyId)">Edit</button></td>
+          <td><button  nz-button nz-popconfirm nzType="primary"  nzOkText="ok" nzCancelText="cancel" (nzOnConfirm)="journeyStart(data.journeyId)">use</button></td>
+          <td>{{data.groupId}}</td>
+          <td>{{data.groupName}}</td>
+          <td>{{data.enterpriseId}}</td>
+          <td *ngIf="data.status === 0"  style="color: #C3C4CE">Not Used</td>
+          <td *ngIf="data.status === 1"  style="color: #39B066">In Use</td>
+        </tr>
+      </tbody>
+    </nz-table>
+    <app-ruleset-form-dialog (upDateContainer)="upDateContainer($event)" (addContainer)="addContainer($event)"></app-ruleset-form-dialog>
+  </div> -->
+  <div nz-row class="container-nav">
+    <div nz-col nzSpan="16">
+    </div>
+    <div nz-col nzSpan="5">
+     </div> 
+    <div nz-col nzSpan="3" style="text-align: right; padding-right: 10px;">
+      <button nz-button nzType="primary" (click)="dialogOpen(null, 0)"><i class="anticon anticon-plus-circle-o"></i>Add</button>
+    </div>
+  </div>
+  <div [ngClass]="'data-table-contents'">
+    <nz-table
+      #rowSelectionTable
+      [nzData]="rulesetListService.setRuleData"
+      (nzCurrentPageDataChange)="rulesetListService.currentPageDataChange($event)"
+      (nzPageIndexChange)="rulesetListService.refreshStatus()"
+      (nzPageSizeChange)="rulesetListService.refreshStatus()"
+      [nzShowQuickJumper]="true"
+      [nzPageSize]="5"
+      [nzTotal]="rulesetListService.dataTotal">
+      <thead>
+        <tr>
+          <!-- <th>Edit</th> -->
+          <th>RuleSet ID</th>
+          <th>RuleSet Name</th>
+          <th>Type</th>
+          <!-- <th>Container ID</th>
+          <th>Device ID</th> -->
+          <!-- <th>Status</th> -->
+          <!-- <th>Use</th> -->
+          <th>Operation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of rowSelectionTable.data">
+          <!-- <td>
+              <div [ngClass]="'i-link'" (click)="dialogOpen(data, 0)">Edit</div>            
+          </td> -->
+          <td>
+            {{data.groupId}}
+          </td>
+          <td>
+            {{data.groupName}}
+          </td>
+          <td>
+              <span *ngIf="data.groupType === 0">Container</span>
+              <span *ngIf="data.groupType === 1">Device</span>
+          </td>
+          <!-- <td>{{data.containerId}}</td>
+          <td>{{data.deviceId}}</td> -->
+          <!-- <td *ngIf="data.status === 0"  style="color: #C3C4CE">
+              <span *ngIf="data.groupName !== 'Container default' && data.groupName !== 'Device default'">Not Used</span>
+              <span *ngIf="data.groupName === 'Container default' || data.groupName === 'Device default'">- -</span>
+          </td>
+          <td *ngIf="data.status === 1"  style="color: #39B066">
+            <span *ngIf="data.groupName !== 'Container default' && data.groupName !== 'Device default'">In Used</span>
+              <span *ngIf="data.groupName === 'Container default' || data.groupName === 'Device default'">- -</span>
+          </td> -->
+          <!-- <td>
+            <button *ngIf="data.groupName !== 'Container default' && data.groupName !== 'Device default'" nz-button nzType="primary" [disabled]="data.status === 1" (click)="rulesetListService.editStatus(data)">Use</button>
+          </td> -->
+          <td>
+              <button nz-button nzType="primary" nzSize="small" (click)="activeData(data, true)" [nzGhost]="true" style="margin-right: 10px;">
+                  <i class="anticon anticon-search"></i>RuleSet Info
+              </button>
+              <button *ngIf="!data.isdefault" nz-button nzType="primary" nzSize="small" (click)="activeData(data, false)" [nzGhost]="true" style="margin-right: 10px;">
+                  <i class="anticon anticon-edit"></i>Modify
+              </button>
+              <button *ngIf="!data.isdefault && data.isenable" nz-button nzType="danger" nzSize="small" (click)="deleteRuleGroup(data.groupId)" [nzGhost]="true">
+                  <i class="anticon anticon-delete"></i>Delete
+              </button>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+    <app-rule></app-rule>
+    <app-ruleset-form-dialog (upDateRuleSetList)="upDateRuleSetList($event)" (addRuleSetList)="addRuleSetList($event)"></app-ruleset-form-dialog>
+    <!-- <app-container-form-dialog (upDateContainer)="upDateContainer($event)" (addContainer)="addContainer($event)"></app-container-form-dialog> -->
+  </div>
+</div>  

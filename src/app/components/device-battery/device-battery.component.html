@@ -1,0 +1,12 @@
+<div [ngClass]="'battery-body'">
+  <div nz-row class="battery-title">
+      <img src="../../../assets//images/device_warn.gif" *ngIf="warn" />
+      Battery(%)
+  </div>
+  <div class="battery-content">
+      <div class="battery">
+        <span [ngStyle]="{'height': BarreryValue + '%'}"></span>
+      </div>
+  </div>
+  <h3 class="battery-value">{{BarreryValue}}%</h3>
+</div>

@@ -1,0 +1,72 @@
+<div class="journey-contents">
+    <div class="show-map-list">
+        <button nz-button nzType="primary" class="delete-button" [nzGhost]="true" (click)="dialogOpen(null, 0)"><i class="anticon anticon-plus-circle-o"></i>{{ 'DEVICE.ADDBUTTON' | translate }}</button>
+        <button nz-button nzType="primary" class="delete-button" [nzGhost]="true" (click)="activeView(false)"><i class="anticon anticon-global"></i>Map</button>
+        <button nz-button nzType="primary" class="delete-button" [nzGhost]="true" (click)="activeView(true)"><i class="anticon anticon-profile"></i>List</button>
+    </div>
+    <app-journey-list-map [hidden]="isShow" ></app-journey-list-map>
+    <div nz-row class="container-nav" [hidden]="!isShow">
+      <div nz-col nzSpan="21">
+        <app-enterprise-query [queryType]="queryType" (queryInput)="queryInput($event)"></app-enterprise-query>
+      </div>
+      <div nz-col nzSpan="3">
+      </div>
+    </div>
+    <div [ngClass]="'data-table-contents'" [hidden]="!isShow">
+      <nz-table
+        #rowSelectionTable
+        [nzData]="journeyListService.journeyData"
+        (nzCurrentPageDataChange)="journeyListService.currentPageDataChange($event)"
+        (nzPageIndexChange)="journeyListService.refreshStatus()"
+        (nzPageSizeChange)="journeyListService.refreshStatus()"
+        [nzShowQuickJumper]="true"
+        [nzPageSize]="10"
+        [nzTotal]="journeyListService.dataTotal"
+        [nzScroll]="{ x:'2300px'}">
+        <thead>
+          <tr>
+            <!-- <th>Action</th> -->
+            <th>Journey ID</th>
+            <th>Status</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>From Latitude</th>
+            <th>From Longitude</th>
+            <th>To Latitude</th>
+            <th>To Longitude</th>
+            <th>Enterprise</th>
+            <th>Create Date</th>
+            <th>Update Date</th>
+            <th>Operation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of rowSelectionTable.data">
+            <td>
+                {{data.journeyId}}
+            </td>
+            <td>{{data.status | journeyStatus}}</td>
+            <td>{{data.fromCity}}</td>
+            <td>{{data.toCity}}</td>
+            <td>{{data.startTime}}</td>
+            <td>{{data.endTime}}</td>
+            <td>{{data.fromLatitude}}</td>
+            <td>{{data.fromLongitude}}</td>
+            <td>{{data.toLatitude}}</td>
+            <td>{{data.toLongitude}}</td>
+            <td>{{data.enterpriseId | enterpriseName}}</td>
+            <td>{{data.createDate}}</td>
+            <td>{{data.updateDate}}</td>
+            <td>
+                <button nz-button nzType="danger" *ngIf="!data.inRoute" nzSize="small" (click)="deleteJourney(data.journeyId)" [nzGhost]="true">
+                    <i class="anticon anticon-delete"></i>Delete
+                </button>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+      <app-journey-form-dialog (upDateJourney)="upDateJourney($event)" (addJourney)="addJourney($event)"></app-journey-form-dialog>
+    </div>
+  </div>

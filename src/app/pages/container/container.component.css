@@ -1,0 +1,52 @@
+.container-contents {
+  width: 97%;
+  height: 93%;
+  margin: 15px auto;
+  background: #fff;
+  line-height: 60px;
+}
+.container-contents .container-list-device-content {
+  height: 100%;
+}
+.container-contents .container-list-device-content nz-layout {
+  height: 100%;
+  background: #fff;
+}
+.container-contents .container-list-device-content nz-layout .device-split-right {
+  background: #fafafa;
+}
+.container-contents .container-list-device-content nz-layout nz-sider {
+  background: #fff;
+  border-right: 1px solid #e8e8e8;
+}
+.container-contents .container-list-device-content nz-layout nz-sider .c-list-title {
+  line-height: 36px;
+  margin-bottom: 0;
+  border-bottom: 1px solid #e8e8e8;
+  padding-left: 14px;
+}
+.container-contents .show-map-list {
+  width: 150px;
+  position: absolute;
+  z-index: 9;
+  right: 0;
+}
+.container-contents .show-map-list .delete-button {
+  margin-left: 5px;
+}
+.container-contents .container-nav {
+  margin-top: 10px;
+}
+.container-contents .container-nav .delete-button {
+  margin-left: 5px;
+}
+.container-contents .data-table-contents {
+  padding: 0 10px;
+}
+.container-contents .data-table-contents .i-link {
+  color: #409eff;
+  cursor: pointer;
+}
+.container-contents .data-table-contents .i-link:hover {
+  text-decoration: underline;
+}

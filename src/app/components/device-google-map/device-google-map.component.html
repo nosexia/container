@@ -1,0 +1,29 @@
+<agm-map [ngStyle]="{'height': 'calc(100vh - 60px)'}" [latitude]="lat" [longitude]="lng" [zoom]="zoomValue">
+    <agm-polyline [strokeColor]="'red'">
+        <ng-container *ngFor="let point of fromto.roadmaps">
+          <agm-polyline-point [latitude]="point.latitude" [longitude]="point.longitude">
+          </agm-polyline-point>
+        </ng-container>
+    </agm-polyline>
+    <!-- <agm-polyline [strokeColor]="'blue'">
+        <ng-container *ngFor="let point of fromto.relRoadmaps">
+          <agm-polyline-point [latitude]="point.latitude / 1000000" [longitude]="point.longitude / 1000000">
+          </agm-polyline-point>
+        </ng-container>
+    </agm-polyline> -->
+    <agm-polyline [strokeColor]="'blue'">
+        <ng-container *ngFor="let point of fromto.livePositionLine">
+          <agm-polyline-point [latitude]="point.latitude" [longitude]="point.longitude">
+          </agm-polyline-point>
+        </ng-container>
+    </agm-polyline>
+    <agm-marker [latitude]="fromto.liveLatitude" [longitude]="fromto.liveLongitude" (markerClick)="markerClick()" [iconUrl]="iconUrl" [zIndex]="9">
+      <agm-snazzy-info-window *ngIf="terminalListService.isClick"  [showCloseButton]="false"  [maxWidth]="350" [maxHeight]="370" padding="0" [isOpen]="isOpen">
+        <ng-template>
+          <app-device-info-window (closeWin)="closeWin()" [vehicles]="vehicle"></app-device-info-window>
+        </ng-template>
+      </agm-snazzy-info-window>
+    </agm-marker>
+    <agm-marker *ngIf="fromto"  [latitude]="fromto.fromLatitude" [longitude]="fromto.fromLongitude" [iconUrl]="toUrl"></agm-marker>
+    <agm-marker *ngIf="fromto"  [latitude]="fromto.toLatitude" [longitude]="fromto.toLongitude" [iconUrl]="toUrl"></agm-marker>
+</agm-map>

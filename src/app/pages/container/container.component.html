@@ -1,0 +1,96 @@
+<div class="container-contents">
+  <!-- <div class="show-map-list">
+      <button nz-button nzType="default" (click)="activeView(false)">Map</button>
+      <button nz-button nzType="default" class="delete-button" (click)="activeView(true)">List</button>
+  </div> -->
+  <!-- <div class="container-list-device-content" [hidden]="isShow">
+      <nz-layout>
+        <nz-sider [nzWidth]="270" *ngIf="allMapService.allShows">
+          <div>
+            <app-container-list-only-left [noBtn]="true"></app-container-list-only-left>
+            <app-device-list-only-left></app-device-list-only-left>
+          </div>
+        </nz-sider>
+        <nz-layout>
+            <split [gutterSize]="4">
+              <split-area size="50">
+                <app-all-map (showContaner)="showContaner($event)" (showDevice)="showDevice($event)" [device]="allMapService.deviceList" [container]="allMapService.containerList"></app-all-map>
+              </split-area>
+              <split-area size="50" [ngClass]="'device-split-right'" *ngIf="allMapService.allShows">
+                <app-cd-tab-right></app-cd-tab-right>
+              </split-area>
+            </split>
+        </nz-layout>
+      </nz-layout>
+    </div> -->
+    <!-- <app-container-list-map [hidden]="isShow" ></app-container-list-map> -->
+  <div nz-row class="container-nav" [hidden]="!isShow">
+    <div nz-col nzSpan="16">
+        <app-enterprise-query [queryType]="queryType" (queryInput)="queryInput($event)"></app-enterprise-query>      
+    </div>
+    <div nz-col nzSpan="5">
+      
+    </div>
+    <div nz-col nzSpan="3" style="text-align: right; padding-right: 10px;">
+        <button nz-button nzType="primary" (click)="dialogOpen(null, 0)"><i class="anticon anticon-plus-circle-o"></i>{{ 'CONTAINER.ADDBUTTON' | translate }}</button>
+    </div>
+  </div>
+  <div [ngClass]="'data-table-contents'" *ngIf="isShow">
+    <nz-table
+      #rowSelectionTable
+      [nzData]="containerListService.containerData"
+      (nzCurrentPageDataChange)="containerListService.currentPageDataChange($event)"
+      (nzPageIndexChange)="containerListService.refreshStatus()"
+      (nzPageSizeChange)="containerListService.refreshStatus()"
+      [nzShowQuickJumper]="true"
+      [nzPageSize]="8"
+      [nzTotal]="containerListService.dataTotal">
+      <thead>
+        <tr>
+          <th>Container ID</th>
+          <th>Container Name</th>        
+          <th>Enterprise ID</th>
+          <th>Journery ID</th>
+          <th>Device SN</th>
+          <th>State</th>
+          <th>Create Date</th>
+          <th>Update Date</th>
+          <th>RuleSet Name</th>
+          <th>Operation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of rowSelectionTable.data">
+          <td>
+              {{data.containerId}}
+          </td>
+          <td>
+              {{data.containerName}}
+          </td>
+          <td>{{data.enterpriseId | enterpriseName}}</td>
+          <td>{{data.journeryId}}</td>
+          <td>{{data.deviceId}}</td>
+          <td *ngIf="data.state === 0"><nz-tag [nzColor]="'#B3B3B3'">Offline</nz-tag></td>
+          <td *ngIf="data.state === 1"><nz-tag [nzColor]="'#FD883E'">Connected</nz-tag></td>
+          <td *ngIf="data.state === 2"><nz-tag [nzColor]="'#87d068'">Attached</nz-tag></td>
+          <td>{{data.createDate}}</td>
+          <td>{{data.updateDate}}</td>
+          <td>{{data.rulesetName}}</td>
+          <td>
+            <button nz-button nzType="primary" nzSize="small" (click)="showContaner(data)" [nzGhost]="true"  style="margin-right: 10px;">
+              <i class="anticon anticon-search"></i>Container Info
+            </button>
+            <button nz-button nzType="primary" *ngIf="!data.state" nzSize="small" (click)="dialogOpen(data, 1)" [nzGhost]="true"  style="margin-right: 10px;">
+                <i class="anticon anticon-edit"></i>Modify
+            </button>
+            <button nz-button nzType="danger" *ngIf="!data.state" nzSize="small" style="margin-top: 10px;" (click)="deleteContainer(data.containerId)" [nzGhost]="true">
+                <i class="anticon anticon-delete"></i>Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+    <app-add-line-dialog></app-add-line-dialog>
+    <app-container-form-dialog (upDateContainer)="upDateContainer($event)" (addContainer)="addContainer($event)"></app-container-form-dialog>
+  </div>
+</div>

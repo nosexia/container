@@ -1,0 +1,9 @@
+<div [ngClass]="'door-body'">
+    <div class="door-content">
+        <div [ngClass]="{'door': true}">
+            <img src="../../../assets/images/door_close.svg" *ngIf="isOpen === 0" />
+            <img src="../../../assets/images/door_open.svg" *ngIf="isOpen === 1" />
+        </div>
+    </div>
+    <h3>{{isOpen === 0 ? 'Door Close' : 'Door Open' }}</h3>
+  </div>

@@ -1,0 +1,137 @@
+<nz-modal [nzWidth]="900" [(nzVisible)]="isVisible" [nzTitle]="modalTitles" [nzContent]="modalContents" [nzFooter]="null" (nzOnCancel)="handleCancel()">
+    <ng-template #modalTitles>
+        DiagnosisInfo<button nz-button [ngStyle]="{'margin-left': '10px'}" (click)="Reci()"><i class="anticon anticon-reload"></i>Recheck</button>
+    </ng-template>
+    <ng-template #modalContents>
+        <div nz-row class="content-left-style">
+            <div nz-col nzSpan="8" *ngIf="item" >
+                <div nz-row [ngStyle]="{'line-height': '40px'}">
+                    <div nz-col nzSpan="12" class="content-left-key">
+                        <span class="content-left-key">Device Name</span>
+                    </div>
+                    <div nz-col nzSpan="12" class="content-left-vaule">
+                        <span class="content-left-vaule">{{item.deviceName}}</span>
+                    </div>
+                </div>
+                <div nz-row [ngStyle]="{'line-height': '40px'}">
+                    <div nz-col nzSpan="12" class="content-left-key">
+                        <span class="content-left-key">Device SN</span>
+                    </div>
+                    <div nz-col nzSpan="12" class="content-left-vaule">
+                        <span class="content-left-vaule">{{item.deviceId}}</span>
+                    </div>
+                </div>
+                <div nz-row [ngStyle]="{'line-height': '40px'}">
+                    <div nz-col nzSpan="12" class="content-left-key">
+                        <span class="content-left-key">Enterprise</span>
+                    </div>
+                    <div nz-col nzSpan="12" class="content-left-vaule">
+                        <span class="content-left-vaule">{{item.enterpriseId | enterpriseName}}</span>
+                    </div>
+                </div>
+                <div nz-row [ngStyle]="{'line-height': '40px'}">
+                    <div nz-col nzSpan="12" class="content-left-key">
+                        <span class="content-left-key">SIM Name</span>
+                    </div>
+                    <div nz-col nzSpan="12" class="content-left-vaule">
+                        <span class="content-left-vaule">{{item.simName}}</span>
+                    </div>
+                </div>
+                <div nz-row [ngStyle]="{'line-height': '40px'}">
+                    <div nz-col nzSpan="12" class="content-left-key">
+                        <span class="content-left-key">State</span>
+                    </div>
+                    <div nz-col nzSpan="12" class="content-left-vaule">
+                        <span class="content-left-vaule">{{item.state | deviceStatus}}</span>
+                    </div>
+                </div>
+                <div nz-row [ngStyle]="{'line-height': '40px'}">
+                    <div nz-col nzSpan="12" class="content-left-key">
+                        <span class="content-left-key">RuleSet Name</span>
+                    </div>
+                    <div nz-col nzSpan="12" class="content-left-vaule">
+                        <span class="content-left-vaule">{{item.rulesetName}}</span>
+                    </div>
+                </div>
+            </div>
+            <div nz-col nzSpan="16">
+              <div class="dialog-form-content">
+                  <div nz-row class=" item-content-style">
+                      <div nz-col nzSpan="3" class="content-img">
+                          <img  src="../../../assets/images/icon_hlw.png" alt="">
+                      </div>
+                      <div nz-col nzSpan="5" class="content-title">
+                        <span >
+                            <nz-spin [nzSize]="'small'" [nzSpinning]="isSpinning" *ngIf="isSpinning">Loading</nz-spin>
+                        </span>
+                        <span *ngIf="!isSpinning"><nz-tag [nzColor]="'#87d068'">Passed</nz-tag></span>
+                      </div>
+                      <div nz-col nzSpan="16" class="content-text" *ngIf="!isSpinning">
+                          <span>have attach the network</span>
+                      </div>
+                  </div>
+              </div>
+              <div class="dialog-form-content">
+                  <div nz-row class=" item-content-style">
+                      <div nz-col nzSpan="3" class="content-img">
+                          <img  src="../../../assets/images/icon_ip.png" alt="">
+                      </div>
+                      <div nz-col nzSpan="5" class="content-title">
+                            <span >
+                                <nz-spin [nzSize]="'small'" [nzSpinning]="isSpinning" *ngIf="isSpinning">Loading</nz-spin>
+                            </span>
+                            <span *ngIf="!isSpinning"><nz-tag [nzColor]="'#87d068'">Passed</nz-tag></span>
+                      </div>
+                      <div nz-col nzSpan="16" class="content-text" *ngIf="!isSpinning"><span >get local IP success</span></div>
+                  </div>
+              </div>
+              <div class="dialog-form-content">
+                  <div nz-row class=" item-content-style">
+                      <div nz-col nzSpan="3" class="content-img">
+                          <img  src="../../../assets/images/icon_fwq.png" alt="">
+                      </div>
+                      <div nz-col nzSpan="5" class="content-title">
+                            <span >
+                                <nz-spin [nzSize]="'small'" [nzSpinning]="isSpinning" *ngIf="isSpinning">Loading</nz-spin>
+                            </span>
+                            <span *ngIf="!isSpinning"><nz-tag [nzColor]="'#87d068'">Passed</nz-tag></span>
+                      </div>
+                      <div nz-col nzSpan="16" class="content-text" *ngIf="!isSpinning"><span >ping server success</span></div>
+                  </div>
+              </div>
+              <div class="dialog-form-content">
+                  <div nz-row class=" item-content-style">
+                      <div nz-col nzSpan="3" class="content-img">
+                          <img  src="../../../assets/images/icon_lj.png" alt="">
+                      </div>
+                      <div nz-col nzSpan="5" class="content-title">
+                        <span *ngIf="!diagnosisInfo">
+                                <span >
+                                    <nz-spin [nzSize]="'small'" [nzSpinning]="isSpinning" *ngIf="isSpinning">Loading</nz-spin>
+                                </span>
+                                <span *ngIf="!isSpinning"><nz-tag [nzColor]="'#87d068'">Passed</nz-tag></span>
+                        </span>
+
+                        <div *ngIf="diagnosisInfo">
+                            <span>
+                                <nz-spin [nzSize]="'small'" [nzSpinning]="isSpinning" *ngIf="isSpinning">Loading</nz-spin>
+                            </span>
+
+                            <span *ngIf="!isSpinning"><nz-tag [nzColor]="'#FDB839'">Warning</nz-tag></span>
+                        </div>
+
+                      </div>
+                      <div nz-col nzSpan="16" class="content-text">
+                        <span *ngIf="!diagnosisInfo && !isSpinning" >register success</span>
+                        <span *ngIf="diagnosisInfo && !isSpinning" >{{diagnosisInfo}}</span>
+                     </div>
+                  </div>
+              </div>
+            </div>
+        </div>
+      <div>
+    </div>
+  </ng-template>
+</nz-modal>
+  
+  

@@ -1,0 +1,23 @@
+.enterprise-contents {
+  width: 97%;
+  height: 93%;
+  margin: 15px auto;
+  background: #fff;
+  line-height: 60px;
+}
+.enterprise-contents .container-nav {
+  margin-top: 10px;
+}
+.enterprise-contents .container-nav .delete-button {
+  margin-left: 5px;
+}
+.enterprise-contents .data-table-contents {
+  padding: 0 10px;
+}
+.enterprise-contents .data-table-contents .i-link {
+  color: #409eff;
+  cursor: pointer;
+}
+.enterprise-contents .data-table-contents .i-link:hover {
+  text-decoration: underline;
+}

@@ -1,0 +1,41 @@
+<div [ngClass]="'app-home'" >
+  <nz-layout class="layout">
+    <nz-header>
+      <div class="logo">
+          <img src="../../../assets/images/logo.png" />
+          <span style="margin-left: 10px;font-weight: bold;">E2E Logistics Solution</span>
+      </div>
+      <ul nz-menu [nzMode]="'horizontal'" class="left-menu">
+        <li nz-menu-item (click)="showPage()"><a routerLink="">Home</a></li>
+        <li nz-menu-item routerLinkActive="ant-menu-item-selected" *ngIf="storageService.getStorage.group !== 1 || storageService.getStorage.group !== 2" ><a routerLink="userlist">User</a></li>
+        
+        <li nz-menu-item routerLinkActive="ant-menu-item-selected"><a routerLink="enterpriseList">Enterprise</a></li>
+        <li nz-menu-item routerLinkActive="ant-menu-item-selected"><a routerLink="device">{{ 'HOME.NAV.DEVICE' | translate }}</a></li>
+        <li nz-menu-item routerLinkActive="ant-menu-item-selected"><a routerLink="container">{{ 'HOME.NAV.CONTAINER' | translate }}</a></li>
+        <li nz-menu-item routerLinkActive="ant-menu-item-selected"><a routerLink="journey">Journey</a></li>
+        <li nz-menu-item routerLinkActive="ant-menu-item-selected"><a routerLink="ruleset">RuleSet</a></li>
+        <!-- <li nz-menu-item routerLinkActive="ant-menu-item-selected"><a routerLink="ruleset">RuleSet</a></li> -->
+        <li nz-menu-item routerLinkActive="ant-menu-item-selected"><a routerLink="statisticalreport">Statistics</a></li>
+        <li nz-menu-item routerLinkActive="ant-menu-item-selected"><a routerLink="sim">SIM</a></li>
+      </ul>
+      <ul nz-menu [nzMode]="'horizontal'" class="right-menu">
+          <li class="menu-right-item username">{{storageService.getStorage.username}}</li>
+          <!-- <li class="menu-right-item">
+              <nz-dropdown [nzTrigger]="'click'">
+                  <a nz-dropdown>
+                    {{ 'HOME.NAV.LANGUAGE' | translate }} <i class="anticon anticon-down"></i>
+                  </a>
+                  <ul nz-menu>
+                    <li nz-menu-item (click)="useLanguage('en')">English</li>
+                    <li nz-menu-item (click)="useLanguage('zh')">简体中文</li>
+                  </ul>
+                </nz-dropdown>
+          </li> -->
+          <li class="menu-right-item" (click)="showConfirm()">{{ 'HOME.NAV.EXIT' | translate }}</li>
+        </ul>
+    </nz-header>
+    <nz-content [ngStyle]="{'height': 'calc(100vh - 64px)'}">
+        <router-outlet></router-outlet>
+    </nz-content>
+  </nz-layout>
+</div>

@@ -1,0 +1,55 @@
+<nz-modal [nzWidth]="600" [(nzVisible)]="isVisible" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]="null" (nzOnCancel)="handleCancel()">
+    <ng-template #modalTitle>
+      Info
+    </ng-template>
+  
+    <ng-template #modalContent>
+      <div class="dialog-form-content">
+        <!-- <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+          <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="containerName">ContainerName</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24">
+              <input nz-input formControlName="containerName" id="containerName">
+              <nz-form-explain *ngIf="validateForm.get('containerName').dirty && validateForm.get('containerName').errors?.required">Please input ContainerName!</nz-form-explain>
+              <nz-form-explain *ngIf="validateForm.get('containerName').dirty && validateForm.get('containerName').errors?.minlength || validateForm.get('containerName').errors?.maxlength">ContainerName must be between 3 and 15 characters!</nz-form-explain>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="containerId" nzRequired>ContainerID</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24">
+              <input nz-input id="containerId" formControlName="containerId">
+              <nz-form-explain *ngIf="validateForm.get('containerId').dirty && validateForm.get('containerId').errors?.required">Please input ContainerID!</nz-form-explain>
+              <nz-form-explain *ngIf="validateForm.get('containerId').dirty && validateForm.get('containerId').errors?.minlength || validateForm.get('containerId').errors?.maxlength">ContainerID must be between 3 and 20 characters!</nz-form-explain>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="enterpriseId" nzRequired>Enterprise</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24">
+              <input nz-input id="enterpriseId" formControlName="enterpriseId">
+              <nz-form-explain *ngIf="validateForm.get('enterpriseId').dirty && validateForm.get('enterpriseId').errors">Please input Enterprise!</nz-form-explain>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="deviceId">DeviceID</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24">
+              <input nz-input id="deviceId" formControlName="deviceId">
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+              <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="state">State</nz-form-label>
+              <nz-form-control [nzSm]="14" [nzXs]="24">
+                <input nz-input id="state" formControlName="state">
+              </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control [nzOffset]="6" [nzSpan]="12">
+              <button nz-button nzType="primary" [disabled]="!validateForm.valid">OK</button>
+              <button nz-button [ngClass]="'button-cancel'"  (click)="handleCancel()">Cancel</button>
+            </nz-form-control>
+          </nz-form-item>
+        </form> -->
+      </div>
+    </ng-template>
+  </nz-modal>
+  
+  

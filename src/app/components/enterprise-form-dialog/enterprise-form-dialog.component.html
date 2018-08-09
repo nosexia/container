@@ -1,0 +1,50 @@
+<nz-modal [nzWidth]="600" [(nzVisible)]="isVisible" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]="null" (nzOnCancel)="handleCancel($event)">
+    <ng-template #modalTitle>
+      Info
+    </ng-template>
+  
+    <ng-template #modalContent>
+      <div class="dialog-form-content">
+        <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+          <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="enterpriseName">Enterprise Name</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24">
+              <input nz-input formControlName="enterpriseName" id="enterpriseName" placeholder="Input Enterprise Name">
+              <nz-form-explain *ngIf="validateForm.get('enterpriseName').dirty && validateForm.get('enterpriseName').errors?.required">Please input enterpriseName!</nz-form-explain>
+              <nz-form-explain *ngIf="validateForm.get('enterpriseName').dirty && validateForm.get('enterpriseName').errors?.minlength || validateForm.get('enterpriseName').errors?.maxlength">Enterprise Name must be between 3 and 15 characters!</nz-form-explain>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="contactName" nzRequired>Contact Name</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24">
+              <input nz-input id="contactName" formControlName="contactName" placeholder="Input Contact Name">
+              <nz-form-explain *ngIf="validateForm.get('contactName').dirty && validateForm.get('contactName').errors?.required">Please input ContactName!</nz-form-explain>
+              <nz-form-explain *ngIf="validateForm.get('contactName').dirty && validateForm.get('contactName').errors?.minlength || validateForm.get('contactName').errors?.maxlength">Contact Name must be between 3 and 50 characters!</nz-form-explain>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="contactNo" nzRequired>Phone</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24">
+              <input nz-input id="contactNo" formControlName="contactNo" placeholder="Input Phone">
+              <nz-form-explain *ngIf="validateForm.get('contactNo').dirty && validateForm.get('contactNo').errors">Please input ContactNo!</nz-form-explain>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+              <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="email">Email</nz-form-label>
+              <nz-form-control [nzSm]="14" [nzXs]="24">
+                <input nz-input id="email" formControlName="email" placeholder="Input Email">
+                <nz-form-explain *ngIf="validateForm.get('email').dirty && validateForm.get('email').errors">The input is not valid E-mail!</nz-form-explain>
+              </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control [nzOffset]="6" [nzSpan]="12">
+              <button nz-button [ngClass]="'button-cancel'" (click)="handleCancel($event)">Cancel</button>
+              <button nz-button [ngClass]="'button-confirm'" nzType="primary" [disabled]="!validateForm.valid">Ok</button>
+            </nz-form-control>
+          </nz-form-item>
+        </form>
+      </div>
+    </ng-template>
+  </nz-modal>
+  
+  

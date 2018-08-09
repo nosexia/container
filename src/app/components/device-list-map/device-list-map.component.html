@@ -1,0 +1,9 @@
+<agm-map [ngStyle]="{'height': 'calc(100vh - 60px)'}" [latitude]="lat" [longitude]="lng" [zoom]="zoomValue">
+    <agm-marker *ngFor="let item of deviceListService.deviceData;let i = index"   [latitude]="item.latitude / 1000000" [longitude]="item.longitude / 1000000" (markerClick)="markerClick(item)" [label]="i | tostring">
+      <agm-snazzy-info-window [showCloseButton]="false"  [maxWidth]="350" [maxHeight]="370" padding="0" [isOpen]="item.isOpen">
+        <ng-template>
+          <app-device-info-item-window (closeWin)="closeWin($event)" [item]="item"></app-device-info-item-window>
+        </ng-template>
+      </agm-snazzy-info-window>
+    </agm-marker>
+  </agm-map>

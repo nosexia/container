@@ -1,0 +1,52 @@
+.device-contents {
+  width: 97%;
+  height: 93%;
+  margin: 15px auto;
+  background: #fff;
+  line-height: 60px;
+}
+.device-contents .container-list-device-content {
+  height: 100%;
+}
+.device-contents .container-list-device-content nz-layout {
+  height: 100%;
+  background: #fff;
+}
+.device-contents .container-list-device-content nz-layout .device-split-right {
+  background: #fafafa;
+}
+.device-contents .container-list-device-content nz-layout nz-sider {
+  background: #fff;
+  border-right: 1px solid #e8e8e8;
+}
+.device-contents .container-list-device-content nz-layout nz-sider .c-list-title {
+  line-height: 36px;
+  margin-bottom: 0;
+  border-bottom: 1px solid #e8e8e8;
+  padding-left: 14px;
+}
+.device-contents .show-map-list {
+  width: 150px;
+  position: absolute;
+  z-index: 9;
+  right: 0;
+}
+.device-contents .show-map-list .delete-button {
+  margin-left: 5px;
+}
+.device-contents .container-nav {
+  margin-top: 10px;
+}
+.device-contents .container-nav .delete-button {
+  margin-left: 5px;
+}
+.device-contents .data-table-contents {
+  padding: 0 10px;
+}
+.device-contents .data-table-contents .i-link {
+  color: #409eff;
+  cursor: pointer;
+}
+.device-contents .data-table-contents .i-link:hover {
+  text-decoration: underline;
+}

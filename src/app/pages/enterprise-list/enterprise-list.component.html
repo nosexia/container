@@ -1,0 +1,64 @@
+<div class="enterprise-contents">
+    <div nz-row class="container-nav">
+      <div nz-col nzSpan="12">
+        <app-enterprise-query [queryType]="queryType" (queryInput)="queryInput($event)"></app-enterprise-query>
+      </div>
+      <div nz-col nzSpan="9"></div>
+      <div nz-col nzSpan="3" style="text-align: right; padding-right: 10px;">
+        <button nz-button nzType="primary" (click)="dialogOpen(null, 0)"><i class="anticon anticon-plus-circle-o"></i>{{ 'DEVICE.ADDBUTTON' | translate }}</button>
+      </div>
+    </div>
+    <div [ngClass]="'data-table-contents'">
+      <nz-table
+        #rowSelectionTable
+        [nzData]="enterpriseListService.enterpriseData"
+        (nzCurrentPageDataChange)="enterpriseListService.currentPageDataChange($event)"
+        (nzPageIndexChange)="enterpriseListService.refreshStatus()"
+        (nzPageSizeChange)="enterpriseListService.refreshStatus()"
+        [nzShowQuickJumper]="true"
+        [nzPageSize]="10"
+        [nzScroll]="{ y: '340px' }"
+        [nzHideOnSinglePage] = "true"
+        [nzTotal]="enterpriseListService.dataTotal">
+        <thead>
+          <tr>
+            <!-- <th nzShowCheckbox [(nzChecked)]="enterpriseListService.allChecked" [nzIndeterminate]="enterpriseListService.indeterminate" (nzCheckedChange)="enterpriseListService.checkAll($event)"></th> -->
+            <!-- <th>{{ 'DEVICE.DATE' | translate }}</th>
+            <th>{{ 'DEVICE.NAME' | translate }}</th>
+            <th>{{ 'DEVICE.ADDRESS' | translate }}</th> -->
+            <th nzWidth="10%">Enterprise ID</th>
+            <th nzWidth="15%">Enterprise Name</th>
+            <th nzWidth="15%">Contact Name</th>
+            <th nzWidth="20%">Phone</th>
+            <th nzWidth="20%">Email</th>
+            <th>Operation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of rowSelectionTable.data">
+            <!-- <td nzShowCheckbox [(nzChecked)]="data.checked" [nzDisabled]="data.disabled" (nzCheckedChange)="enterpriseListService.refreshStatus($event)"></td> -->
+            <td>
+                {{data.enterpriseId}}
+            </td>
+            <td>
+                {{data.enterpriseName}}
+            </td>
+            <td>{{data.contactName}}</td>
+            <td>{{data.contactNo}}</td>
+            <td>{{data.email}}</td>
+            <td>
+              <button nz-button nzType="primary" *ngIf="data.enterpriseId" nzSize="small" (click)="dialogOpen(data, 1)" [nzGhost]="true"  style="margin-right: 10px;">
+                  <i class="anticon anticon-edit"></i>Modify
+              </button>
+              <button nz-button nzType="danger" *ngIf="data.enterpriseId" nzSize="small" class="delete-button" (click)="deleteEnterprise(data.enterpriseId)" [nzGhost]="true">
+                <i class="anticon anticon-delete"></i>{{ 'DEVICE.DELETEBUTTON' | translate }}
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+      <app-enterprise-form-dialog (upDateEnterprise)="upDateEnterprise($event)" (addEnterprise)="addEnterprise($event)"></app-enterprise-form-dialog>
+
+      
+    </div>
+  </div>

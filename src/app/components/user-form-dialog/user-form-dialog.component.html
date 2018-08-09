@@ -1,0 +1,84 @@
+<nz-modal [nzWidth]="600" [(nzVisible)]="isVisible" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]="null" (nzOnCancel)="handleCancel($event)">
+  <ng-template #modalTitle>
+    Info
+  </ng-template>
+
+  <ng-template #modalContent>
+    <div class="dialog-form-content">
+      <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+        <nz-form-item *ngIf="type === 0" >
+          <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="enterpriseId">Enterprise Name</nz-form-label>
+          <nz-form-control [nzSm]="14" [nzXs]="24">
+            <!-- <input nz-input formControlName="enterpriseId" id="enterpriseId"> -->
+            <nz-select id="enterpriseId" formControlName="enterpriseId" nzPlaceHolder="Select Enterprise Name">
+              <nz-option *ngFor="let option of enterpriseListService.enterpriseData" [nzLabel]="option.enterpriseName" [nzValue]="option.enterpriseId"></nz-option>
+            </nz-select>
+            <nz-form-explain *ngIf="validateForm.get('enterpriseId').dirty && validateForm.get('enterpriseId').errors">Please input Enterprise Name!</nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item *ngIf="type === 1" >
+          <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="enterpriseName">Enterprise Name</nz-form-label>
+          <nz-form-control [nzSm]="14" [nzXs]="24">
+            <input nz-input formControlName="enterpriseName" id="enterpriseName">
+            <nz-form-explain *ngIf="validateForm.get('enterpriseName').dirty && validateForm.get('enterpriseName').errors">Please input Enterprise Name!</nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item> 
+          <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="username" nzRequired>Username</nz-form-label>
+          <nz-form-control [nzSm]="14" [nzXs]="24">
+            <input nz-input id="username" formControlName="username" placeholder="Input Username">
+            <nz-form-explain *ngIf="validateForm.get('username').dirty && validateForm.get('username').errors?.required">Please input Username!</nz-form-explain>
+            <nz-form-explain *ngIf="validateForm.get('username').dirty && validateForm.get('username').errors?.minlength || validateForm.get('username').errors?.maxlength">Username must be between 3 and 15 characters!</nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item> 
+          <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="password" nzRequired>Password</nz-form-label>
+          <nz-form-control [nzSm]="14" [nzXs]="24">
+            <input nz-input id="password" formControlName="password" type="password" placeholder="Input Password">
+            <nz-form-explain *ngIf="validateForm.get('password').dirty && validateForm.get('password').errors?.required">Please input Password!</nz-form-explain>
+            <nz-form-explain *ngIf="validateForm.get('password').dirty && validateForm.get('password').errors?.minlength || validateForm.get('password').errors?.maxlength">Password must be between 3 and 15 characters!</nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+        <!-- <nz-form-item> 
+          <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="firstName">FirstName</nz-form-label>
+          <nz-form-control [nzSm]="14" [nzXs]="24">
+            <input nz-input id="firstName" formControlName="firstName">
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item> 
+          <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="lastName">lastName</nz-form-label>
+          <nz-form-control [nzSm]="14" [nzXs]="24">
+            <input nz-input id="lastName" formControlName="lastName">
+          </nz-form-control>
+        </nz-form-item> -->
+        <nz-form-item>
+          <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="email">Email</nz-form-label>
+          <nz-form-control [nzSm]="14" [nzXs]="24">
+            <input nz-input id="email" formControlName="email" placeholder="Input Email">
+            <nz-form-explain *ngIf="validateForm.get('email').dirty && validateForm.get('email').errors">The input is not valid E-mail!</nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="contactPhone">Phone</nz-form-label>
+          <nz-form-control [nzSm]="14" [nzXs]="24">
+            <input nz-input id="contactPhone" formControlName="contactPhone" placeholder="Input Email">
+          </nz-form-control>
+        </nz-form-item>
+        <!-- 角色ID -->
+        <!-- <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="group">Group</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24">
+              <input nz-input id="group" formControlName="group">
+            </nz-form-control>
+        </nz-form-item> -->
+        <nz-form-item>
+          <nz-form-control [nzOffset]="6" [nzSpan]="12">
+            <button nz-button (click)="handleCancel($event)">Cancel</button>
+            <button nz-button nzType="primary" [ngClass]="'button-confirm'" [disabled]="!validateForm.valid">OK</button>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+    </div>
+  </ng-template>
+</nz-modal>
+

@@ -1,0 +1,22 @@
+<div class="container-list-only-left-content">
+  <h4 class="container-list-left-title">Container List</h4>
+  <div class="container-list-left-body">
+    <div nz-row [ngClass]="'container-item-body'" *ngFor="let item of allMapService.containerList | paginate: { currentPage: current, pageSize: pageSize };let i = index" (click)="getContainer($event, item)" #containers (mouseenter)="toggleState(true, i)" (mouseleave)="toggleState(false, i)">
+      <div nz-col nzSpan="8" [ngClass]="'container-item-title'">
+          {{item.containerName}}
+          <button *ngIf="noBtn" [ngStyle]="{'position': 'absolute', 'margin-left': '80px', 'z-index': '10', 'font-size': '10px'}" nz-button nzType="primary" nzSize="small" (click)="pushHomeDialog($event, item)" [disabled]="item.state !== 2">{{item.inRoute === 0 ? 'Journey' : 'Enroute'}}</button>
+      </div>
+      <div nz-col nzSpan="11"  [ngClass]="'container-item-bind-device'">
+        <span class="bind-information" [ngStyle]="{'display': 'none'}">{{item.deviceId | allBindContainer : 0 : item.state}}</span>
+      </div>
+      <div nz-col nzSpan="5"  [ngClass]="'container-item-status'">
+        <span [ngClass]="{'offline': item.state === 0 || item.state === null, 'connected': item.state === 1, 'attached': item.state === 2}" ></span>
+      </div>
+    </div>
+    <div class="contianer-pagination">
+      <nz-pagination *ngIf="allMapService.containerList"  [(nzPageIndex)]="current" [nzPageSize]="pageSize" [nzTotal]="allMapService.containerList.length" [nzSize]="'small'"></nz-pagination>
+    </div>
+    <app-add-line-dialog></app-add-line-dialog>
+  </div>
+</div>
+  

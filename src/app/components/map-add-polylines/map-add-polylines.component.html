@@ -1,0 +1,14 @@
+<div>
+  <div class="button-content">
+      <input (click)="previous()" type=button value="previous">
+      <input (click)="clearLine()" type=button value="Rest line">
+  </div>
+  <agm-map [ngStyle]="{'height': '300px', 'width': '400px'}" [latitude]="lat" [longitude]="lng" [zoom]="zoomValue" (mapClick)="placeMarker($event)">
+      <agm-polyline [strokeColor]="'red'">
+          <ng-container *ngFor="let point of roadmaps">
+            <agm-polyline-point [latitude]="point.latitude" [longitude]="point.longitude">
+            </agm-polyline-point>
+          </ng-container>
+      </agm-polyline>
+  </agm-map>
+</div>

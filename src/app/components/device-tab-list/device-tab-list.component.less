@@ -1,0 +1,51 @@
+.small-tab-list-contents {
+    nz-tabset {
+        ::ng-deep .ant-tabs-bar {
+            margin: 0;
+            // border-bottom: 0;
+            .ant-tabs-nav-container {
+                .ant-tabs-nav-wrap {
+                    .ant-tabs-nav-scroll {
+                        .ant-tabs-nav {
+                            .ant-tabs-tab {
+                                margin: 0 0px 0 14px;
+                                padding: 12px 0px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        ::ng-deep .ant-tabs-content {
+            nz-list {
+                border: none;
+                border-bottom: 1px solid #e8e8e8;
+                border-radius: 0;
+                .ng-star-inserted {
+                    cursor: pointer;
+                    // margin-top: 6px;
+                    // margin-bottom: 6px;
+                    .device-status {
+                        width: 10px;
+                        height: 10px;
+                        background: #52B54C;
+                        border-radius: 50%;
+                        position: absolute;
+                        right: 0;
+                        margin-right: 15px;
+                        top: 13px;
+                    }
+                }
+                .ng-star-inserted:hover {
+                    background: #F5F7FA;
+                }
+            }
+            .tab-list-no-data {
+                text-align: center;
+                color: #606266;
+                padding: 30px 0;
+                border-bottom: 1px solid #e8e8e8;
+            }
+        }
+    }
+}

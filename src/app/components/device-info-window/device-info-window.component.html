@@ -1,0 +1,113 @@
+<div [ngClass]="'dev-infowindow-content'" >
+  <div nz-row [ngClass]="{'window-status-bar': true, 'offline': vehicles.state === 0 || null, 'connected': vehicles.state === 1, 'attached': vehicles.state === 2, 'activated': vehicles.state === 3}">
+    <div nz-col nzSpan="12">
+      <span [ngClass]="'dev-name'">Device</span>
+      <span [ngClass]="'dev-attached'">({{vehicles.state | deviceStatus}})</span>
+    </div>
+    <div nz-col nzSpan="12" class="dev-bar-icon-content">
+      <!-- <i class="anticon anticon-wifi"></i> -->
+      <span>{{vehicles.startTime | date: 'yyyy-MM-dd hh:mm:ss'}}</span>
+      <i class="anticon anticon-close" (click)="closeInfoWindow()"></i>
+    </div>
+  </div>
+  <div nz-row [ngClass]="'dev-info-electricity-content'">
+    <div nz-col nzSpan="24" [ngClass]="'dev-info-electricity-left'">
+      <div nz-row class="dev-info-left-content">
+        <div nz-col nzSpan="12">
+          <span [ngClass]="'dev-info-b-title'">Device Name：</span>
+        </div>
+        <div nz-col nzSpan="12">
+          <span [ngClass]="'dev-info-b-ftitle'">{{vehicles.deviceName}}</span>
+        </div>
+      </div>
+    </div>
+    <div nz-col nzSpan="24" [ngClass]="'dev-info-electricity-left'">
+      <div nz-row class="dev-info-left-content">
+        <div nz-col nzSpan="12">
+          <span [ngClass]="'dev-info-b-title'">GPS Time：</span>
+        </div>
+        <div nz-col nzSpan="12">
+          <span [ngClass]="'dev-info-b-ftitle'">{{vehicles.gpsTime * 1000 | date: 'yyyy-MM-dd hh:mm:ss'}}</span>
+        </div>
+      </div>
+    </div>
+    <div nz-col nzSpan="24" [ngClass]="'dev-info-electricity-left'">
+      <div nz-row class="dev-info-left-content">
+        <div nz-col nzSpan="12">
+          <span [ngClass]="'dev-info-b-title'">Longitude：</span>
+        </div>
+        <div nz-col nzSpan="12">
+          <span [ngClass]="'dev-info-b-ftitle'">{{vehicles.longitude}}</span>
+        </div>
+      </div>
+    </div>
+    <div nz-col nzSpan="24" [ngClass]="'dev-info-electricity-left'">
+        <div nz-row class="dev-info-left-content">
+          <div nz-col nzSpan="12">
+            <span [ngClass]="'dev-info-b-title'">Latitude：</span>
+          </div>
+          <div nz-col nzSpan="12">
+            <span [ngClass]="'dev-info-b-ftitle'">{{vehicles.latitude}}</span>
+          </div>
+        </div>
+    </div>
+    <div nz-col nzSpan="24" [ngClass]="'dev-info-electricity-left'">
+      <div nz-row class="dev-info-left-content">
+        <div nz-col nzSpan="12">
+          <span [ngClass]="'dev-info-b-title'">SIM ICCID：</span>
+        </div>
+        <div nz-col nzSpan="12">
+          <span [ngClass]="'dev-info-b-ftitle'">{{vehicles.simiccid}}</span>
+        </div>
+      </div>
+    </div>
+    <div nz-col nzSpan="24" [ngClass]="'dev-info-electricity-left'">
+      <div nz-row class="dev-info-left-content">
+        <div nz-col nzSpan="12">
+          <span [ngClass]="'dev-info-b-title'">SIM IMSI：</span>
+        </div>
+        <div nz-col nzSpan="12">
+          <span [ngClass]="'dev-info-b-ftitle'">{{vehicles.simimsi}}</span>
+        </div>
+      </div>
+    </div>
+    <div nz-col nzSpan="24" [ngClass]="'dev-info-electricity-left'">
+      <div nz-row class="dev-info-left-content">
+        <div nz-col nzSpan="12">
+          <span [ngClass]="'dev-info-b-title'">Module SN：</span>
+        </div>
+        <div nz-col nzSpan="12">
+          <span [ngClass]="'dev-info-b-ftitle'">{{vehicles.modulesn}}</span>
+        </div>
+      </div>
+    </div>
+    <div nz-col nzSpan="24" [ngClass]="'dev-info-electricity-left'">
+      <div nz-row class="dev-info-left-content">
+        <div nz-col nzSpan="12">
+          <span [ngClass]="'dev-info-b-title'">Module IMEI：</span>
+        </div>
+        <div nz-col nzSpan="12">
+          <span [ngClass]="'dev-info-b-ftitle'">{{vehicles.moduleimei}}</span>
+        </div>
+      </div>
+    </div>
+    <div nz-col nzSpan="24" [ngClass]="'dev-info-electricity-left'">
+        <div nz-row class="dev-info-left-content">
+          <div nz-col nzSpan="12">
+            <span [ngClass]="'dev-info-b-title'">Cell Info：</span>
+          </div>
+          <div nz-col nzSpan="12">
+            <span [ngClass]="'dev-info-b-ftitle'">{{vehicles.cellinfo}}</span>
+          </div>
+        </div>
+    </div>
+    <!-- <div nz-col nzSpan="8" [ngClass]="'dev-info-electricity-right'">
+      <div class="battery-content">
+          <div class="battery">
+            <span [ngStyle]="{'height': 55 + '%'}"></span>
+          </div>
+      </div>
+      <p>{{ 'MAP.DEVICEINFOWINDOW' | translate }} 55%</p>
+    </div> -->
+  </div>
+</div>

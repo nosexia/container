@@ -1,0 +1,76 @@
+<div class="container-list-device-content">
+  <!-- <nz-layout *ngIf="!allMapService.DallShows">
+    <nz-sider [nzWidth]="270" >
+      <div>
+        <app-container-list-left></app-container-list-left>
+        <app-device-list-left></app-device-list-left>
+      </div>
+    </nz-sider>
+    <nz-layout>
+        <split [gutterSize]="4">
+          <split-area size="50">
+            <app-device-google-map
+              [fromto]="fromToMarkerService.fromto" 
+              [vehicle]="vehicleInformationService.data"
+            ></app-device-google-map>
+          </split-area>
+          <split-area size="50" [ngClass]="'device-split-right'" *ngIf="allMapService.allShows">
+            <app-cd-tab-right></app-cd-tab-right>
+          </split-area>
+        </split>
+    </nz-layout>
+  </nz-layout>
+  <nz-layout *ngIf="allMapService.DallShows">
+    <nz-sider [nzWidth]="270">
+      <div>
+        <app-container-list-only-left [noBtn]="true"></app-container-list-only-left>
+        <app-device-list-only-left></app-device-list-only-left>
+      </div>
+    </nz-sider>
+    <nz-layout>
+        <split [gutterSize]="4">
+          <split-area size="50">
+            <app-all-map (showContaner)="showContaner($event)" (showDevice)="showDevice($event)" [device]="allMapService.deviceList" [container]="allMapService.containerList"></app-all-map>
+          </split-area>
+          <split-area size="50" [ngClass]="'device-split-right'" *ngIf="allMapService.allShows">
+            <app-cd-tab-right></app-cd-tab-right>
+          </split-area>
+        </split>
+    </nz-layout>
+  </nz-layout>-->
+  <nz-layout *ngIf="homeTypeService.showAllCD">
+    <nz-sider [nzWidth]="300">
+      <div>
+        <app-container-list-left [noBtn]="true"></app-container-list-left>
+        <app-device-list-left></app-device-list-left>
+      </div>
+    </nz-sider>
+    <nz-layout>
+        <split [gutterSize]="4">
+          <split-area size="50">
+            <app-all-map (showContaner)="showContaner($event)" (showDevice)="showDevice($event)" [device]="allMapService.deviceList" [container]="allMapService.containerList"></app-all-map>
+          </split-area>
+          <split-area size="50" [ngClass]="'device-split-right'" *ngIf="homeTypeService.showRight">
+            <app-cd-tab-right></app-cd-tab-right>
+          </split-area>
+        </split>
+    </nz-layout>
+  </nz-layout>
+  <nz-layout *ngIf="!homeTypeService.showAllCD">
+    <nz-sider [nzWidth]="300">
+      <div>
+        
+      </div>
+    </nz-sider>
+    <nz-layout>
+        <split [gutterSize]="4">
+          <split-area size="50">
+            
+          </split-area>
+          <split-area size="50" [ngClass]="'device-split-right'">
+            
+          </split-area>
+        </split>
+    </nz-layout>
+  </nz-layout>
+</div>

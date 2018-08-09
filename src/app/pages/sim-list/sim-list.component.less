@@ -1,0 +1,46 @@
+@content-bg: #fff;
+@content-height: 100%;
+.sim-contents {
+    width: 97%;
+    height: 93%;
+    margin: 15px auto;
+    background: #fff;
+    line-height: 60px;
+    .container-list-device-content {
+        height: @content-height;
+        nz-layout {
+            height: @content-height;
+            background: @content-bg;
+            .device-split-right {
+                background: #fafafa;
+            }
+            nz-sider {
+                background: @content-bg;
+                border-right: 1px solid #e8e8e8;
+                .c-list-title {
+                    line-height: 36px;
+                    margin-bottom: 0;
+                    border-bottom: 1px solid #e8e8e8;
+                    padding-left: 14px;
+                }
+            }
+        }
+    }
+    .container-nav {
+        margin-top: 10px;
+        line-height: 60px;
+        .delete-button {
+            margin-left: 5px;
+        }
+    }
+    .data-table-contents {
+        padding: 0 10px;
+        .i-link {
+            color: #409eff;
+            cursor: pointer;
+        }
+        .i-link:hover {
+            text-decoration: underline;
+        }
+    }
+}

@@ -1,0 +1,30 @@
+<div class="container-right-content">
+    <div class="engine-table-content">
+        <div nz-row class="engine-table-header">
+            <div nz-col nzSpan="10" class="engine-table-header-left">
+              <p>Container：<span class="name-color">{{containerAndDeviceStatusService.containerName}}</span></p>
+              <p>Device：<span class="name-color">{{containerAndDeviceStatusService.deviceName}}</span></p>
+            </div>
+            <div nz-col nzSpan="6"></div>
+            <div nz-col nzSpan="8" class="engine-table-header-right">
+              <span [ngClass]="{'device-status': true}" [style.backgroundColor]="containerAndDeviceStatusService.containerState | containerStateColor">{{containerAndDeviceStatusService.containerState | deviceStatus}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="graph-map-content">
+      <app-door [isOpen]="containerAndDeviceStatusService.door"></app-door>
+    </div>
+    <div class="graph-map-content">
+        <app-container-sensor #t [newValue]="temperatureService.data" [warn]="temperatureService.warn" ></app-container-sensor>
+        <!-- <app-temperature-graph [newValue]="temperatureService.data" [warn]="temperatureService.warn"></app-temperature-graph> -->
+    </div>
+    <div class="graph-map-content">
+        <app-container-sensor #h [newValue]="humidityService.data" [warn]="humidityService.warn"></app-container-sensor>
+        <!-- <app-temperature-graph [newValue]="humidityService.data" [warn]="humidityService.warn"></app-temperature-graph> -->
+    </div>
+    <div class="graph-map-content">
+        <app-container-sensor #a [newValue]="accelerationService.data" [warn]="accelerationService.warn"></app-container-sensor>
+        <!-- <app-temperature-graph [newValue]="accelerationService.data" [warn]="accelerationService.warn"></app-temperature-graph> -->
+    </div>
+    <!-- <app-container-sensor #temperature></app-container-sensor> -->
+</div>

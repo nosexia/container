@@ -1,0 +1,20 @@
+export interface TerminalList {
+    containerIds: Array<any>,
+    deviceIds: Array<any>,
+    journeyId: number,
+    enterpriseId: string,
+    from: number,
+    to: number,
+    startTime: string,
+    endTime: string,
+    status: number,
+    opUserId: number,
+    createDate: string,
+    updateDate: string,
+    fromCity: string,
+    toCity: string,
+    fromLatitude: string,
+    fromLongitude: string,
+    toLatitude: string,
+    toLongitude: string
+}
