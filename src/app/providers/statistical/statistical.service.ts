@@ -4,6 +4,10 @@ import { HttpService } from '../http/http.service';
 import HTTP_URL from '../../datas/http-url.data';
 import { StorageService } from '../storage-type/storage.service';
 import { NzModalService, NzMessageService } from 'ng-zorro-antd';
+import { ContainerSocketService } from '../container-socket/container-socket.service'
+// import { Z_DATA_ERROR } from 'zlib';
+import * as Highcharts from 'highcharts';
+
 let colorsshandian = ['#f5222d','#FD883E', '#13b054'];
 let colors = ['#78a7d0','#318eba', '#0d5481'];
 // 初始数据
@@ -11,7 +15,9 @@ let x1 = [];
 let y1 = [];
 
 let x2 = [];
-let y2 = [[]];
+let y2 = [];
+
+let sensorTag = 0;
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +28,8 @@ export class StatisticalService {
     private httpService: HttpService,
     private storageService: StorageService,
     private modalService: NzModalService,
-    private message: NzMessageService
+    private message: NzMessageService,
+    private containerSocketService: ContainerSocketService
   ) { 
     this.resetData()
   }
@@ -94,59 +101,30 @@ export class StatisticalService {
         title: {
           text: 'Average'
         },
+        chart: {
+          type: 'spline',
+          marginRight: 10
+        },          
         legend: {
           enabled: false
         },
         credits: {
           enabled: false
         },
-        xAxis: [{
-          title: { text: '' },
-          gridLineWidth: 0,
-          labels: {
-            rotation: 90
+        xAxis: {
+          type: 'datetime',
+          tickPixelInterval: 150          
+        },
+        yAxis: {
+          title: {
+            text: null
           }
-        }, {
-          title: { text: '' },
-          opposite: true,
-          visible: false
-        }],
-        yAxis: [{
-          title: { text: 'Fx' }
-        }],
+        },
         series: [{
-          name: 'Bell curve',
-          type: 'bellcurve',
-          xAxis: 1,
-          yAxis: 0,
-          data: x1,
-          baseSeries: 1,
-          zoneAxis: 'x',
-          zones: [{
-            value: 0,
-            color: colors[0],
-          }, {
-            value: 0.1,
-            color: colors[1],
-          }, {
-            value: 0.3,
-            color: colors[2],
-          }, {
-            value: 0.4,
-            color: colors[0],
-          }, {
-            color: colors[2],
-          }],
-          followPointer: true
-        }, {
-          name: 'Data',
-          type: 'scatter',
-          data: y1,
-          marker: {
-            radius: 4,
-            symbol: 'circle'
-          }
-        }]
+          name: 'Average',
+          type: 'line',
+          data: y1
+          }]
       },
 
 
@@ -162,22 +140,21 @@ export class StatisticalService {
         },
         xAxis: [{
           title: { text: '' },
-          // gridLineColor: '#ffffff',
-          gridLineWidth: 0,
-
         }, {
           title: { text: '' },
-          opposite: true,
-          visible: false
+          opposite: true
         }],
         yAxis: [{
-          title: { text: 'Fx' }
+          title: { text: '' },
+        }, {
+          title: { text: 'Fx' },
+          opposite: true
         }],
         series: [{
           name: 'Bell curve',
           type: 'bellcurve',
           xAxis: 1,
-          yAxis: 0,
+          yAxis: 1,
           data: x2,
           baseSeries: 1,
           zoneAxis: 'x',
@@ -414,67 +391,22 @@ export class StatisticalService {
       sensorTag: type,
       containerId: pas.containerId
     }).subscribe(res => {
+      // 设置全局type
+      sensorTag = type;
       res.forEach((item, index) => {
         if (0 === index) {
-          x1 = item.x;
-          y1 = [10, 20, 30, 40, 50];
-          // y1 = [];
-          // item.data.forEach(item => {
-          //   y1.push([item.tag, item.fx]);
-          // });
+          x1 = [];
+          y1 = [];
         } else {
+          // 温度， 湿度，或者加速度的区间值
           x2 = item.x;
+
+          // 温度，湿度，加速度的所有中值
           y2 = [];
           item.data.forEach(item => {
-            y2.push([item.tag, item.fx]);
+            y2.push(item.tag);
           });           
         }
-      this.datas.chartOptions1 = {
-          title: {
-            text: 'Average'
-          },
-          legend: {
-            enabled: false
-          },
-          credits: {
-            enabled: false
-          },
-          xAxis: [{
-            title: { text: '' },
-            gridLineWidth: 0,
-            tickAmount: x1.length,
-            labels: {
-              rotation: 90
-            }
-          }, {
-            title: { text: '' },
-            opposite: true,
-            visible: false
-          }],
-          yAxis: [{
-            title: { text: 'Fx' },
-            ceiling: 1
-          }],
-          series: [{
-            name: 'Bell curve',
-            type: 'line',
-            xAxis: 1,
-            yAxis: 0,
-            data: x1,
-            baseSeries: 1,
-            zoneAxis: 'x',
-            followPointer: true
-          }, {
-            name: 'Data',
-            type: 'scatter',
-            data: y1,
-            marker: {
-              radius: 4,
-              symbol: 'circle'
-            }
-          }]
-        }
-
 
         this.datas.chartOptions2 = {
           title: {
@@ -488,74 +420,118 @@ export class StatisticalService {
           },
           xAxis: [{
             title: { text: '' },
-            gridLineWidth: 0,
-            tickAmount: x1.length,
-            labels: {
-              rotation: 45,
-              step: 2
-            }
           }, {
             title: { text: '' },
-            opposite: true,
-            visible: false
+            opposite: true
           }],
           yAxis: [{
-            title: { text: 'Fx' },
-            ceiling: 1
+            title: { text: '' },
+          }, {
+            title: { text: '' },
+            opposite: true
           }],
           series: [{
             name: 'Bell curve',
             type: 'bellcurve',
             xAxis: 1,
-            yAxis: 0,
-            data: x2,
+            yAxis: 1,
             baseSeries: 1,
-            zoneAxis: 'x',
-            zones: [{
-              value: 0,
-              color: colors[0],
-            }, {
-              value: 0.1,
-              color: colors[1],
-            }, {
-              value: 0.3,
-              color: colors[2],
-            }, {
-              value: 0.4,
-              color: colors[0],
-            }, {
-              color: colors[2],
-            }],
-            followPointer: true
+            zoneAxis: 'x'
           }, {
             name: 'Data',
             type: 'scatter',
             data: y2,
             marker: {
-              radius: 4,
+              radius: 1,
               symbol: 'circle'
-            },
-            zones: [{
-              value: 0.1,
-              color: colorsshandian[0],
-            }, {
-              value: 0.2,
-              color: colorsshandian[1],
-            }, {
-              value: 0.4,
-              color: colorsshandian[2],
-            }, {
-              value: 0.6,
-              color: colorsshandian[2],
-            }, {
-              value: 0.8,
-              color: colorsshandian[1],
-            }]
+            }
           }]
         }
-
       });
+      this.queryStatus(pas.containerId);
     }); 
+  }
+  closeWSS() {
+    this.containerSocketService.closeWS();
+  }
+  socketConnect(id: string, channel: number) {
+    this.containerSocketService.closeWS();
+    this.containerSocketService.createObservableSocket(id, channel)
+    .subscribe(data => {
+      console.log(data);
+      data = JSON.parse(data);
+      x1.push(data.avg.unixtime);
+      if (65 === sensorTag) {        
+        y1.push(data.avg.tempAvg);
+        y2.push(data.mid.tempMidPoint[0]);
+      } else if(66 === sensorTag) {
+        y1.push(data.avg.humMidPoint);
+        y2.push(data.mid.humMidPoint[0]);
+      } else if(67 === sensorTag) {
+        y1.push(data.avg.acceAvg);
+        y2.push(data.mid.acceMidPoint[0]);
+      }
+      this.datas.chartOptions1 = {
+        title: {
+          text: 'Average'
+        },
+
+        chart: {
+          type: 'spline',
+          marginRight: 10
+        },
+
+        legend: {
+          enabled: false
+        },
+        credits: {
+          enabled: false
+        },
+        xAxis: {
+          type: 'datetime',
+          tickPixelInterval: 150
+        },
+        yAxis: {
+          title: {
+            text: null
+          }
+        },
+        tooltip: {
+          formatter:  function(value) {            
+            return '<b>' + this.series.name + '</b><br/>' + 
+            Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', x1[this.x]) + '<br/>' + this.y;
+          }
+        },
+        series: [{
+          name: 'Average',
+          type: 'line',
+          data: y1
+        }],
+      }
+    }),
+    error => console.log(error),
+    () => console.log('结束')
+  }
+  /**
+   * 
+   * @param id containerId
+   */
+  queryStatus(id: string) {
+    this.getReqMyData({
+      token: this.storageService.getStorage.token,
+      opUserId: this.storageService.getStorage.userId,
+      deviceType: 0,
+      containerId: id
+    }).subscribe(res => {
+      if (res.respCode !== '00000') {
+        console.log('获取状态失败')
+        return false
+      }
+      this.socketConnect(id, res.user.channel);
+    });
+  }
+  getReqMyData (body: any) {
+    return this.httpService.post(HTTP_URL.reqMyData, body)
   }
   getThonevone (body: any): Observable<any> {
     return this.httpService.post(HTTP_URL.thonevone, body)
