@@ -7,6 +7,9 @@ import { TerminalListService } from '../../providers/terminal-list/terminal-list
 import { Router } from '@angular/router';
 import { AllMapService } from '../../providers/all-map/all-map.service';
 import { FromToMarkerService } from '../../providers/from-to-marker/from-to-marker.service';
+import { ContainerAndDeviceStatusService } from '../../providers/container-and-device-status/container-and-device-status.service';
+import { HomeTypeService } from '../../providers/home-type/home-type.service'
+
 import {
   FormBuilder,
   FormControl,
@@ -37,7 +40,9 @@ export class AddLineDialogComponent implements OnInit {
     private terminalListService: TerminalListService,
     private router: Router,
     private allMapService: AllMapService,
-    private fromToMarkerService: FromToMarkerService
+    private fromToMarkerService: FromToMarkerService,
+    private containerAndDeviceStatusService: ContainerAndDeviceStatusService,
+    private homeTypeService: HomeTypeService
     
   ) {
     // if (this.containerListService.containerData.length === 0) {
@@ -71,8 +76,9 @@ export class AddLineDialogComponent implements OnInit {
       this.isConfirmLoading = false;
     }, 3000);
   }
-  handleCancel(): void {
+  handleCancel(event: Event): void {
     this.isVisible = false;
+    event.preventDefault();
   }
   fromChange (value: any): void {
     this.validateForm.get('to').setValue(value);
@@ -96,7 +102,8 @@ export class AddLineDialogComponent implements OnInit {
       containerIds: this.containerId
     }).subscribe(res => {
       if (res.respCode === '00000') {
-        this.allMapService.DallShows = false
+        this.homeTypeService.showAllCD = false
+        // this.allMapService.DallShows = false
         this.terminalListService.actionTerminalList(res.journey.journeyId);
         this.isVisible = false;
         // window.setInterval(() => {  
