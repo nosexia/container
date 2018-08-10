@@ -10,14 +10,15 @@
             </div>
             <div nz-col nzSpan="6"></div>
             <div nz-col nzSpan="8" class="engine-table-header-right">
-              <span [ngClass]="{'device-status': true, 'offline': containerAndDeviceStatusService.containerState === 0 , 'connected': containerAndDeviceStatusService.containerState === 1, 'attached': containerAndDeviceStatusService.containerState === 2, 'actived': containerAndDeviceStatusService.containerState === 3}">{{containerAndDeviceStatusService.containerState | deviceStatus}}</span>
+              <span [ngClass]="{'device-status': true}" [style.backgroundColor]="containerAndDeviceStatusService.deviceState | containerStateColor">{{containerAndDeviceStatusService.deviceState | deviceStatus}}</span>
             </div>
         </div>
         <div nz-row class="engine-table-body">
             <div nz-col nzSpan="12">
                 <app-gpu-dash-board [statusService]="cpuStatusService"></app-gpu-dash-board>
             </div>
-            <div nz-col nzSpan="12"><!-- class="door-open-content" -->
+            <div nz-col nzSpan="12">
+                <!-- class="door-open-content" -->
                 <!-- <div class="door-open-top">
                     <i class="anticon anticon-solution"></i>
                 </div>

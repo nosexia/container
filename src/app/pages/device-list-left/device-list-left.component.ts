@@ -3,7 +3,9 @@ import { TerminalListService } from '../../providers/terminal-list/terminal-list
 import { FromToMarkerService } from '../../providers/from-to-marker/from-to-marker.service';
 import { NzMessageService } from 'ng-zorro-antd';
 import { StateBridgService } from '../../providers/state-bridge/state-bridg.service';
-import { AllMapService } from "../../providers/all-map/all-map.service";
+import { AllMapService } from '../../providers/all-map/all-map.service';
+import { HomeTypeService } from '../../providers/home-type/home-type.service';
+import { ContainerAndDeviceStatusService } from '../../providers/container-and-device-status/container-and-device-status.service'
 @Component({
   selector: 'app-device-list-left',
   templateUrl: './device-list-left.component.html',
@@ -19,7 +21,9 @@ export class DeviceListLeftComponent implements OnInit {
     private message : NzMessageService,
     public fromToMarkerService: FromToMarkerService,
     private stateBridgService: StateBridgService,
-    private allMapService: AllMapService
+    public allMapService: AllMapService,
+    public homeTypeService: HomeTypeService,
+    private containerAndDeviceStatusService: ContainerAndDeviceStatusService
   ) { }
 
   ngOnInit() {
@@ -40,14 +44,14 @@ export class DeviceListLeftComponent implements OnInit {
     }
   }
   getDevice (item: any) {
-    this.stateBridgService.setContianerId('0');
-    this.stateBridgService.setDeviceId('0');
+    if (item.deviceId === this.containerAndDeviceStatusService.deviceId) return
     if (item.state === 0) {
       this.message.info('Not bind');
       return false
+    } else if (item.state === 3) {
+      // this.homeTypeService.showRight = false
+      this.containerAndDeviceStatusService.resetData()
+      this.terminalListService.queryStatus(1, item);
     }
-    this.allMapService.allShows = true
-    // this.allShows = true
-    this.terminalListService.seachTerminalData(1, item.deviceId);
   }
 }

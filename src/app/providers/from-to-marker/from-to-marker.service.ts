@@ -60,7 +60,6 @@ export class FromToMarkerService {
         latitude: this.fromto.roadmaps[val].latitude,
         longitude: this.fromto.roadmaps[val].longitude
       })
-      console.log(this.fromto.livePositionLine)
     });
   }
   enRoute () {
@@ -68,7 +67,6 @@ export class FromToMarkerService {
     if (this.timer !== null) {
       this.timer.unsubscribe()
     }
-    //
     let nowTime = new Date().getTime();
     let Points: any = ((nowTime - this.fromto.startTime) / 600000) * this.fromto.roadmaps.length;
     let newPoint: number = parseInt(Points);

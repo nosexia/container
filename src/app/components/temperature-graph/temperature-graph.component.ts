@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, OnDestroy } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { BaseChartDirective } from 'ng4-charts/ng4-charts'
 @Component({
@@ -6,13 +6,23 @@ import { BaseChartDirective } from 'ng4-charts/ng4-charts'
   templateUrl: './temperature-graph.component.html',
   styleUrls: ['./temperature-graph.component.less']
 })
-export class TemperatureGraphComponent implements OnInit {
+export class TemperatureGraphComponent implements OnDestroy {
   @ViewChild(BaseChartDirective) chart: BaseChartDirective;
+  deviceName: any[] = []
   public barChartOptions:any = {
     scaleShowVerticalLines: false,
     responsive: true,
     legend: {
       display: false
+    },
+    tooltips: {
+      callbacks: {
+        label : (tooltipItem, data) => {
+          let label = data.datasets[tooltipItem.datasetIndex].label;
+          let value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+          return [label + ':' + value, this.deviceName[tooltipItem.index]];
+        }
+      }
     },
     scales: {
       yAxes: [
@@ -20,7 +30,7 @@ export class TemperatureGraphComponent implements OnInit {
               ticks: {
                   reverse : false,
                   min: 0,
-                  max: 90
+                  max: 100
               }
           }
         ]
@@ -43,23 +53,36 @@ export class TemperatureGraphComponent implements OnInit {
     { data: [], label: '', fill: false }
   ];
   @Input() set newValue (newValue) {
-    this.upDateCharts(newValue.title, newValue.value);
+    this.upDateCharts(newValue.title, newValue.value, newValue.timer, newValue.deviceName);
   }
   @Input() warn: boolean;
   constructor(
     private datePipe: DatePipe
   ) {
   }
-  ngOnInit() {
+  ngOnDestroy() {
+    this.barChartData[0].data = [];
+    this.deviceName = [];
+    if (this.chart.chart) {
+      this.chart.chart.update();
+    }
   }
-  upDateCharts (title: string, value: number) :void {
-    if (this.barChartData[0].data.length > 6) {
+  upDateCharts (title: string, value: number, timer: any, deviceName: string) :void {
+    if (timer === 0) return
+    if (title === 'Acceleration(g)') {
+      this.barChartOptions.scales.yAxes[0].ticks.max = 20
+    } else if (title === 'Temperature(℃)') {
+      this.barChartOptions.scales.yAxes[0].ticks.max = 128
+    }
+    if (this.barChartData[0].data.length > 7) {
       this.barChartData[0].data.shift();
       this.barChartLabels.shift();
+      this.deviceName.shift()
     }
     this.barChartData[0].data.push(value);
+    this.deviceName.push(deviceName)
     this.barChartData[0].label = title;
-    this.barChartLabels.push(this.transformDate(new Date()));
+    this.barChartLabels.push(this.transformDate(timer));
     if (this.chart.chart) {
       this.chart.chart.update();
     }

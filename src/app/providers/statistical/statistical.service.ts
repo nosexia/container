@@ -108,7 +108,8 @@ export class StatisticalService {
           }
         }, {
           title: { text: '' },
-          opposite: true
+          opposite: true,
+          visible: false
         }],
         yAxis: [{
           title: { text: 'Fx' }
@@ -144,20 +145,7 @@ export class StatisticalService {
           marker: {
             radius: 4,
             symbol: 'circle'
-          },
-          zones: [{
-            value: 0.1,
-            color: colorsshandian[0],
-          }, {
-            value: 0.2,
-            color: colorsshandian[1],
-          }, {
-            value: 0.3,
-            color: colorsshandian[2],
-          }, {
-            value: 0.4,
-            color: colorsshandian[2],
-          }]
+          }
         }]
       },
 
@@ -179,7 +167,8 @@ export class StatisticalService {
 
         }, {
           title: { text: '' },
-          opposite: true
+          opposite: true,
+          visible: false
         }],
         yAxis: [{
           title: { text: 'Fx' }

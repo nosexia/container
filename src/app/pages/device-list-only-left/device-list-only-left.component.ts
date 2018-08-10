@@ -2,21 +2,23 @@ import { Component, OnInit, ElementRef, QueryList, ViewChildren } from '@angular
 import { AllMapService } from '../../providers/all-map/all-map.service';
 import { NzMessageService } from 'ng-zorro-antd';
 import { TerminalListService } from '../../providers/terminal-list/terminal-list.service';
+import { FromToMarkerService } from '../../providers/from-to-marker/from-to-marker.service';
+import { ContainerAndDeviceStatusService } from '../../providers/container-and-device-status/container-and-device-status.service'
 @Component({
   selector: 'app-device-list-only-left',
   templateUrl: './device-list-only-left.component.html',
   styleUrls: ['./device-list-only-left.component.less']
 })
 export class DeviceListOnlyLeftComponent implements OnInit {
-
   current = 1;
   pageSize = 5;
   @ViewChildren('devices')
   devices: QueryList<ElementRef>;
   constructor(
-    public allMapService: AllMapService,
+    public terminalListService: TerminalListService,
     private message : NzMessageService,
-    private terminalListService: TerminalListService
+    public fromToMarkerService: FromToMarkerService,
+    public containerAndDeviceStatusService: ContainerAndDeviceStatusService
   ) { }
 
   ngOnInit() {
@@ -37,24 +39,14 @@ export class DeviceListOnlyLeftComponent implements OnInit {
     }
   }
   getDevice (item: any) {
+    if (item.deviceId === this.containerAndDeviceStatusService.deviceId) return
     if (item.state === 0) {
       this.message.info('Not bind');
       return false
-    } else {
-      if (this.transformContainer(item.deviceId) !== '- -') return
-      console.log(`${'点击的device的id为' + item.deviceId}`)
-      this.terminalListService.setShowRight(false)
-      this.allMapService.setShow(true)
-      this.terminalListService.seachTerminalData(1, item.deviceId);
+    } else if (item.state === 3) {
+      // this.homeTypeService.showRight = false
+      this.containerAndDeviceStatusService.resetData()
+      this.terminalListService.queryStatus(1, item);
     }
-    
   }
-  transformContainer (id: any, args?: any): string {
-    const newId = this.allMapService.containerList.filter((item) => {
-      return item.deviceId === id
-    })
-    if (newId.length === 0) return '- -'
-    return newId[0].containerName
-  }
-
 }

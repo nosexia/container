@@ -66,9 +66,6 @@ export class RulesetListService {
     });
   }
   getDeviceRuleList () {
-    debugger;
-    // groupType = 0  container
-    // groupType = 1  device
     this.getRuleList({
       token: this.storageService.getStorage.token,
       opUserId: this.storageService.getStorage.userId,

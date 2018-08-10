@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 // import { Chart } from 'angular-highcharts';
 // import 'highcharts/js/histogram-bellcurve.js';
+import { timer } from 'rxjs';
 // import 'highcharts/js/histogram-bellcurve.src.js';
 import { DatePipe } from '@angular/common';
 import * as Highcharts from 'highcharts';
@@ -18,11 +19,11 @@ bc(Highcharts);
 })
 export class ContainerSensorComponent implements OnInit {
   @Input() set newValue (newValue) {
-    this.addPoint(newValue.title, newValue.value, newValue.timer, newValue.deviceName);
+    timer(1000).subscribe(() =>{
+      this.addPoint(newValue.title, newValue.value, newValue.timer, newValue.deviceName);
+    })
   }
   @Input() warn: boolean;
-  // private fromPara: any = Date.UTC(2010, 0, 3);
-  // private toPara: any = Date.UTC(2010, 0, 5)
   timers: boolean = false;
   Highcharts = Highcharts;
   updateFlag = false;
@@ -96,12 +97,6 @@ export class ContainerSensorComponent implements OnInit {
       },
       tooltip: {
         formatter: function (value) {
-          // console.log('index' + this.series.data.indexOf( this.point ))
-          // console.log('deviceName' + value.chart.series[0].userOptions.deviceName)
-          // let newValue = value.chart.series[0].userOptions.deviceName.filter(item => {
-          //   return item !== null
-          // })
-          // return '<b>' + value.chart.series[0].userOptions.deviceName[this.series.data.indexOf( this.point )] + '</b><br/><b>' + this.series.name + '</b><br/>' + this.x + '<b><br/>' + this.y + '</b><br/>'
           return '<b>' + this.series.name + '</b><br/>' + this.x + '<b><br/>' + this.y + '</b><br/>'
         }
       },    
@@ -124,18 +119,6 @@ export class ContainerSensorComponent implements OnInit {
     }
     this.updateFlag = true;
   }
-  // a () {
-  //   this.chartOptions.xAxis.plotBands.push({ // mark the weekend
-  //     color: '#ddd',		
-  //     from: 6,
-  //     to: 8,
-  //     label: {
-  //       text: 'c1',
-  //       align: 'center',
-  //     }
-  //   })
-  //   this.updateFlag = true;
-  // }
   addPoint (title: string, value: number, timer: Date, deviceName: string) {
     if (title === 'Acceleration(g)') {
       this.chartOptions.yAxis.max = 10
@@ -149,7 +132,9 @@ export class ContainerSensorComponent implements OnInit {
           this.chartOptions.series[0].deviceName.shift();
           this.chartOptions.xAxis.categories.shift();
         }
-        this.chartOptions.series[0].deviceName.push(null);
+        if (this.chartOptions.series[0].deviceName) {
+          this.chartOptions.series[0].deviceName.push(null)
+        }
         this.chartOptions.series[0].name = title;
         this.chartOptions.title.text = title;
         this.chartOptions.series[0].data.push(null);
@@ -162,7 +147,6 @@ export class ContainerSensorComponent implements OnInit {
         }
         if (deviceName) {
           this.chartOptions.series[0].deviceName.push(deviceName);
-          console.log(deviceName)
         }
         this.chartOptions.series[0].name = title;
         this.chartOptions.title.text = title; 
@@ -175,7 +159,9 @@ export class ContainerSensorComponent implements OnInit {
         this.chartOptions.series[0].deviceName.shift();
         this.chartOptions.xAxis.categories.shift();
       }
-      this.chartOptions.series[0].deviceName.push(null);
+      if (this.chartOptions.series[0].deviceName) {
+        this.chartOptions.series[0].deviceName.push(null)
+      }
       this.chartOptions.series[0].name = title;
       this.chartOptions.title.text = title;
       this.chartOptions.series[0].data.push(null);

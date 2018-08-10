@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TerminalListService } from '../../providers/terminal-list/terminal-list.service';
-
+import { HomeTypeService } from '../../providers/home-type/home-type.service'
 @Component({
   selector: 'app-cd-tab-right',
   templateUrl: './cd-tab-right.component.html',
@@ -9,7 +9,8 @@ import { TerminalListService } from '../../providers/terminal-list/terminal-list
 export class CdTabRightComponent implements OnInit {
   showDevice: boolean = true;
   constructor(
-    public terminalListService: TerminalListService
+    public terminalListService: TerminalListService,
+    public homeTypeService: HomeTypeService
   ) { }
 
   ngOnInit() {

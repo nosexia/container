@@ -6,7 +6,7 @@ import { UserSessionStorageService } from '../../providers/user-session-storage/
 import { UserLocalStorageService } from '../../providers/user-local-storage/user-local-storage.service';
 import { StorageService } from '../../providers/storage-type/storage.service';
 import { AllMapService } from '../../providers/all-map/all-map.service';
-
+import { HomeTypeService } from '../../providers/home-type/home-type.service'
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -20,17 +20,16 @@ export class HomeComponent implements OnInit {
     private userLocalStorageService: UserLocalStorageService,
     private router: Router,
     public storageService: StorageService,
-    private allMapService: AllMapService
+    private allMapService: AllMapService,
+    private homeTypeService: HomeTypeService
   ) {
   }
 
   ngOnInit() {
   }
   showPage () {
-    // this.allMapService.actionTerminalList();
-    // this.allMapService.setShow(true)
-    this.allMapService.allShows = false
-    this.allMapService.DallShows = true
+    this.homeTypeService.showAllCD = true
+    this.homeTypeService.showRight = false
   }
   useLanguage (languageValue: string ) : void {
     this.translateService.use(languageValue); 

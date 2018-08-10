@@ -1,6 +1,5 @@
 <div class="cd-tab-right-content">
-    <div class="cd-tab-content" *ngIf="terminalListService.showRight">
-            <!-- homeTypeService.rightShow -->
+    <div class="cd-tab-content" *ngIf="homeTypeService.showTab">
         <div nz-row class="cd-tab-header-top">
           <div nz-col nzSpan="12" [ngClass]="{'tab-left': true, 'no-active': !showDevice}" (click)="isActive(false)">Device</div>
           <div nz-col nzSpan="12" [ngClass]="{'tab-right': true, 'no-active': showDevice}" (click)="isActive(true)">Container</div>
@@ -8,7 +7,7 @@
         <app-container-right [hidden]="!showDevice"></app-container-right>
         <app-device-right *ngIf="!showDevice"></app-device-right>
     </div>
-    <div class="cd-tab-content" *ngIf="!terminalListService.showRight">
+    <div class="cd-tab-content" *ngIf="!homeTypeService.showTab">
         <div nz-row class="cd-tab-header-top">
             <div nz-col nzSpan="24" class="tab-left">Device</div>
         </div>

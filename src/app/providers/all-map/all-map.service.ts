@@ -9,12 +9,13 @@ import { StateBridgService } from '../state-bridge/state-bridg.service';
 // import { TemperatureService } from '../temperature/temperature.service';
 // import { HumidityService } from '../humidity/humidity.service';
 // import { AccelerationService } from '../acceleration/acceleration.service';
+import { HomeTypeService } from '../home-type/home-type.service'
 import { ContainerAndDeviceStatusService } from '../container-and-device-status/container-and-device-status.service'
 @Injectable({
   providedIn: 'root'
 })
 export class AllMapService {
-  private terminalListService: TerminalListService;
+  // private terminalListService: TerminalListService;
   containerList: any[] = [];
   deviceList: any[] = [];
   allShows: boolean = false;
@@ -24,15 +25,14 @@ export class AllMapService {
     private httpService: HttpService,
     private storageService: StorageService,
     private stateBridgService: StateBridgService,
-    private containerAndDeviceStatusService: ContainerAndDeviceStatusService
+    private containerAndDeviceStatusService: ContainerAndDeviceStatusService,
+    private homeTypeService: HomeTypeService
   ) {
   }
-  setTerminalListService (t: TerminalListService) {
-    this.terminalListService = t;
-  }
+  // setTerminalListService (t: TerminalListService) {
+    // this.terminalListService = t;
+  // }
   actionTerminalList (id?: number): void {
-    this.stateBridgService.setContianerId('0');
-    this.stateBridgService.setDeviceId('0');
     let bodys;
     if (id) {
       bodys = {
@@ -57,40 +57,47 @@ export class AllMapService {
         })
         this.containerList = res.containers
         this.deviceList = res.devices
-        if (this.stateBridgService.containerId === '0' && this.stateBridgService.deviceId === '0') {
-          // this.terminalListService.setShowRight(false)
-          return false
-        } else if (this.stateBridgService.containerId === '0' && this.stateBridgService.deviceId !== '0') {
-          console.log('点击的是device')
-          this.deviceList.forEach(i => {
-            if (i.deviceId === this.stateBridgService.deviceId) {
-              // 如果选中的deviceId为
-              if (i.state === 0) {
-                this.stateBridgService.setContianerId('0');
-                this.stateBridgService.setDeviceId('0');
-                this.terminalListService.setShowRight(false)
-              } else if (i.state === 1 || i.state === 2) {
-                this.containerAndDeviceStatusService.setState(i.state);
-              }
+        this.deviceList.forEach(a => {
+          // 遍历device
+          if (a.deviceId === this.containerAndDeviceStatusService.deviceId) {
+            if (a.state === 0) {
+              this.homeTypeService.showRight = false;
             }
-          })
-        } else {
-          this.deviceList.forEach(i => {
-            if (i.deviceId === this.stateBridgService.deviceId) {
-              // 如果选中的deviceId为
-              if (i.state === 0) {
-                this.allShows = false
-                this.stateBridgService.setContianerId('0');
-                this.stateBridgService.setDeviceId('0');
-              } else if (i.state === 1 || i.state === 2) {
-                this.containerAndDeviceStatusService.setContainerState(i.state);
-                // this.containerAndDeviceStatusService.setState(i.state);
-              } else {
-                this.containerAndDeviceStatusService.setContainerState(i.state);
-              }
-            }
-          })
-        }
+          }
+        })
+        // if (this.stateBridgService.containerId === '0' && this.stateBridgService.deviceId === '0') {
+        //   return false
+        // } else if (this.stateBridgService.containerId === '0' && this.stateBridgService.deviceId !== '0') {
+        //   console.log('点击的是device')
+        //   this.deviceList.forEach(i => {
+        //     if (i.deviceId === this.stateBridgService.deviceId) {
+        //       // 如果选中的deviceId为
+        //       if (i.state === 0) {
+        //         this.stateBridgService.setContianerId('0');
+        //         this.stateBridgService.setDeviceId('0');
+        //         this.terminalListService.setShowRight(false)
+        //       } else if (i.state === 1 || i.state === 2) {
+        //         this.containerAndDeviceStatusService.setState(i.state);
+        //       }
+        //     }
+        //   })
+        // } else {
+        //   this.deviceList.forEach(i => {
+        //     if (i.deviceId === this.stateBridgService.deviceId) {
+        //       // 如果选中的deviceId为
+        //       if (i.state === 0) {
+        //         this.allShows = false
+        //         this.stateBridgService.setContianerId('0');
+        //         this.stateBridgService.setDeviceId('0');
+        //       } else if (i.state === 1 || i.state === 2) {
+        //         this.containerAndDeviceStatusService.setContainerState(i.state);
+        //         // this.containerAndDeviceStatusService.setState(i.state);
+        //       } else {
+        //         this.containerAndDeviceStatusService.setContainerState(i.state);
+        //       }
+        //     }
+        //   })
+        // }
       }
       // this.containerList.forEach(i => {
       //   if (i.containerId === this.stateBridgService.containerId) {

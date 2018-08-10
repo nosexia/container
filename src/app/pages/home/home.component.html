@@ -7,14 +7,12 @@
       </div>
       <ul nz-menu [nzMode]="'horizontal'" class="left-menu">
         <li nz-menu-item (click)="showPage()"><a routerLink="">Home</a></li>
-        <li nz-menu-item routerLinkActive="ant-menu-item-selected" *ngIf="storageService.getStorage.group !== 1 || storageService.getStorage.group !== 2" ><a routerLink="userlist">User</a></li>
-        
+        <li nz-menu-item routerLinkActive="ant-menu-item-selected" *ngIf="storageService.getStorage.group !== 1 || storageService.getStorage.group !== 2" ><a routerLink="userlist">User</a></li> 
         <li nz-menu-item routerLinkActive="ant-menu-item-selected"><a routerLink="enterpriseList">Enterprise</a></li>
         <li nz-menu-item routerLinkActive="ant-menu-item-selected"><a routerLink="device">{{ 'HOME.NAV.DEVICE' | translate }}</a></li>
         <li nz-menu-item routerLinkActive="ant-menu-item-selected"><a routerLink="container">{{ 'HOME.NAV.CONTAINER' | translate }}</a></li>
         <li nz-menu-item routerLinkActive="ant-menu-item-selected"><a routerLink="journey">Journey</a></li>
         <li nz-menu-item routerLinkActive="ant-menu-item-selected"><a routerLink="ruleset">RuleSet</a></li>
-        <!-- <li nz-menu-item routerLinkActive="ant-menu-item-selected"><a routerLink="ruleset">RuleSet</a></li> -->
         <li nz-menu-item routerLinkActive="ant-menu-item-selected"><a routerLink="statisticalreport">Statistics</a></li>
         <li nz-menu-item routerLinkActive="ant-menu-item-selected"><a routerLink="sim">SIM</a></li>
       </ul>

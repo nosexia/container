@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { interval } from 'rxjs';
+import { interval, timer } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'

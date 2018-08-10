@@ -26,12 +26,9 @@ export class ContainerRightComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.t.resetData();
-    this.h.resetData();
-    this.a.resetData();
-    // this.temperatureService.addData(26);
-    // this.humidityService.addData(24);
-    // this.accelerationService.addData(27);
+    // this.t.resetData();
+    // this.h.resetData();
+    // this.a.resetData();
   }
 
 }

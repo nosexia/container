@@ -1,15 +1,18 @@
-import { Component, OnInit, ElementRef, QueryList, ViewChildren, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ElementRef, QueryList, ViewChildren, ViewChild, Input, OnDestroy } from '@angular/core';
 import { AllMapService } from '../../providers/all-map/all-map.service';
 import { NzMessageService } from 'ng-zorro-antd';
 import { TerminalListService } from '../../providers/terminal-list/terminal-list.service';
 import { AddLineDialogComponent } from '../../components/add-line-dialog/add-line-dialog.component';
+import { ContainerAndDeviceStatusService } from '../../providers/container-and-device-status/container-and-device-status.service'
+import { FromToMarkerService } from '../../providers/from-to-marker/from-to-marker.service';
+import { HomeTypeService } from '../../providers/home-type/home-type.service';
 
 @Component({
   selector: 'app-container-list-only-left',
   templateUrl: './container-list-only-left.component.html',
   styleUrls: ['./container-list-only-left.component.less']
 })
-export class ContainerListOnlyLeftComponent implements OnInit {
+export class ContainerListOnlyLeftComponent  implements OnDestroy {
 
   current = 1;
   pageSize = 5;
@@ -21,11 +24,17 @@ export class ContainerListOnlyLeftComponent implements OnInit {
   constructor(
     public allMapService: AllMapService,
     private message : NzMessageService,
-    private terminalListService: TerminalListService
-    // public fromToMarkerService: FromToMarkerService
+    public terminalListService: TerminalListService,
+    private containerAndDeviceStatusService: ContainerAndDeviceStatusService,
+    public fromToMarkerService: FromToMarkerService,
+    private homeTypeService: HomeTypeService
   ) { }
 
-  ngOnInit() {
+  ngOnDestroy () {
+    this.homeTypeService.showRight = false
+    this.homeTypeService.showAllCD = true
+    this.containerAndDeviceStatusService.resetData();
+    this.terminalListService.closeWSS()
   }
   pushHomeDialog (event: Event, item: any) {
     if (item.inRoute === 0) {
@@ -53,15 +62,15 @@ export class ContainerListOnlyLeftComponent implements OnInit {
       });
     }
   }
-  getContainer (event: Event, item: any) {
+  getContainer (item: any) {
     if (item.state === 0) {
       this.message.info('Not bind');
       return false
     }
-    console.log(`${'点击的集装箱的id为' + item.containerId}`)
-    this.terminalListService.setShowRight(true);
-    this.terminalListService.seachTerminalData(0, item.containerId);
-    this.allMapService.setShow(true)
+    if (item.containerId === this.containerAndDeviceStatusService.containerId) return
+    // 重置所有的状态
+    this.containerAndDeviceStatusService.resetData();
+    this.terminalListService.queryStatus(0, item);
     event.stopPropagation();
   }
 }
