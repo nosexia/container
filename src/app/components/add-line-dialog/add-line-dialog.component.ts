@@ -71,8 +71,9 @@ export class AddLineDialogComponent implements OnInit {
       this.isConfirmLoading = false;
     }, 3000);
   }
-  handleCancel(): void {
+  handleCancel(event: Event): void {
     this.isVisible = false;
+    event.preventDefault();
   }
   fromChange (value: any): void {
     this.validateForm.get('to').setValue(value);
@@ -96,7 +97,7 @@ export class AddLineDialogComponent implements OnInit {
       containerIds: this.containerId
     }).subscribe(res => {
       if (res.respCode === '00000') {
-        this.allMapService.DallShows = false
+        // this.allMapService.DallShows = false
         this.terminalListService.actionTerminalList(res.journey.journeyId);
         this.isVisible = false;
         // window.setInterval(() => {  

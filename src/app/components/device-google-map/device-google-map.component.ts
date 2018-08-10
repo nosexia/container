@@ -25,7 +25,6 @@ export class DeviceGoogleMapComponent implements OnInit {
     this.isOpen = false;
   }
   markerClick () {
-    if (!this.terminalListService.isClick) return
     this.isOpen = true;
   }
 }

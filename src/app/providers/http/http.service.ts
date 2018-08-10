@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DatePipe } from "@angular/common"; 
 import { Observable } from "rxjs/Observable";
-import httpOptions from '../../datas/http-options.data';
 import { Md5 } from "md5-typescript";
 import { StorageService } from '../../providers/storage-type/storage.service';
 import { NzMessageService } from 'ng-zorro-antd';
 import { environment } from '../../../environments/environment';
+import { httpOptions, httpOptionsForm } from '../../datas/http-options.data';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -26,6 +27,7 @@ export class HttpService {
   }
   post(url: string , body: Object): Observable<any> {
     let newUrl: string = url;
+    // /rest/1.1/User/login
     if (url !== '/rest/1.1/User/login') {
       // 定义时间yyyyMMddHHmmss
       let timestamp: string = this.datePipe.transform(new Date(), "yyyyMMddHHmmss");
@@ -41,12 +43,19 @@ export class HttpService {
       .map(this.extractData)
       .catch(this.handleError);
     } else {
+      // newUrl = 'http://47.75.196.34:3009/login';
       if (environment.production) {
-        newUrl = 'https://api.attaplogistics.com' + url;
+        newUrl = 'https://api.attaplogistics.com';
+        return this.httpClient.post(newUrl, body, httpOptions)
+        .map(this.extractData)
+        .catch(this.handleError);
+      } else {
+        // let newH = httpOptionsForm.headers.set('Authorization', 'my-new-auth-token')
+        // return this.httpClient.post('http://47.75.196.34:3009/login', body, httpOptions)
+        return this.httpClient.post(newUrl, body, httpOptions)
+        .map(this.extractData)
+        .catch(this.handleError);
       }
-      return this.httpClient.post(newUrl, body, httpOptions)
-      .map(this.extractData)
-      .catch(this.handleError);
     }
   }
   delete(url: string, body: Object): Observable<any> {

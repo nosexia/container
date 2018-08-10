@@ -18,11 +18,11 @@
         </ng-container>
     </agm-polyline>
     <agm-marker [latitude]="fromto.liveLatitude" [longitude]="fromto.liveLongitude" (markerClick)="markerClick()" [iconUrl]="iconUrl" [zIndex]="9">
-      <agm-snazzy-info-window *ngIf="terminalListService.isClick"  [showCloseButton]="false"  [maxWidth]="350" [maxHeight]="370" padding="0" [isOpen]="isOpen">
+      <!-- <agm-snazzy-info-window [showCloseButton]="false"  [maxWidth]="350" [maxHeight]="370" padding="0" [isOpen]="isOpen">
         <ng-template>
           <app-device-info-window (closeWin)="closeWin()" [vehicles]="vehicle"></app-device-info-window>
         </ng-template>
-      </agm-snazzy-info-window>
+      </agm-snazzy-info-window> -->
     </agm-marker>
     <agm-marker *ngIf="fromto"  [latitude]="fromto.fromLatitude" [longitude]="fromto.fromLongitude" [iconUrl]="toUrl"></agm-marker>
     <agm-marker *ngIf="fromto"  [latitude]="fromto.toLatitude" [longitude]="fromto.toLongitude" [iconUrl]="toUrl"></agm-marker>

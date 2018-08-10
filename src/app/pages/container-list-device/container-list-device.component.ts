@@ -32,6 +32,9 @@ export class ContainerListDeviceComponent implements OnDestroy {
     })
     // }
   }
+  dragProgress (a) {
+    console.log(a)
+  }
   ngOnDestroy () {
     if (this.timer) {
       // 清除定时器

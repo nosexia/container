@@ -1,4 +1,4 @@
-<div [ngClass]="'dev-infowindow-content'" >
+<div [ngClass]="'dev-infowindow-content'">
   <div nz-row [ngClass]="{'window-status-bar': true, 'offline': vehicles.state === 0 || null, 'connected': vehicles.state === 1, 'attached': vehicles.state === 2, 'activated': vehicles.state === 3}">
     <div nz-col nzSpan="12">
       <span [ngClass]="'dev-name'">Device</span>

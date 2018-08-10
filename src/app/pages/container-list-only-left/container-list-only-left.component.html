@@ -1,22 +1,4 @@
 <div class="container-list-only-left-content">
-    <!-- <h4 class="container-list-left-title">Container List<span class="journey-id">(Journey {{fromToMarkerService.fromto.journeyId}})</span>
-    </h4>
-    <div class="container-list-left-body">
-      <div nz-row [ngClass]="'container-item-body'" *ngFor="let item of terminalListService.containerList | paginate: { currentPage: current, pageSize: pageSize };let i = index" (click)="getContainer($event, item)" #containers (mouseenter)="toggleState(true, i)" (mouseleave)="toggleState(false, i)">
-        <div nz-col nzSpan="8" [ngClass]="'container-item-title'">
-            {{item.containerName}}
-        </div>
-        <div nz-col nzSpan="11"  [ngClass]="'container-item-bind-device'">
-         <span class="bind-information" [ngStyle]="{'display': 'none'}">{{item.deviceId | containerBind : 0  : item.state}}</span>
-        </div>
-        <div nz-col nzSpan="5"  [ngClass]="'container-item-status'">
-          <span [ngClass]="{'offline': item.state === 0 || item.state === null, 'connected': item.state === 1, 'attached': item.state === 2}" ></span>
-        </div>
-      </div>
-      <div class="contianer-pagination">
-        <nz-pagination *ngIf="terminalListService.containerList"  [(nzPageIndex)]="current" [nzPageSize]="pageSize" [nzTotal]="terminalListService.containerList.length" [nzSize]="'small'"></nz-pagination>
-      </div>
-    </div> -->
     <h4 class="container-list-left-title">Container List<span class="journey-id">(Journey {{fromToMarkerService.fromto.journeyId}})</span>
     </h4>
     <div class="container-list-left-body">

@@ -62,6 +62,25 @@ export class FromToMarkerService {
       })
     });
   }
+  clearTimer () {
+    this.fromto = {
+      startTime: '',
+      endTime: '',
+      fromCity: '',
+      toCity: '',
+      fromLatitude: 0,
+      fromLongitude: 0,
+      toLatitude: 0,
+      toLongitude: 0,
+      roadmaps: [],
+      relRoadmaps: [],
+      journeyId: null,
+      liveLatitude: 0,
+      liveLongitude: 0,
+      livePositionLine: []
+    }
+    this.timer.unsubscribe()
+  }
   enRoute () {
     // 初始化清除清时期
     if (this.timer !== null) {

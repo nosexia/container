@@ -9,9 +9,10 @@ import { BaseChartDirective } from 'ng4-charts/ng4-charts'
 export class TemperatureGraphComponent implements OnDestroy {
   @ViewChild(BaseChartDirective) chart: BaseChartDirective;
   deviceName: any[] = []
-  public barChartOptions:any = {
+  public barChartOptions: any = {
     scaleShowVerticalLines: false,
     responsive: true,
+    maintainAspectRatio: false,
     legend: {
       display: false
     },
@@ -60,6 +61,7 @@ export class TemperatureGraphComponent implements OnDestroy {
     private datePipe: DatePipe
   ) {
   }
+  
   ngOnDestroy() {
     this.barChartData[0].data = [];
     this.deviceName = [];
@@ -77,7 +79,8 @@ export class TemperatureGraphComponent implements OnDestroy {
     if (this.barChartData[0].data.length > 7) {
       this.barChartData[0].data.shift();
       this.barChartLabels.shift();
-      this.deviceName.shift()
+      this.deviceName.shift();
+      this.barChartLabels.shift();
     }
     this.barChartData[0].data.push(value);
     this.deviceName.push(deviceName)

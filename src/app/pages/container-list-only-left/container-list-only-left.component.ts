@@ -35,6 +35,7 @@ export class ContainerListOnlyLeftComponent  implements OnDestroy {
     this.homeTypeService.showAllCD = true
     this.containerAndDeviceStatusService.resetData();
     this.terminalListService.closeWSS()
+    this.fromToMarkerService.clearTimer()
   }
   pushHomeDialog (event: Event, item: any) {
     if (item.inRoute === 0) {

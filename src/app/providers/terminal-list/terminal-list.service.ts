@@ -1,9 +1,10 @@
-import { Injectable, ViewChild } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpService } from '../http/http.service';
+import { Observable } from 'rxjs';
+import HTTP_URL from '../../datas/http-url.data';
+import { StorageService } from '../storage-type/storage.service';
 import { TerminalList } from '../../model/terminal-list/terminal-list';
 import { TerminalListBody  } from '../../model/terminal-list-body/terminal-list-body';
-import { Observable, timer } from 'rxjs';
-import { StorageService } from '../storage-type/storage.service';
 import { DeviceSocketService } from '../device-socket/device-socket.service';
 import { ContainerAndDeviceStatusService } from '../container-and-device-status/container-and-device-status.service';
 import { TemperatureService } from '../temperature/temperature.service';
@@ -15,10 +16,9 @@ import { MemoryStatusService } from '../memory-status/memory-status.service';
 import { SignalService } from '../signal/signal.service';
 import { FromToMarkerService } from '../from-to-marker/from-to-marker.service';
 import { VehicleInformationService } from '../vehicle-information/vehicle-information.service';
-import HTTP_URL from '../../datas/http-url.data';
 import { AllMapService } from '../../providers/all-map/all-map.service';
 import { StateBridgService} from '../../providers/state-bridge/state-bridg.service';
-import { HomeTypeService } from '../../providers/home-type/home-type.service'
+import { HomeTypeService } from '../../providers/home-type/home-type.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -49,8 +49,6 @@ export class TerminalListService {
     private stateBridgService: StateBridgService,
     private homeTypeService: HomeTypeService
   ) {
-    // 打破循环
-    // this.allMapService.setTerminalListService(this);
   }
   setShowRight (value: boolean) {
     this.showRight = value;
@@ -66,7 +64,6 @@ export class TerminalListService {
         opUserId: this.storageService.getStorage.userId,
         journeyId: id
       }
-      // this.allMapService.DallShows = false
       this.homeTypeService.showAllCD = false;
       this.fromToMarkerService.resetParams();
     } else {
@@ -116,31 +113,30 @@ export class TerminalListService {
       res.journey.toLongitude = Number(res.journey.toLongitude)
       this.containerList = res.containers
       this.deviceList = res.devices
-      this.fromToMarkerService.setParams('startTime', Number(res.containers[0].startTime));
-      this.fromToMarkerService.setParams('toCity', res.journey.toCity);
-      this.fromToMarkerService.setParams('toLatitude', res.journey.toLatitude);
-      this.fromToMarkerService.setParams('toLongitude', res.journey.toLongitude);
-      this.fromToMarkerService.setParams('endTime', res.journey.endTime);
-      this.fromToMarkerService.setParams('fromCity', res.journey.fromCity);
-      if (this.firstJouney) {
-        // 是否是第一次请求
-        this.firstJouney = false
-        this.fromToMarkerService.setParams('liveLatitude', res.journey.fromLatitude);
-        this.fromToMarkerService.setParams('liveLongitude', res.journey.fromLongitude);
+      if (id) {
+        this.fromToMarkerService.setParams('startTime', Number(res.containers[0].startTime));
+        this.fromToMarkerService.setParams('toCity', res.journey.toCity);
+        this.fromToMarkerService.setParams('toLatitude', res.journey.toLatitude);
+        this.fromToMarkerService.setParams('toLongitude', res.journey.toLongitude);
+        this.fromToMarkerService.setParams('endTime', res.journey.endTime);
+        this.fromToMarkerService.setParams('fromCity', res.journey.fromCity);
+        if (this.firstJouney) {
+          // 是否是第一次请求
+          this.firstJouney = false
+          this.fromToMarkerService.setParams('liveLatitude', res.journey.fromLatitude);
+          this.fromToMarkerService.setParams('liveLongitude', res.journey.fromLongitude);
+        }
+        this.fromToMarkerService.setParams('fromLatitude', res.journey.fromLatitude);
+        this.fromToMarkerService.setParams('fromLongitude', res.journey.fromLongitude);
+        this.fromToMarkerService.setParams('roadmaps', res.journey.roadmaps);
+        this.fromToMarkerService.setParams('relRoadmaps', res.journey.relRoadmaps);
+        this.fromToMarkerService.setParams('journeyId', res.journey.journeyId);
       }
-      this.fromToMarkerService.setParams('fromLatitude', res.journey.fromLatitude);
-      this.fromToMarkerService.setParams('fromLongitude', res.journey.fromLongitude);
-      this.fromToMarkerService.setParams('roadmaps', res.journey.roadmaps);
-      this.fromToMarkerService.setParams('relRoadmaps', res.journey.relRoadmaps);
-      this.fromToMarkerService.setParams('journeyId', res.journey.journeyId);
       this.fromToMarkerService.enRoute();
       this.homeTypeService.showAllCD = false
     })
   }
   seachTerminalData (deviceType: number, id: string) {
-    // this.temperatureService.resetData();
-    // this.humidityService.resetData();
-    // this.accelerationService.resetData();
     this.queryTerminalData({
       token: this.storageService.getStorage.token,
       opUserId: this.storageService.getStorage.userId,

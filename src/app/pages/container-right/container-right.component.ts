@@ -4,19 +4,19 @@ import { TemperatureService } from '../../providers/temperature/temperature.serv
 import { HumidityService } from '../../providers/humidity/humidity.service';
 import { AccelerationService } from '../../providers/acceleration/acceleration.service';
 import { ContainerAndDeviceStatusService } from '../../providers/container-and-device-status/container-and-device-status.service';
-import { ContainerSensorComponent } from '../../components/container-sensor/container-sensor.component'
+// import { ContainerSensorComponent } from '../../components/container-sensor/container-sensor.component'
 @Component({
   selector: 'app-container-right',
   templateUrl: './container-right.component.html',
   styleUrls: ['./container-right.component.less']
 })
 export class ContainerRightComponent implements OnInit {
-  @ViewChild('t')
-  private t: ContainerSensorComponent
-  @ViewChild('h')
-  private h: ContainerSensorComponent
-  @ViewChild('a')
-  private a: ContainerSensorComponent
+  // @ViewChild('t')
+  // private t: ContainerSensorComponent
+  // @ViewChild('h')
+  // private h: ContainerSensorComponent
+  // @ViewChild('a')
+  // private a: ContainerSensorComponent
   constructor(
     public terminalListService: TerminalListService,
     public temperatureService: TemperatureService,

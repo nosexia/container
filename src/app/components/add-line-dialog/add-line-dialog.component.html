@@ -1,4 +1,4 @@
-<nz-modal [nzWidth]="600" [(nzVisible)]="isVisible" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]="null" (nzOnCancel)="handleCancel()">
+<nz-modal [nzWidth]="600" [(nzVisible)]="isVisible" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]="null" (nzOnCancel)="handleCancel($event)">
     <ng-template #modalTitle>
       Info
     </ng-template>
@@ -26,7 +26,7 @@
           <nz-form-item>
             <nz-form-control [nzOffset]="6" [nzSpan]="12">
               <button nz-button nzType="primary" [disabled]="!validateForm.valid">Start</button>
-              <button nz-button [ngClass]="'button-cancel'"  (click)="handleCancel()">Cancel</button>
+              <button nz-button [ngClass]="'button-cancel'"  (click)="handleCancel($event)">Cancel</button>
             </nz-form-control>
           </nz-form-item>
         </form>
