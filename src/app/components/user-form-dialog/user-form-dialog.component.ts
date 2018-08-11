@@ -48,7 +48,7 @@ export class UserFormDialogComponent implements OnInit {
     } else {
       this.validateForm.get('enterpriseId').disable();
       this.validateForm.patchValue({
-        enterpriseId: this.transform(userItem.enterpriseId),
+        enterpriseId: userItem.enterpriseId,
         username: userItem.username,
         password: '',
         firstName: userItem.firstName,

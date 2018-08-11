@@ -157,7 +157,8 @@ export class JourneyComponent implements OnInit {
           containerIds: item.containerArray,
           roadmaps: item.roadmaps,
           checked: false,
-          disabled: false
+          disabled: false,
+          inRoute: item.inRoute
         }
       })  
       this.journeyListService.setJourneyData(newData)
@@ -230,7 +231,8 @@ export class JourneyComponent implements OnInit {
           containerIds: item.containerIds,
           roadmaps: item.roadmaps,
           checked: false,
-          disabled: false
+          disabled: false,
+          inRoute: item.inRoute
         });
         this.journeyListService.setJourneyData(newData)
       }

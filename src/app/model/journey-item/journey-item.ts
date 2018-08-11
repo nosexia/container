@@ -18,5 +18,6 @@ export interface JourneyItem {
     containerIds?: Array<any>,
     checked: Boolean,
     disabled: Boolean,
-    roadmaps?: Array<any>
+    roadmaps?: Array<any>,
+    inRoute?: Number
 }

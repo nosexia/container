@@ -17,10 +17,10 @@
           </nz-form-control>
         </nz-form-item>
         <nz-form-item *ngIf="type === 1" >
-          <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="enterpriseName">Enterprise Name</nz-form-label>
+          <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="enterpriseId">Enterprise Name</nz-form-label>
           <nz-form-control [nzSm]="14" [nzXs]="24">
-            <input nz-input formControlName="enterpriseName" id="enterpriseName">
-            <nz-form-explain *ngIf="validateForm.get('enterpriseName').dirty && validateForm.get('enterpriseName').errors">Please input Enterprise Name!</nz-form-explain>
+            <input nz-input formControlName="enterpriseId" id="enterpriseId">
+            <nz-form-explain *ngIf="validateForm.get('enterpriseId').dirty && validateForm.get('enterpriseId').errors">Please input Enterprise Name!</nz-form-explain>
           </nz-form-control>
         </nz-form-item>
         <nz-form-item> 

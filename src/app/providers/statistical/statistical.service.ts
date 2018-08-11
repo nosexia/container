@@ -5,8 +5,9 @@ import HTTP_URL from '../../datas/http-url.data';
 import { StorageService } from '../storage-type/storage.service';
 import { NzModalService, NzMessageService } from 'ng-zorro-antd';
 import { ContainerSocketService } from '../container-socket/container-socket.service'
+import { DatePipe } from '@angular/common';
 // import { Z_DATA_ERROR } from 'zlib';
-import * as Highcharts from 'highcharts';
+
 
 let colorsshandian = ['#f5222d','#FD883E', '#13b054'];
 let colors = ['#78a7d0','#318eba', '#0d5481'];
@@ -29,6 +30,7 @@ export class StatisticalService {
     private storageService: StorageService,
     private modalService: NzModalService,
     private message: NzMessageService,
+    private datePipe: DatePipe,
     private containerSocketService: ContainerSocketService
   ) { 
     this.resetData()
@@ -458,9 +460,8 @@ export class StatisticalService {
     this.containerSocketService.closeWS();
     this.containerSocketService.createObservableSocket(id, channel)
     .subscribe(data => {
-      console.log(data);
       data = JSON.parse(data);
-      x1.push(data.avg.unixtime);
+      x1.push(this.transformDate(data.avg.unixtime * 1000));
       if (65 === sensorTag) {        
         y1.push(data.avg.tempAvg);
         y2.push(data.mid.tempMidPoint[0]);
@@ -488,8 +489,7 @@ export class StatisticalService {
           enabled: false
         },
         xAxis: {
-          type: 'datetime',
-          tickPixelInterval: 150
+          categories: x1
         },
         yAxis: {
           title: {
@@ -497,9 +497,8 @@ export class StatisticalService {
           }
         },
         tooltip: {
-          formatter:  function(value) {            
-            return '<b>' + this.series.name + '</b><br/>' + 
-            Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', x1[this.x]) + '<br/>' + this.y;
+          formatter:  function(value) {           
+            return '<b>' + this.series.name + '</b><br/>' + this.y;
           }
         },
         series: [{
@@ -511,6 +510,9 @@ export class StatisticalService {
     }),
     error => console.log(error),
     () => console.log('结束')
+  }
+  transformDate (date: number) {
+    return this.datePipe.transform(date, 'h:mm:ss');
   }
   /**
    * 
