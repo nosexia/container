@@ -157,7 +157,6 @@ export class UserListComponent implements OnInit {
     this.updateUserService.upDateUser({
       token: this.storageService.getStorage.token,
       opUserId: this.storageService.getStorage.userId.toString(),
-      enterpriseName: item.enterpriseName.toString(),
       enterpriseId: item.enterpriseId.toString(),
       password: Md5.init(item.password),
       username: item.username,
@@ -169,7 +168,6 @@ export class UserListComponent implements OnInit {
       group: item.group
     }).subscribe(res => {
       if (res.respCode === '00000') {
-        // this.userListService.updateUser(item);
         this.userFormDialogComponent.isVisible = false;
         this.message.create('success', `This is a message of success`);
         this.getAllUser();
