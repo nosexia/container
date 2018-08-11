@@ -10,8 +10,7 @@ import { Router } from '@angular/router';
 import { AddLineDialogComponent } from '../../components/add-line-dialog/add-line-dialog.component';
 import { NzModalService, NzMessageService } from 'ng-zorro-antd';
 import { EnterpriseQueryComponent } from '../../components/enterprise-query/enterprise-query.component';
-
-
+import { HomeTypeService } from '../../providers/home-type/home-type.service'
 @Component({
   selector: 'app-container',
   templateUrl: './container.component.html',
@@ -41,7 +40,8 @@ export class ContainerComponent implements OnInit {
     public allMapService: AllMapService,
     private router: Router,
     private modalService: NzModalService,
-    private message: NzMessageService
+    private message: NzMessageService,
+    private homeTypeService: HomeTypeService
   ) {
     
   }
@@ -62,8 +62,9 @@ export class ContainerComponent implements OnInit {
     this.addLineDialogComponent.showModal(id);
   }
   showContaner (item: any) {
+    this.homeTypeService.showAllCD = true
+    this.homeTypeService.showRight = false
     this.router.navigate([''])
-    this.allMapService.setShow(true)
   } 
   showDevice (item: any) {
     console.log(item)
@@ -110,7 +111,6 @@ export class ContainerComponent implements OnInit {
       this.containerListService.setContainerData(newData)
     });
   }
-  
   queryEnterpriseId (value: any) {
     this.containerListService.getContainerList({
       token: this.storageService.getStorage.token,

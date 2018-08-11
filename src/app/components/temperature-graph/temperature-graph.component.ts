@@ -19,9 +19,9 @@ export class TemperatureGraphComponent implements OnDestroy {
     tooltips: {
       callbacks: {
         label : (tooltipItem, data) => {
-          let label = data.datasets[tooltipItem.datasetIndex].label;
+          // let label = data.datasets[tooltipItem.datasetIndex].label;
           let value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
-          return [label + ':' + value, this.deviceName[tooltipItem.index]];
+          return [this.deviceName[tooltipItem.index], value];
         }
       }
     },

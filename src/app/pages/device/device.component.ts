@@ -11,6 +11,7 @@ import { SimListService } from '../../providers/sim-list/sim-list.service'
 import { DiagnosticsDialogComponent } from '../../components/diagnostics-dialog/diagnostics-dialog.component';
 import { NzModalService, NzMessageService } from 'ng-zorro-antd';
 import { EnterpriseQueryComponent } from '../../components/enterprise-query/enterprise-query.component';
+import { HomeTypeService } from '../../providers/home-type/home-type.service'
 @Component({
   selector: 'app-device',
   templateUrl: './device.component.html',
@@ -55,8 +56,8 @@ export class DeviceComponent implements OnInit {
     private router: Router,
     private simListService: SimListService,
     private modalService: NzModalService,
-    private message: NzMessageService
-
+    private message: NzMessageService,
+    private homeTypeService: HomeTypeService
   ) {
   }
   ngOnInit() {
@@ -82,15 +83,14 @@ export class DeviceComponent implements OnInit {
         this.diagnosticsDialogComponent.showModals(data, null);  
       }
     })
-    // this.diagnosticsDialogComponent.showModals(data);
   }
   showContaner (item: any) {
     this.allMapService.setShow(true)
   } 
   showDevice (item: any) {
-    console.log(item)
+    this.homeTypeService.showAllCD = true
+    this.homeTypeService.showRight = false
     this.router.navigate([''])
-    this.allMapService.setShow(true)
   }
   activeView (isShow: boolean) {
     this.isShow = isShow;

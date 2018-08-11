@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { TerminalListService } from '../../providers/terminal-list/terminal-list.service';
 import { AllMapService } from '../../providers/all-map/all-map.service';
 import { FromToMarkerService } from '../../providers/from-to-marker/from-to-marker.service';
@@ -20,8 +20,13 @@ export class ContainerListDeviceComponent implements OnDestroy {
     public homeTypeService: HomeTypeService
   ) { 
   }
+  ngOnDestroy () {
+    if (this.timer) {
+      // 清除定时器
+      this.timer.unsubscribe()
+    }
+  }
   ngOnInit() {
-    // if (this.allMapService.containerList.length === 0 && this.allMapService.deviceList.length === 0) {
     this.homeTypeService.showRight = false
     this.allMapService.actionTerminalList();
     this.timer = interval(5000).subscribe(val => {
@@ -30,16 +35,9 @@ export class ContainerListDeviceComponent implements OnDestroy {
       }
       this.allMapService.actionTerminalList()
     })
-    // }
   }
   dragProgress (a) {
     console.log(a)
-  }
-  ngOnDestroy () {
-    if (this.timer) {
-      // 清除定时器
-      this.timer.unsubscribe()
-    }
   }
   showContaner (item: any) {
     this.allMapService.setShow(true)

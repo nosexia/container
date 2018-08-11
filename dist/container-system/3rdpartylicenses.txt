@@ -1140,16 +1140,16 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+highcharts@6.1.1
+https://www.highcharts.com/license
+https://www.highcharts.com/license
+
 date-fns@1.29.0
 MIT
 # License
 
 date-fns is licensed under the [MIT license](http://kossnocorp.mit-license.org).
 Read more about MIT at [TLDRLegal](https://tldrlegal.com/license/mit-license).
-
-highcharts@6.1.1
-https://www.highcharts.com/license
-https://www.highcharts.com/license
 
 viser-ng@2.2.8
 MIT

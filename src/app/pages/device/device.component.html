@@ -1,29 +1,4 @@
 <div class="device-contents">
-    <!-- <div class="show-map-list">
-        <button nz-button nzType="default" (click)="activeView(false)">Map</button>
-        <button nz-button nzType="default" class="delete-button" (click)="activeView(true)">List</button>
-    </div> -->
-    <!-- <app-device-list-map [hidden]="isShow" ></app-device-list-map> -->
-    <!-- <div class="container-list-device-content" [hidden]="isShow">
-      <nz-layout>
-        <nz-sider [nzWidth]="270" *ngIf="allMapService.allShows">
-          <div>
-            <app-container-list-only-left [noBtn]="false"></app-container-list-only-left>
-            <app-device-list-only-left></app-device-list-only-left>
-          </div>
-        </nz-sider>
-        <nz-layout>
-            <split [gutterSize]="4">
-              <split-area size="50">
-                <app-all-map (showContaner)="showContaner($event)" (showDevice)="showDevice($event)" [device]="allMapService.deviceList" [container]="allMapService.containerList"></app-all-map>
-              </split-area>
-              <split-area size="50" [ngClass]="'device-split-right'" *ngIf="allMapService.allShows">
-                <app-cd-tab-right></app-cd-tab-right>
-              </split-area>
-            </split>
-        </nz-layout>
-      </nz-layout>
-    </div> -->
     <div nz-row class="container-nav"  [hidden]="!isShow">
       <div nz-col nzSpan="16">
         <app-enterprise-query [queryType]="queryType" (queryInput)="queryInput($event)"></app-enterprise-query>        
@@ -50,10 +25,6 @@
             <th>Device SN</th>
             <th>Device Name</th>
             <th>Enterprise ID</th>
-            <!-- <th>Module-IMEI</th>
-            <th>Module-SN</th>
-            <th>SIM-ICCID</th>
-            <th>SIM-IMSI</th> -->
             <th width="150">SIM ICCID</th>
             <th>State</th>
             <th>Diagnostics</th>
@@ -72,17 +43,10 @@
             </td>
             <td>{{data.enterpriseId | enterpriseName}}</td>
             <td>{{data.iccid}}</td>
-            <!-- <td>{{data.imei}}</td>
-            <td>{{data.networkModuleSn}}</td>
-            <td>
-                <div [ngClass]="'i-link'" (click)="deviceListService.getICCID(data.iccid)">{{data.iccid}}</div>
-            </td>
-            <td>{{data.imsi}}</td> -->
             <td>
               <app-device-status [status]="data.status"></app-device-status>
             </td>
             <td>
-                <!-- {{data.updateDate}} -->
                 <img src="../../../assets/images/bs.png"  *ngIf="data.iccid" (click)="diagnostics(data)" style="width: 30px; height: 30px; "/>
             </td>
             <td>{{data.rulesetName}}</td>

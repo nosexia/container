@@ -5,12 +5,6 @@
           </agm-polyline-point>
         </ng-container>
     </agm-polyline>
-    <!-- <agm-polyline [strokeColor]="'blue'">
-        <ng-container *ngFor="let point of fromto.relRoadmaps">
-          <agm-polyline-point [latitude]="point.latitude / 1000000" [longitude]="point.longitude / 1000000">
-          </agm-polyline-point>
-        </ng-container>
-    </agm-polyline> -->
     <agm-polyline [strokeColor]="'blue'">
         <ng-container *ngFor="let point of fromto.livePositionLine">
           <agm-polyline-point [latitude]="point.latitude" [longitude]="point.longitude">

@@ -45,7 +45,8 @@ export class HttpService {
     } else {
       // newUrl = 'http://47.75.196.34:3009/login';
       if (environment.production) {
-        newUrl = 'https://api.attaplogistics.com';
+        // newUrl = 'https://api.attaplogistics.com';
+        newUrl = 'https://api.attaplogistics.com' + newUrl;
         return this.httpClient.post(newUrl, body, httpOptions)
         .map(this.extractData)
         .catch(this.handleError);

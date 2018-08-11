@@ -148,14 +148,6 @@ export class TerminalListService {
         return false
       }
       let datas = JSON.parse(res.data);
-      this.setClick()
-      if (deviceType === 0) {
-        this.stateBridgService.setDeviceId(datas.bandDeviceId)
-        this.stateBridgService.setContianerId(datas.terminalId)
-      } else if (deviceType === 1) {
-        this.stateBridgService.setDeviceId(datas.terminalId);
-        this.stateBridgService.setContianerId('0');
-      }
       if (this.getSensors(65, datas.sensors)[0].value !== null) {
         console.log('获取的温度' + this.getSensors(65, datas.sensors)[0].value)
         this.temperatureService.addData(this.getSensors(65, datas.sensors)[0].value, this.getSensors(1, datas.sensors)[0].value, datas.deviceName);
@@ -168,7 +160,6 @@ export class TerminalListService {
         console.log('获取的加速度' + this.getSensors(67, datas.sensors)[0].value);        
         this.accelerationService.addData(this.getSensors(67, datas.sensors)[0].value, this.getSensors(1, datas.sensors)[0].value, datas.deviceName);
       }
-      // this.setRightStatus(datas, '1');
     })
   }
   // setDeviceState () {
