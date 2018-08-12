@@ -431,8 +431,8 @@ export class StatisticalService {
     // 重至所有数据
     x1 = [];
     y1 = [];
-    y3 = [];
     y2 = [];
+    y3 = [];
     // 获取单个集装箱数据
     if (null !== pas.enterpriseId && null !== pas.containerId) {
       this.queryStatus(pas.containerId);
@@ -456,8 +456,16 @@ export class StatisticalService {
     this.containerSocketService.createObservableSocket(id, channel)
     .subscribe(data => {
       data = JSON.parse(data);
-      console.log(data);
+
+      // 折线图一次性只可以展示10调数据
+      if (x1.length >= 10) {
+        x1.shift();       
+      }
       x1.push(this.transformDate(data.avg.unixtime * 1000));
+      if (y1.length >= 10) {
+        y1.shift();
+      }
+
       if (65 === sensorTag) {        
         y1.push(data.avg.tempAvg);
         y2.push(data.mid.tempMidPoint[0]);
@@ -468,81 +476,7 @@ export class StatisticalService {
         y1.push(data.avg.acceAvg);
         y2.push(data.mid.acceMidPoint[0]);
       }
-      this.datas.chartOptions1 = {
-        title: {
-          text: 'Average'
-        },
-
-        chart: {
-          type: 'spline',
-          marginRight: 10
-        },
-
-        legend: {
-          enabled: false
-        },
-        credits: {
-          enabled: false
-        },
-        xAxis: {
-          categories: x1
-        },
-        yAxis: {
-          title: {
-            text: null
-          }
-        },
-        tooltip: {
-          formatter:  function(value) {           
-            return '<b>' + this.series.name + '</b><br/>' + this.y;
-          }
-        },
-        series: [{
-          name: 'Average',
-          type: 'line',
-          data: y1
-        }],
-      }
-
-      this.datas.chartOptions2 = {
-        title: {
-          text: 'Median'
-        },
-        legend: {
-          enabled: false
-        },
-        credits: {
-          enabled: false
-        },
-        xAxis: [{
-          title: { text: '' },
-        }, {
-          title: { text: '' },
-          opposite: true
-        }],
-        yAxis: [{
-          title: { text: '' },
-        }, {
-          title: { text: '' },
-          opposite: true
-        }],
-        series: [{
-          name: 'Bell curve',
-          type: 'bellcurve',
-          xAxis: 1,
-          yAxis: 1,
-          baseSeries: 1,
-          zoneAxis: 'x'
-        }, {
-          name: 'Data',
-          type: 'scatter',
-          data: y2,
-          marker: {
-            radius: 1,
-            symbol: 'circle'
-          }
-        }]
-      }
+      this.RenderTableData();
     }),
     error => console.log(error),
     () => console.log('结束')
@@ -590,7 +524,19 @@ export class StatisticalService {
     .subscribe(data => {
       data = JSON.parse(data);
       console.log(data);
+
+      // 折线图一次性只可以展示10调数据
+      if (x1.length >= 10) {
+        x1.shift();       
+      }
       x1.push(this.transformDate(data.avg.unixtime * 1000));
+      if (y1.length >= 10) {
+        y1.shift();
+      }
+
+      if (y3.length >= 10 ) {
+        y3.shift();
+      }
       if (65 === sensorTag) { 
         y1.push(data.avg.tempAvg);
         y2.push(data.mid.tempMidPoint[0]);
@@ -605,120 +551,7 @@ export class StatisticalService {
         y3.push(data.midmid.acceMidMid);
       }
 
-
-      this.datas.chartOptions1 = {
-          title: {
-            text: 'Average'
-          },
-  
-          chart: {
-            type: 'spline',
-            marginRight: 10
-          },
-  
-          legend: {
-            enabled: false
-          },
-          credits: {
-            enabled: false
-          },
-          xAxis: {
-            categories: x1
-          },
-          yAxis: {
-            title: {
-              text: null
-            }
-          },
-          tooltip: {
-            formatter:  function(value) {           
-              return '<b>' + this.series.name + '</b><br/>' + this.y;
-            }
-          },
-          series: [{
-            name: 'Average',
-            type: 'line',
-            data: y1
-          }],
-        }
-
-
-        this.datas.chartOptions2 = {
-          title: {
-            text: 'Median'
-          },
-          legend: {
-            enabled: false
-          },
-          credits: {
-            enabled: false
-          },
-          xAxis: [{
-            title: { text: '' },
-          }, {
-            title: { text: '' },
-            opposite: true
-          }],
-          yAxis: [{
-            title: { text: '' },
-          }, {
-            title: { text: '' },
-            opposite: true
-          }],
-          series: [{
-            name: 'Bell curve',
-            type: 'bellcurve',
-            xAxis: 1,
-            yAxis: 1,
-            baseSeries: 1,
-            zoneAxis: 'x'
-          }, {
-            name: 'Data',
-            type: 'scatter',
-            data: y2,
-            marker: {
-              radius: 1,
-              symbol: 'circle'
-            }
-          }]
-        }
-
-        this.datas.chartOptions3 = {
-          title: {
-            text: 'Median of median'
-          },
-  
-          chart: {
-            type: 'spline',
-            marginRight: 10
-          },
-  
-          legend: {
-            enabled: false
-          },
-          credits: {
-            enabled: false
-          },
-          xAxis: {
-            categories: x1
-          },
-          yAxis: {
-            title: {
-              text: null
-            }
-          },
-          tooltip: {
-            formatter:  function(value) {           
-              return '<b>' + this.series.name + '</b><br/>' + this.y;
-            }
-          },
-          series: [{
-            name: 'Median of median',
-            type: 'line',
-            data: y3
-          }],
-        }
-
+      this.RenderTableData();
     }),
     error => console.log(error),
     () => console.log('结束')
@@ -745,7 +578,18 @@ export class StatisticalService {
     .subscribe(data => {
       data = JSON.parse(data);
       console.log(data);
+      // 折线图一次性只可以展示10调数据
+      if (x1.length >= 10) {
+        x1.shift();       
+      }
       x1.push(this.transformDate(data.avg.unixtime * 1000));
+      if (y1.length >= 10) {
+        y1.shift();
+      }
+
+      if (y3.length >= 10 ) {
+        y3.shift();
+      }
       if (65 === sensorTag) { 
         y1.push(data.avg.tempAvg);
         y2.push(data.mid.tempMidPoint[0]);
@@ -760,125 +604,137 @@ export class StatisticalService {
         y3.push(data.midmid.acceMidMid);
       }
 
-
-      this.datas.chartOptions1 = {
-          title: {
-            text: 'Average'
-          },
-  
-          chart: {
-            type: 'spline',
-            marginRight: 10
-          },
-  
-          legend: {
-            enabled: false
-          },
-          credits: {
-            enabled: false
-          },
-          xAxis: {
-            categories: x1
-          },
-          yAxis: {
-            title: {
-              text: null
-            }
-          },
-          tooltip: {
-            formatter:  function(value) {           
-              return '<b>' + this.series.name + '</b><br/>' + this.y;
-            }
-          },
-          series: [{
-            name: 'Average',
-            type: 'line',
-            data: y1
-          }],
-        }
-
-
-        this.datas.chartOptions2 = {
-          title: {
-            text: 'Median'
-          },
-          legend: {
-            enabled: false
-          },
-          credits: {
-            enabled: false
-          },
-          xAxis: [{
-            title: { text: '' },
-          }, {
-            title: { text: '' },
-            opposite: true
-          }],
-          yAxis: [{
-            title: { text: '' },
-          }, {
-            title: { text: '' },
-            opposite: true
-          }],
-          series: [{
-            name: 'Bell curve',
-            type: 'bellcurve',
-            xAxis: 1,
-            yAxis: 1,
-            baseSeries: 1,
-            zoneAxis: 'x'
-          }, {
-            name: 'Data',
-            type: 'scatter',
-            data: y2,
-            marker: {
-              radius: 1,
-              symbol: 'circle'
-            }
-          }]
-        }
-
-        this.datas.chartOptions3 = {
-          title: {
-            text: 'Median of median'
-          },
-  
-          chart: {
-            type: 'spline',
-            marginRight: 10
-          },
-  
-          legend: {
-            enabled: false
-          },
-          credits: {
-            enabled: false
-          },
-          xAxis: {
-            categories: x1
-          },
-          yAxis: {
-            title: {
-              text: null
-            }
-          },
-          tooltip: {
-            formatter:  function(value) {           
-              return '<b>' + this.series.name + '</b><br/>' + this.y;
-            }
-          },
-          series: [{
-            name: 'Median of median',
-            type: 'line',
-            data: y3
-          }],
-        }
+      this.RenderTableData();
 
     }),
     error => console.log(error),
     () => console.log('结束')    
   }
 
+  // 充值图标
+  resetTableData() {
+    x1 = [];
+    y1 = [];
+    y2 = [];
+    y3 = [];
+    this.RenderTableData();
+  }
+
+  // 渲染图标数据
+  RenderTableData() {
+    this.datas.chartOptions1 = {
+      title: {
+        text: 'Average'
+      },
+
+      chart: {
+        type: 'spline',
+        marginRight: 10
+      },
+
+      legend: {
+        enabled: false
+      },
+      credits: {
+        enabled: false
+      },
+      xAxis: {
+        categories: x1
+      },
+      yAxis: {
+        title: {
+          text: null
+        }
+      },
+      tooltip: {
+        formatter:  function(value) {           
+          return '<b>' + this.series.name + '</b><br/>' + this.x + '<br/>' + this.y;
+        }
+      },
+      series: [{
+        name: 'Average',
+        type: 'line',
+        data: y1
+      }],
+    }
+
+
+    this.datas.chartOptions2 = {
+      title: {
+        text: 'Median'
+      },
+      legend: {
+        enabled: false
+      },
+      credits: {
+        enabled: false
+      },
+      xAxis: [{
+        title: { text: '' },
+      }, {
+        title: { text: '' },
+        opposite: true
+      }],
+      yAxis: [{
+        title: { text: '' },
+      }, {
+        title: { text: '' },
+        opposite: true
+      }],
+      series: [{
+        name: 'Bell curve',
+        type: 'bellcurve',
+        xAxis: 1,
+        yAxis: 1,
+        baseSeries: 1,
+        zoneAxis: 'x'
+      }, {
+        name: 'Data',
+        type: 'scatter',
+        data: y2,
+        marker: {
+          radius: 1,
+          symbol: 'circle'
+        }
+      }]
+    }
+
+    this.datas.chartOptions3 = {
+      title: {
+        text: 'Median of median'
+      },
+
+      chart: {
+        type: 'spline',
+        marginRight: 10
+      },
+
+      legend: {
+        enabled: false
+      },
+      credits: {
+        enabled: false
+      },
+      xAxis: {
+        categories: x1
+      },
+      yAxis: {
+        title: {
+          text: null
+        }
+      },
+      tooltip: {
+        formatter:  function(value) {           
+          return '<b>' + this.series.name + '</b><br/>' + this.x + '<br/>' + this.y;
+        }
+      },
+      series: [{
+        name: 'Median of median',
+        type: 'line',
+        data: y3
+      }],
+    }
+  }
 
   
   getReqMyData (body: any) {

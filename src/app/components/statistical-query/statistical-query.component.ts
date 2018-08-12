@@ -38,8 +38,11 @@ export class StatisticalQueryComponent implements OnInit {
     this.oneSelect = false;
   }
   checkEnterprise (id: number): void {
-    console.log(id)
-    // 点击查询j
+    // 联动清楚
+    if (null === id) {
+      this.validateForm.reset();
+      return;
+    }
     this.containerListService.queryContainer(id);
   }
   checkContainer (id: string): void {

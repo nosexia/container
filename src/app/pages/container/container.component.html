@@ -71,9 +71,9 @@
           <td>{{data.enterpriseId | enterpriseName}}</td>
           <td>{{data.journeryId}}</td>
           <td>{{data.deviceId}}</td>
-          <td *ngIf="data.state === 0"><nz-tag [nzColor]="'#B3B3B3'">Offline</nz-tag></td>
-          <td *ngIf="data.state === 1"><nz-tag [nzColor]="'#FD883E'">Connected</nz-tag></td>
-          <td *ngIf="data.state === 2"><nz-tag [nzColor]="'#87d068'">Attached</nz-tag></td>
+          <td [hidden]="0 !== data.state"><nz-tag [nzColor]="'#B3B3B3'">Offline</nz-tag></td>
+          <td [hidden]="1 !== data.state"><nz-tag [nzColor]="'#FD883E'">Connected</nz-tag></td>
+          <td [hidden]="2 !== data.state"><nz-tag [nzColor]="'#87d068'">Attached</nz-tag></td>
           <td>{{data.createDate}}</td>
           <td>{{data.updateDate}}</td>
           <td>{{data.rulesetName}}</td>
