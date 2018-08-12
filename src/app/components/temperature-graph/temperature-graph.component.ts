@@ -12,14 +12,12 @@ export class TemperatureGraphComponent implements OnDestroy {
   public barChartOptions: any = {
     scaleShowVerticalLines: false,
     responsive: true,
-    maintainAspectRatio: false,
     legend: {
       display: false
     },
     tooltips: {
       callbacks: {
         label : (tooltipItem, data) => {
-          // let label = data.datasets[tooltipItem.datasetIndex].label;
           let value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
           return [this.deviceName[tooltipItem.index], value];
         }
@@ -28,11 +26,12 @@ export class TemperatureGraphComponent implements OnDestroy {
     scales: {
       yAxes: [
           {
-              ticks: {
-                  reverse : false,
-                  min: 0,
-                  max: 100
-              }
+            ticks: {
+              beginAtZero: true,
+              max: 100,
+              min: 0,
+              stepSize: 20
+            }
           }
         ]
       }
@@ -61,7 +60,6 @@ export class TemperatureGraphComponent implements OnDestroy {
     private datePipe: DatePipe
   ) {
   }
-  
   ngOnDestroy() {
     this.barChartData[0].data = [];
     this.deviceName = [];
@@ -70,17 +68,19 @@ export class TemperatureGraphComponent implements OnDestroy {
     }
   }
   upDateCharts (title: string, value: number, timer: any, deviceName: string) :void {
-    if (timer === 0) return
     if (title === 'Acceleration(g)') {
       this.barChartOptions.scales.yAxes[0].ticks.max = 20
+      this.barChartOptions.scales.yAxes[0].ticks.stepSize = 2
     } else if (title === 'Temperature(℃)') {
+      this.barChartOptions.scales.yAxes[0].ticks.stepSize = 20
       this.barChartOptions.scales.yAxes[0].ticks.max = 128
     }
+    if (timer === 0) return
+    console.log(this.barChartOptions)
     if (this.barChartData[0].data.length > 7) {
       this.barChartData[0].data.shift();
       this.barChartLabels.shift();
       this.deviceName.shift();
-      this.barChartLabels.shift();
     }
     this.barChartData[0].data.push(value);
     this.deviceName.push(deviceName)
