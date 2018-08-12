@@ -43,7 +43,8 @@
       (nzPageIndexChange)="containerListService.refreshStatus()"
       (nzPageSizeChange)="containerListService.refreshStatus()"
       [nzShowQuickJumper]="true"
-      [nzPageSize]="8"
+      [nzPageSize]="6"
+      [nzScroll]="{ x: '1600px' }"
       [nzTotal]="containerListService.dataTotal">
       <thead>
         <tr>

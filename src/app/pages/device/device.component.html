@@ -17,6 +17,7 @@
         (nzPageIndexChange)="deviceListService.refreshStatus()"
         (nzPageSizeChange)="deviceListService.refreshStatus()"
         [nzShowQuickJumper]="true"
+        [nzScroll]="{ x: '1500px' }"
         [nzPageSize]="5"
         [nzTotal]="deviceListService.dataTotal">
         <thead>
