@@ -64,10 +64,6 @@ export class DeviceComponent implements OnInit {
     window.setInterval(() => {
       this.getAllDevice();
     }, 20000)
-    if (this.allMapService.containerList.length === 0 && this.allMapService.deviceList.length === 0) {
-      this.allMapService.DallShows = false
-      this.allMapService.actionTerminalList()
-    }
   }
   diagnostics (data: any) {
     this.deviceListService.searchDignostics(data.deviceId).subscribe(res => {
