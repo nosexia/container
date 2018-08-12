@@ -8,6 +8,7 @@
         <button nz-button nzType="default" class="delete-button" (click)="btnType(66)">Humidity</button>
         <button nz-button nzType="default" class="delete-button" (click)="btnType(67)">Acceleration</button>
     </div>
+
   </div>
   <div [ngClass]="'data-table-contents'">
       <div nz-row>
@@ -17,6 +18,10 @@
 
         <div nz-col nzSpan="8">
             <app-statisticals [data]="statisticalService.datas.chartOptions2"></app-statisticals>
+        </div>
+
+        <div nz-col nzSpan="8">
+            <app-statisticals [data]="statisticalService.datas.chartOptions3" [hidden]="!statisticalService.datas.chartOptions3.series[0].data.length"></app-statisticals>
         </div>
       </div>
   </div>

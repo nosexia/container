@@ -5,7 +5,6 @@ import {
   Validators
 } from '@angular/forms';
 import { EnterpriseListService } from '../../providers/enterprise-list/enterprise-list.service';
-import { JourneyListService } from '../../providers/journey-list/journey-list.service';
 import { ContainerListService } from '../../providers/container-list/container-list.service';
 @Component({
   selector: 'app-statistical-query',
@@ -21,7 +20,6 @@ export class StatisticalQueryComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private enterpriseListService: EnterpriseListService,
-    public journeyListService: JourneyListService,
     public containerListService: ContainerListService
   ) {
     if (this.enterpriseListService.enterpriseData.length === 0) {
@@ -31,9 +29,8 @@ export class StatisticalQueryComponent implements OnInit {
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      enterpriseId: [ null, [ Validators.required] ],
-      journeyId: [ null, [ Validators.required] ],
-      containerId: [ null, [ Validators.required] ]
+      enterpriseId: [ null ],
+      containerId: [ null ]
     });
   }
 
@@ -43,23 +40,17 @@ export class StatisticalQueryComponent implements OnInit {
   checkEnterprise (id: number): void {
     console.log(id)
     // 点击查询j
-    this.journeyListService.queryJourneys(id);
-  }
-  checkJourney (id: number): void {
-    console.log(id)
-    // 点击查询c
     this.containerListService.queryContainer(id);
   }
   checkContainer (id: string): void {
     console.log(id)
   }
   submitForm(): void {
-    if (!this.validateForm.valid) return
     this.type = 0;
     this.queryInput.emit(this.validateForm.value);
   }
   queryTable (): void {
-    if (!this.validateForm.valid) return
+    // if (!this.validateForm.valid) return
     this.queryInput.emit(this.validateForm.value);
   }
 

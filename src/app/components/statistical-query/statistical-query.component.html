@@ -9,14 +9,6 @@
       </nz-form-item>
       <nz-form-item>
         <nz-form-control>
-            <nz-select style="width: 200px;" id="journeyId" formControlName="journeyId" nzPlaceHolder="Select Journey"  (ngModelChange)="checkJourney($event)">
-              <!-- <nz-option nzLabel="All" [nzValue]="-1"></nz-option> -->
-              <nz-option *ngFor="let option of journeyListService.queryData" [nzLabel]=" option.fromCity + '-' + option.toCity + '-' + option.journeyId" [nzValue]="option.journeyId"></nz-option>
-            </nz-select>
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-control>
           <nz-input-group>
             <nz-select style="width: 200px;" id="containerId" formControlName="containerId" nzPlaceHolder="Select ContainerId">
                 <!-- <nz-option nzLabel="All" [nzValue]="-1"></nz-option> -->

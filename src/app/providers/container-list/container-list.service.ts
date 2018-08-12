@@ -67,19 +67,11 @@ export class ContainerListService {
       this.setContainerData(newData)
     });
   }
-  queryContainer (journeyId: number) {
-    let params: any;
-    if (journeyId === -1) {
-      params = {
-        token: this.storageService.getStorage.token,
-        opUserId: this.storageService.getStorage.userId
-      }
-    } else {
-      params = {
-        token: this.storageService.getStorage.token,
-        opUserId: this.storageService.getStorage.userId,
-        journeyId: journeyId
-      }
+  queryContainer (enterpriseId: number) {
+    let params: any = {
+      token: this.storageService.getStorage.token,
+      opUserId: this.storageService.getStorage.userId,
+      enterpriseId: enterpriseId
     }
     this.getContainerList(params).subscribe(res => {
       const newData = res.containers.map(item => {
