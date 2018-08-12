@@ -30,7 +30,7 @@ export class EnterpriseQueryComponent implements OnInit {
   ngOnInit(): void {
     this.validateForm = this.fb.group({
       enterpriseId: [ null ],
-      checks: [ null, Validators.required ],
+      checks: [ null ],
       query: [ null ]
     });
   }

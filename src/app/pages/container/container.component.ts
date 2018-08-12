@@ -74,18 +74,12 @@ export class ContainerComponent implements OnInit {
     this.isShow = isShow;
   }
   queryInput (value: any) {
-    if (!value.query) {
-      this.containerListService.getAllContainer()
-    } else {
-      if (value.checks === '0') {
-        this.queryContainer({
-            token: this.storageService.getStorage.token,
-            opUserId: this.storageService.getStorage.userId,
-            enterpriseId: value.enterpriseId,
-            containerId: value.query
-        })
-      }
-    }
+      this.queryContainer({
+        token: this.storageService.getStorage.token,
+        opUserId: this.storageService.getStorage.userId,
+        enterpriseId: value.enterpriseId,
+        containerId: value.query
+      })
   }
   queryContainer (params: any) {
     this.containerListService.getContainerList(params).subscribe(res => {
