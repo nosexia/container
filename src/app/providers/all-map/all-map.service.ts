@@ -84,6 +84,7 @@ export class AllMapService {
           if (a.deviceId === this.containerAndDeviceStatusService.deviceId) {
             if (a.state === 0) {
               this.homeTypeService.showRight = false;
+              this.containerAndDeviceStatusService.resetData();
             }
           }
         })
