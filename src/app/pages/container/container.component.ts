@@ -47,12 +47,12 @@ export class ContainerComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.allMapService.containerList.length === 0 && this.allMapService.deviceList.length === 0) {
-      this.allMapService.actionTerminalList()
-      window.setInterval(() => {
-        this.allMapService.actionTerminalList()
-      }, 20000)
-    }
+    // if (this.allMapService.containerList.length === 0 && this.allMapService.deviceList.length === 0) {
+    //   this.allMapService.actionTerminalList()
+    //   window.setInterval(() => {
+    //     this.allMapService.actionTerminalList()
+    //   }, 20000)
+    // }
     window.setInterval(() => {
       this.containerListService.getAllContainer();
     }, 20000)
