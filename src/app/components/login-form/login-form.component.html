@@ -17,6 +17,8 @@
         <nz-form-explain *ngIf="validateForm.get('passWord').dirty && validateForm.get('passWord').errors">{{ 'LOGIN.PASSWORDPROMPTTEXT' | translate }}</nz-form-explain>
       </nz-form-control>
     </nz-form-item>
+    <div style="color: red" *ngIf="showError">Login Failure;</div>
+    <div style="color: red" *ngIf="showError">Incorrect User name or Password</div>
     <nz-form-item>
       <nz-form-control>
         <label nz-checkbox formControlName="remember">

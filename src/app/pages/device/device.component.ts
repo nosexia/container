@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router'
 import { DeviceListService } from '../../providers/device-list/device-list.service';
 import { StorageService } from '../../providers/storage-type/storage.service';
@@ -12,12 +12,14 @@ import { DiagnosticsDialogComponent } from '../../components/diagnostics-dialog/
 import { NzModalService, NzMessageService } from 'ng-zorro-antd';
 import { EnterpriseQueryComponent } from '../../components/enterprise-query/enterprise-query.component';
 import { HomeTypeService } from '../../providers/home-type/home-type.service'
+import { interval, Subscription } from 'rxjs';
+
 @Component({
   selector: 'app-device',
   templateUrl: './device.component.html',
   styleUrls: ['./device.component.less']
 })
-export class DeviceComponent implements OnInit {
+export class DeviceComponent implements OnDestroy {
   @ViewChild(DeviceFormDialogComponent)
   private deviceFormDialogComponent: DeviceFormDialogComponent;
   @ViewChild(DiagnosticsDialogComponent)
@@ -47,6 +49,7 @@ export class DeviceComponent implements OnInit {
     }
   ]
   isShow: boolean = true;
+  private timer: Subscription = null;
   constructor (
     public deviceListService: DeviceListService,
     private storageService: StorageService,
@@ -59,11 +62,17 @@ export class DeviceComponent implements OnInit {
     private homeTypeService: HomeTypeService
   ) {
   }
+  ngOnDestroy () {
+    if (this.timer) {
+      // 清除定时器
+      this.timer.unsubscribe()
+    }
+  }
   ngOnInit() {
     this.getAllDevice();
-    window.setInterval(() => {
+    this.timer = interval(5000).subscribe(val => {
       this.getAllDevice();
-    }, 20000)
+    })
   }
   diagnostics (data: any) {
     this.deviceListService.searchDignostics(data.deviceId).subscribe(res => {
