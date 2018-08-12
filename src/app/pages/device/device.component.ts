@@ -26,7 +26,7 @@ export class DeviceComponent implements OnInit {
   private enterpriseQueryComponent: EnterpriseQueryComponent;
   public queryType: QueryType[] = [
     {
-      label: 'DeviceID',
+      label: 'Device SN',
       value: '0'
     },
     {
