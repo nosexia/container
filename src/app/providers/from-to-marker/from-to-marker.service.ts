@@ -79,7 +79,9 @@ export class FromToMarkerService {
       liveLongitude: 0,
       livePositionLine: []
     }
-    this.timer.unsubscribe()
+    if (this.timer) {
+      this.timer.unsubscribe()
+    }
   }
   enRoute () {
     // 初始化清除清时期

@@ -4,7 +4,7 @@
       <span [ngClass]="'dev-name'">{{vehicles.deviceName}}</span>
       <span [ngClass]="'dev-attached'">({{vehicles.state | deviceStatus}})</span>
     </div>
-    <div nz-col nzSpan="16" class="dev-bar-icon-content">
+    <div nz-col nzSpan="6" class="dev-bar-icon-content">
       <span>{{vehicles.startTime | date: 'yyyy-MM-dd hh:mm:ss'}}</span>
       <i class="anticon anticon-close" (click)="closeInfoWindow()"></i>
     </div>
