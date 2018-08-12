@@ -4,19 +4,26 @@ import { HttpService } from '../http/http.service';
 import HTTP_URL from '../../datas/http-url.data';
 import { StorageService } from '../storage-type/storage.service';
 import { NzModalService, NzMessageService } from 'ng-zorro-antd';
-import { ContainerSocketService } from '../container-socket/container-socket.service'
+import { ContainerSocketService } from '../container-socket/container-socket.service';
+import { ContainerAllSocketService } from '../container-all-socket/container-all-socket.service';
+import { EnterpriseAllSocketService } from '../enterprise-all-socket/enterprise-all-socket.service';
 import { DatePipe } from '@angular/common';
 // import { Z_DATA_ERROR } from 'zlib';
 
 
 let colorsshandian = ['#f5222d','#FD883E', '#13b054'];
 let colors = ['#78a7d0','#318eba', '#0d5481'];
-// 初始数据
+// 中值
 let x1 = [];
 let y1 = [];
 
+// 中位数
 let x2 = [];
 let y2 = [];
+
+// 中值的中值
+let x3 = [];
+let y3 = [];
 
 let sensorTag = 0;
 
@@ -31,7 +38,9 @@ export class StatisticalService {
     private modalService: NzModalService,
     private message: NzMessageService,
     private datePipe: DatePipe,
-    private containerSocketService: ContainerSocketService
+    private containerSocketService: ContainerSocketService,
+    private containerAllSocketService: ContainerAllSocketService,
+    private enterpriseAllSocketService: EnterpriseAllSocketService
   ) { 
     this.resetData()
   }
@@ -198,7 +207,37 @@ export class StatisticalService {
             color: colorsshandian[2],
           }]
         }]
-      }
+      }, 
+
+      chartOptions3: {
+        title: {
+          text: 'Median of median'
+        },
+        chart: {
+          type: 'spline',
+          marginRight: 10
+        },          
+        legend: {
+          enabled: false
+        },
+        credits: {
+          enabled: false
+        },
+        xAxis: {
+          type: 'datetime',
+          tickPixelInterval: 150          
+        },
+        yAxis: {
+          title: {
+            text: null
+          }
+        },
+        series: [{
+          name: 'Average',
+          type: 'line',
+          data: y3
+          }]
+      },
     }
   }
 
@@ -387,80 +426,37 @@ export class StatisticalService {
    * @param type 温度65 湿度66 加速度67
    */
   showStatisticsData(pas: any, type: number) {
-    this.httpService.post(HTTP_URL.statistics, {
-      token: this.storageService.getStorage.token,
-      opUserId: this.storageService.getStorage.userId,
-      sensorTag: type,
-      containerId: pas.containerId
-    }).subscribe(res => {
-      // 设置全局type
-      sensorTag = type;
-      res.forEach((item, index) => {
-        if (0 === index) {
-          x1 = [];
-          y1 = [];
-        } else {
-          // 温度， 湿度，或者加速度的区间值
-          x2 = item.x;
-
-          // 温度，湿度，加速度的所有中值
-          y2 = [];
-          item.data.forEach(item => {
-            y2.push(item.tag);
-          });           
-        }
-
-        this.datas.chartOptions2 = {
-          title: {
-            text: 'Median'
-          },
-          legend: {
-            enabled: false
-          },
-          credits: {
-            enabled: false
-          },
-          xAxis: [{
-            title: { text: '' },
-          }, {
-            title: { text: '' },
-            opposite: true
-          }],
-          yAxis: [{
-            title: { text: '' },
-          }, {
-            title: { text: '' },
-            opposite: true
-          }],
-          series: [{
-            name: 'Bell curve',
-            type: 'bellcurve',
-            xAxis: 1,
-            yAxis: 1,
-            baseSeries: 1,
-            zoneAxis: 'x'
-          }, {
-            name: 'Data',
-            type: 'scatter',
-            data: y2,
-            marker: {
-              radius: 1,
-              symbol: 'circle'
-            }
-          }]
-        }
-      });
+    // 设置全局type
+    sensorTag = type;
+    // 重至所有数据
+    x1 = [];
+    y1 = [];
+    y3 = [];
+    y2 = [];
+    // 获取单个集装箱数据
+    if (null !== pas.enterpriseId && null !== pas.containerId) {
       this.queryStatus(pas.containerId);
-    }); 
+    } else if(null !== pas.enterpriseId) {
+        // 获取企业下的所有集装箱数据
+      this.queryEnterpriseStatus(pas.enterpriseId);
+    } else {
+      // 获取所有企业数据
+      this.queryEnterpriseAllStatus();
+    }
   }
+
+
   closeWSS() {
     this.containerSocketService.closeWS();
+    this.containerAllSocketService.closeWS();
+    this.enterpriseAllSocketService.closeWS();
   }
   socketConnect(id: string, channel: number) {
-    this.containerSocketService.closeWS();
+    this.closeWSS();
     this.containerSocketService.createObservableSocket(id, channel)
     .subscribe(data => {
       data = JSON.parse(data);
+      console.log(data);
       x1.push(this.transformDate(data.avg.unixtime * 1000));
       if (65 === sensorTag) {        
         y1.push(data.avg.tempAvg);
@@ -507,6 +503,46 @@ export class StatisticalService {
           data: y1
         }],
       }
+
+      this.datas.chartOptions2 = {
+        title: {
+          text: 'Median'
+        },
+        legend: {
+          enabled: false
+        },
+        credits: {
+          enabled: false
+        },
+        xAxis: [{
+          title: { text: '' },
+        }, {
+          title: { text: '' },
+          opposite: true
+        }],
+        yAxis: [{
+          title: { text: '' },
+        }, {
+          title: { text: '' },
+          opposite: true
+        }],
+        series: [{
+          name: 'Bell curve',
+          type: 'bellcurve',
+          xAxis: 1,
+          yAxis: 1,
+          baseSeries: 1,
+          zoneAxis: 'x'
+        }, {
+          name: 'Data',
+          type: 'scatter',
+          data: y2,
+          marker: {
+            radius: 1,
+            symbol: 'circle'
+          }
+        }]
+      }
     }),
     error => console.log(error),
     () => console.log('结束')
@@ -515,7 +551,7 @@ export class StatisticalService {
     return this.datePipe.transform(date, 'h:mm:ss');
   }
   /**
-   * 
+   * 带有企业id和集装箱id
    * @param id containerId
    */
   queryStatus(id: string) {
@@ -532,6 +568,319 @@ export class StatisticalService {
       this.socketConnect(id, res.user.channel);
     });
   }
+
+  queryEnterpriseStatus(id: string) {
+    this.getReqMyData({
+      token: this.storageService.getStorage.token,
+      opUserId: this.storageService.getStorage.userId,
+      deviceType: 0,
+      enterpriseId: id
+    }).subscribe(res => {
+      if (res.respCode !== '00000') {
+        console.log('获取状态失败');
+        return false
+      }
+      this.socketConnectAll(id, res.user.channel);
+    });
+  }
+
+  socketConnectAll(id: string, channel: number) {
+    this.closeWSS();
+    this.containerAllSocketService.createObservableSocket(id, channel)
+    .subscribe(data => {
+      data = JSON.parse(data);
+      console.log(data);
+      x1.push(this.transformDate(data.avg.unixtime * 1000));
+      if (65 === sensorTag) { 
+        y1.push(data.avg.tempAvg);
+        y2.push(data.mid.tempMidPoint[0]);
+        y3.push(data.midmid.tempMidMid)
+      } else if (66 === sensorTag) {
+        y1.push(data.avg.humMidPoint);
+        y2.push(data.mid.humMidPoint[0]);
+        y3.push(data.midmid.humMidMid);
+      } else if(67 === sensorTag) {
+        y1.push(data.avg.acceAvg);
+        y2.push(data.mid.acceMidPoint[0]);
+        y3.push(data.midmid.acceMidMid);
+      }
+
+
+      this.datas.chartOptions1 = {
+          title: {
+            text: 'Average'
+          },
+  
+          chart: {
+            type: 'spline',
+            marginRight: 10
+          },
+  
+          legend: {
+            enabled: false
+          },
+          credits: {
+            enabled: false
+          },
+          xAxis: {
+            categories: x1
+          },
+          yAxis: {
+            title: {
+              text: null
+            }
+          },
+          tooltip: {
+            formatter:  function(value) {           
+              return '<b>' + this.series.name + '</b><br/>' + this.y;
+            }
+          },
+          series: [{
+            name: 'Average',
+            type: 'line',
+            data: y1
+          }],
+        }
+
+
+        this.datas.chartOptions2 = {
+          title: {
+            text: 'Median'
+          },
+          legend: {
+            enabled: false
+          },
+          credits: {
+            enabled: false
+          },
+          xAxis: [{
+            title: { text: '' },
+          }, {
+            title: { text: '' },
+            opposite: true
+          }],
+          yAxis: [{
+            title: { text: '' },
+          }, {
+            title: { text: '' },
+            opposite: true
+          }],
+          series: [{
+            name: 'Bell curve',
+            type: 'bellcurve',
+            xAxis: 1,
+            yAxis: 1,
+            baseSeries: 1,
+            zoneAxis: 'x'
+          }, {
+            name: 'Data',
+            type: 'scatter',
+            data: y2,
+            marker: {
+              radius: 1,
+              symbol: 'circle'
+            }
+          }]
+        }
+
+        this.datas.chartOptions3 = {
+          title: {
+            text: 'Median of median'
+          },
+  
+          chart: {
+            type: 'spline',
+            marginRight: 10
+          },
+  
+          legend: {
+            enabled: false
+          },
+          credits: {
+            enabled: false
+          },
+          xAxis: {
+            categories: x1
+          },
+          yAxis: {
+            title: {
+              text: null
+            }
+          },
+          tooltip: {
+            formatter:  function(value) {           
+              return '<b>' + this.series.name + '</b><br/>' + this.y;
+            }
+          },
+          series: [{
+            name: 'Median of median',
+            type: 'line',
+            data: y3
+          }],
+        }
+
+    }),
+    error => console.log(error),
+    () => console.log('结束')
+  }
+
+  queryEnterpriseAllStatus() {
+    this.getReqMyData({
+      token: this.storageService.getStorage.token,
+      opUserId: this.storageService.getStorage.userId,
+      deviceType: 0,
+      enterpriseId: -1
+    }).subscribe(res => {
+      if (res.respCode !== '00000') {
+        console.log('获取状态失败');
+        return false
+      }
+      this.socketConnectEnterpriseAll();
+    });
+  }
+
+  socketConnectEnterpriseAll() {
+    this.closeWSS();
+    this.enterpriseAllSocketService.createObservableSocket()
+    .subscribe(data => {
+      data = JSON.parse(data);
+      console.log(data);
+      x1.push(this.transformDate(data.avg.unixtime * 1000));
+      if (65 === sensorTag) { 
+        y1.push(data.avg.tempAvg);
+        y2.push(data.mid.tempMidPoint[0]);
+        y3.push(data.midmid.tempMidMid)
+      } else if (66 === sensorTag) {
+        y1.push(data.avg.humMidPoint);
+        y2.push(data.mid.humMidPoint[0]);
+        y3.push(data.midmid.humMidMid);
+      } else if(67 === sensorTag) {
+        y1.push(data.avg.acceAvg);
+        y2.push(data.mid.acceMidPoint[0]);
+        y3.push(data.midmid.acceMidMid);
+      }
+
+
+      this.datas.chartOptions1 = {
+          title: {
+            text: 'Average'
+          },
+  
+          chart: {
+            type: 'spline',
+            marginRight: 10
+          },
+  
+          legend: {
+            enabled: false
+          },
+          credits: {
+            enabled: false
+          },
+          xAxis: {
+            categories: x1
+          },
+          yAxis: {
+            title: {
+              text: null
+            }
+          },
+          tooltip: {
+            formatter:  function(value) {           
+              return '<b>' + this.series.name + '</b><br/>' + this.y;
+            }
+          },
+          series: [{
+            name: 'Average',
+            type: 'line',
+            data: y1
+          }],
+        }
+
+
+        this.datas.chartOptions2 = {
+          title: {
+            text: 'Median'
+          },
+          legend: {
+            enabled: false
+          },
+          credits: {
+            enabled: false
+          },
+          xAxis: [{
+            title: { text: '' },
+          }, {
+            title: { text: '' },
+            opposite: true
+          }],
+          yAxis: [{
+            title: { text: '' },
+          }, {
+            title: { text: '' },
+            opposite: true
+          }],
+          series: [{
+            name: 'Bell curve',
+            type: 'bellcurve',
+            xAxis: 1,
+            yAxis: 1,
+            baseSeries: 1,
+            zoneAxis: 'x'
+          }, {
+            name: 'Data',
+            type: 'scatter',
+            data: y2,
+            marker: {
+              radius: 1,
+              symbol: 'circle'
+            }
+          }]
+        }
+
+        this.datas.chartOptions3 = {
+          title: {
+            text: 'Median of median'
+          },
+  
+          chart: {
+            type: 'spline',
+            marginRight: 10
+          },
+  
+          legend: {
+            enabled: false
+          },
+          credits: {
+            enabled: false
+          },
+          xAxis: {
+            categories: x1
+          },
+          yAxis: {
+            title: {
+              text: null
+            }
+          },
+          tooltip: {
+            formatter:  function(value) {           
+              return '<b>' + this.series.name + '</b><br/>' + this.y;
+            }
+          },
+          series: [{
+            name: 'Median of median',
+            type: 'line',
+            data: y3
+          }],
+        }
+
+    }),
+    error => console.log(error),
+    () => console.log('结束')    
+  }
+
+
+  
   getReqMyData (body: any) {
     return this.httpService.post(HTTP_URL.reqMyData, body)
   }
