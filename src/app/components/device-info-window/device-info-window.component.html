@@ -1,16 +1,16 @@
 <div [ngClass]="'dev-info-window-content'">
-  <div nz-row [ngClass]="{'window-status-bar': true}"  [style.backgroundColor]="vehicles.state | containerStateColor">
-    <div nz-col nzSpan="12">
-      <span [ngClass]="'dev-name'">Device</span>
+  <div nz-row [ngClass]="{'window-status-bar': true}" [style.backgroundColor]="vehicles.state | containerStateColor">
+    <div nz-col nzSpan="18">
+      <span [ngClass]="'dev-name'">{{vehicles.deviceName}}</span>
       <span [ngClass]="'dev-attached'">({{vehicles.state | deviceStatus}})</span>
     </div>
-    <div nz-col nzSpan="12" class="dev-bar-icon-content">
+    <div nz-col nzSpan="16" class="dev-bar-icon-content">
       <span>{{vehicles.startTime | date: 'yyyy-MM-dd hh:mm:ss'}}</span>
       <i class="anticon anticon-close" (click)="closeInfoWindow()"></i>
     </div>
   </div>
   <div nz-row [ngClass]="'dev-info-electricity-content'">
-    <div nz-col nzSpan="24" [ngClass]="'dev-info-electricity-left'">
+    <!-- <div nz-col nzSpan="24" [ngClass]="'dev-info-electricity-left'">
       <div nz-row class="dev-info-left-content">
         <div nz-col nzSpan="12">
           <span [ngClass]="'dev-info-b-title'">Device Name：</span>
@@ -19,7 +19,7 @@
           <span [ngClass]="'dev-info-b-ftitle'">{{vehicles.deviceName}}</span>
         </div>
       </div>
-    </div>
+    </div> -->
     <div nz-col nzSpan="24" [ngClass]="'dev-info-electricity-left'">
       <div nz-row class="dev-info-left-content">
         <div nz-col nzSpan="12">

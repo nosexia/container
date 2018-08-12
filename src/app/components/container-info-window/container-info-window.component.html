@@ -1,10 +1,10 @@
 <div [ngClass]="'container-infowindow-content'" >
-  <div nz-row [ngClass]="{'window-status-bar': true, 'offline': item.state === 0 || null, 'connected': item.state === 1, 'attached': item.state === 2, 'activated': item.state === 3}">
-    <div nz-col nzSpan="12">
+  <div nz-row [ngClass]="{'window-status-bar': true}" [style.backgroundColor]="item.state | containerStateColor">
+    <div nz-col nzSpan="18">
       <span [ngClass]="'dev-name'">{{item.containerName}}</span>
-      <span [ngClass]="'{dev-attached}'"></span>
+      <span [ngClass]="'dev-attached'">({{item.state | deviceStatus}})</span>
     </div>
-    <div nz-col nzSpan="12" class="dev-bar-icon-content">
+    <div nz-col nzSpan="6" class="dev-bar-icon-content">
       <span></span>
       <i class="anticon anticon-close" (click)="closeInfoWindow()"></i>
     </div>

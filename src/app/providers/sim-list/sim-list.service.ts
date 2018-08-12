@@ -12,7 +12,7 @@ import { NzModalService, NzMessageService } from 'ng-zorro-antd';
 export class SimListService {
   simListData: SimItem[] = [];
   selectData: SimItem[] = [];
-  dataTotal: number = 3;
+  dataTotal: number = 30;
   allChecked = false;
   indeterminate = false;
   displayData = [];
