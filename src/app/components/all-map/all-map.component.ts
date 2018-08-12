@@ -25,13 +25,14 @@ export class AllMapComponent implements OnInit {
     } else {
       this.showDevice.emit(item);
     }
+    this.zoomValue = 15;
+    this.lat = item.latitude / 1000000
+    this.lng = item.longitude / 1000000
   }
   closeWinC (item: any) {
-    console.log(item)
     this.allMapService.closeContainer(item)
   }
   closeWinD (item: any) {
-    console.log(item)
     this.allMapService.closeDevice(item)
   }
 }
