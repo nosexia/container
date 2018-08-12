@@ -30,9 +30,6 @@ export class ContainerListDeviceComponent implements OnDestroy {
     this.homeTypeService.showRight = false
     this.allMapService.actionTerminalList();
     this.timer = interval(5000).subscribe(val => {
-      if (this.allMapService.clearTimer) {
-        this.timer.unsubscribe()
-      }
       this.allMapService.actionTerminalList()
     })
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -14,6 +14,7 @@ import {
 
 export class LoginFormComponent implements OnInit {
   @Output() onLoginFormValue = new EventEmitter<FormGroup>();
+  @Input() showError: boolean = false
   validateForm: FormGroup;
   isLoading: Boolean = false;
   constructor(private fb: FormBuilder) {

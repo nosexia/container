@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { ContainerListService } from '../../providers/container-list/container-list.service';
 import { StorageService } from '../../providers/storage-type/storage.service';
 import { ContainerFormDialogComponent } from '../../components/container-form-dialog/container-form-dialog.component';
@@ -11,12 +11,14 @@ import { AddLineDialogComponent } from '../../components/add-line-dialog/add-lin
 import { NzModalService, NzMessageService } from 'ng-zorro-antd';
 import { EnterpriseQueryComponent } from '../../components/enterprise-query/enterprise-query.component';
 import { HomeTypeService } from '../../providers/home-type/home-type.service'
+import { interval, Subscription } from 'rxjs';
+
 @Component({
   selector: 'app-container',
   templateUrl: './container.component.html',
   styleUrls: ['./container.component.less']
 })
-export class ContainerComponent implements OnInit {
+export class ContainerComponent implements OnDestroy {
   @ViewChild(ContainerFormDialogComponent)
   private containerFormDialogComponent: ContainerFormDialogComponent;
 
@@ -27,6 +29,7 @@ export class ContainerComponent implements OnInit {
   private enterpriseQueryComponent: EnterpriseQueryComponent;
 
   isShow: boolean = true;
+  private timer: Subscription = null;
   public queryType: QueryType[] = [
     {
       label: 'containerId',
@@ -45,18 +48,17 @@ export class ContainerComponent implements OnInit {
   ) {
     
   }
-
+  ngOnDestroy () {
+    if (this.timer) {
+      // 清除定时器
+      this.timer.unsubscribe()
+    }
+  }
   ngOnInit() {
-    // if (this.allMapService.containerList.length === 0 && this.allMapService.deviceList.length === 0) {
-    //   this.allMapService.actionTerminalList()
-    //   window.setInterval(() => {
-    //     this.allMapService.actionTerminalList()
-    //   }, 20000)
-    // }
-    window.setInterval(() => {
+    this.containerListService.getAllContainer();
+    this.timer = interval(5000).subscribe(val => {
       this.containerListService.getAllContainer();
-    }, 20000)
-    this.containerListService.getAllContainer()
+    })
   }
   pushHomeDialog (id: string) {
     this.addLineDialogComponent.showModal(id);

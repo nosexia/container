@@ -10,7 +10,7 @@
       <div nz-row>
         <div nz-col nzSpan="18"></div>
         <div nz-col nzSpan="6">
-          <app-login-form (onLoginFormValue)="onLoginFormValue($event)"></app-login-form>
+          <app-login-form [showError]="showError" (onLoginFormValue)="onLoginFormValue($event)"></app-login-form>
         </div>
       </div>
     </nz-content>
