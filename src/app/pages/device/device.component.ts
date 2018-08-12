@@ -18,7 +18,6 @@ import { HomeTypeService } from '../../providers/home-type/home-type.service'
   styleUrls: ['./device.component.less']
 })
 export class DeviceComponent implements OnInit {
-
   @ViewChild(DeviceFormDialogComponent)
   private deviceFormDialogComponent: DeviceFormDialogComponent;
   @ViewChild(DiagnosticsDialogComponent)
@@ -79,7 +78,6 @@ export class DeviceComponent implements OnInit {
       if (res.device.diagnosisInfo) {
         this.diagnosticsDialogComponent.showModals(data, res.device.diagnosisInfo);        
       } else {
-        debugger;
         this.diagnosticsDialogComponent.showModals(data, null);  
       }
     })

@@ -69,7 +69,7 @@ export class RulesetListService {
     this.getRuleList({
       token: this.storageService.getStorage.token,
       opUserId: this.storageService.getStorage.userId,
-      groupType: 2
+      groupType: 1
     }).subscribe(res => {
       const newData = res.data.map(item => {
         return {
@@ -95,7 +95,7 @@ export class RulesetListService {
     this.getRuleList({
       token: this.storageService.getStorage.token,
       opUserId: this.storageService.getStorage.userId,
-      groupType: 1
+      groupType: 0
     }).subscribe(res => {
       const newData = res.data.map(item => {
         return {
