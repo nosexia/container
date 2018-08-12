@@ -433,16 +433,32 @@ export class StatisticalService {
     y1 = [];
     y2 = [];
     y3 = [];
-    // 获取单个集装箱数据
-    if (null !== pas.enterpriseId && null !== pas.containerId) {
-      this.queryStatus(pas.containerId);
-    } else if(null !== pas.enterpriseId) {
-        // 获取企业下的所有集装箱数据
-      this.queryEnterpriseStatus(pas.enterpriseId);
-    } else {
-      // 获取所有企业数据
-      this.queryEnterpriseAllStatus();
-    }
+
+    this.httpService.post(HTTP_URL.statistics, {
+      token: this.storageService.getStorage.token,
+      opUserId: this.storageService.getStorage.userId,
+      sensorTag: type,
+      enterpriseId: pas.enterpriseId,
+      containerId: pas.containerId
+      }).subscribe(res => {
+        if (65 === sensorTag) { 
+          y2 = res.tempMidArray;
+        } else if(66 === sensorTag) {
+          y2 = res.humMidArray;
+        } else {
+          y2 = res.acceMidArray
+        }
+        // 获取单个集装箱数据
+        if (null !== pas.enterpriseId && null !== pas.containerId) {
+          this.queryStatus(pas.containerId);
+        } else if(null !== pas.enterpriseId) {
+            // 获取企业下的所有集装箱数据
+          this.queryEnterpriseStatus(pas.enterpriseId);
+        } else {
+          // 获取所有企业数据
+          this.queryEnterpriseAllStatus();
+        }
+    })
   }
 
 
@@ -468,13 +484,13 @@ export class StatisticalService {
 
       if (65 === sensorTag) {        
         y1.push(data.avg.tempAvg);
-        y2.push(data.mid.tempMidPoint[0]);
+        y2.push(data.mid.tempU);
       } else if(66 === sensorTag) {
-        y1.push(data.avg.humMidPoint);
-        y2.push(data.mid.humMidPoint[0]);
+        y1.push(data.avg.humAvg);
+        y2.push(data.mid.humU);
       } else if(67 === sensorTag) {
         y1.push(data.avg.acceAvg);
-        y2.push(data.mid.acceMidPoint[0]);
+        y2.push(data.mid.acceU);
       }
       this.RenderTableData();
     }),
@@ -539,15 +555,15 @@ export class StatisticalService {
       }
       if (65 === sensorTag) { 
         y1.push(data.avg.tempAvg);
-        y2.push(data.mid.tempMidPoint[0]);
+        y2.push(data.mid.tempU);
         y3.push(data.midmid.tempMidMid)
       } else if (66 === sensorTag) {
-        y1.push(data.avg.humMidPoint);
-        y2.push(data.mid.humMidPoint[0]);
+        y1.push(data.avg.humAvg);
+        y2.push(data.mid.humU);
         y3.push(data.midmid.humMidMid);
       } else if(67 === sensorTag) {
         y1.push(data.avg.acceAvg);
-        y2.push(data.mid.acceMidPoint[0]);
+        y2.push(data.mid.acceU);
         y3.push(data.midmid.acceMidMid);
       }
 
@@ -592,15 +608,15 @@ export class StatisticalService {
       }
       if (65 === sensorTag) { 
         y1.push(data.avg.tempAvg);
-        y2.push(data.mid.tempMidPoint[0]);
+        y2.push(data.mid.tempU);
         y3.push(data.midmid.tempMidMid)
       } else if (66 === sensorTag) {
-        y1.push(data.avg.humMidPoint);
-        y2.push(data.mid.humMidPoint[0]);
+        y1.push(data.avg.humAvg);
+        y2.push(data.mid.humU);
         y3.push(data.midmid.humMidMid);
       } else if(67 === sensorTag) {
         y1.push(data.avg.acceAvg);
-        y2.push(data.mid.acceMidPoint[0]);
+        y2.push(data.mid.acceU);
         y3.push(data.midmid.acceMidMid);
       }
 
