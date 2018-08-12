@@ -1,5 +1,5 @@
 <div [ngClass]="'device-item-infowindow-content'">
-    <div nz-row [ngClass]="{'window-status-bar': true, 'activated': item.status === 1, 'offline': item.status === 0 || item.status === null, 'alert-activated': item.status === 2}">
+    <div nz-row [ngClass]="{'window-status-bar': true}" [style.backgroundColor]="item.status | containerStateColor">
       <div nz-col nzSpan="12">
         <span [ngClass]="'dev-name'">{{item.deviceName}}</span>
         <span [ngClass]="'{dev-attached}'"></span>

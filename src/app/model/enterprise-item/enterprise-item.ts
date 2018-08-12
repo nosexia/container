@@ -5,5 +5,7 @@ export interface EnterpriseItem {
     email: String,
     enterpriseId?: Number,
     checked: Boolean,
-    disabled: Boolean
+    disabled: Boolean,
+    // 0是private,1是public
+    viewType: Number
 }

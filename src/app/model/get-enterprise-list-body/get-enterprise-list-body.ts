@@ -5,5 +5,6 @@ export interface GetEnterpriseListBody {
     email?: String,
     token: String,
     enterpriseId?: Number,
-    opUserId: Number
+    opUserId: Number,
+    viewType?: Number
 }

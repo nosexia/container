@@ -28,6 +28,16 @@
               <input nz-input id="contactNo" formControlName="contactNo" placeholder="Input Phone">
               <nz-form-explain *ngIf="validateForm.get('contactNo').dirty && validateForm.get('contactNo').errors">Please input ContactNo!</nz-form-explain>
             </nz-form-control>
+          </nz-form-item> 
+          <nz-form-item>
+              <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="viewType" nzRequired>Journey</nz-form-label>
+              <nz-form-control [nzSm]="14" [nzXs]="24">
+                  <nz-radio-group id="viewType" formControlName="viewType">
+                    <label nz-radio [nzValue]="0">private</label>
+                    <label nz-radio [nzValue]="1">public</label>
+                  </nz-radio-group>
+                <nz-form-explain *ngIf="validateForm.get('viewType').dirty && validateForm.get('viewType').errors"></nz-form-explain>
+              </nz-form-control>
           </nz-form-item>
           <nz-form-item>
               <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="email">Email</nz-form-label>

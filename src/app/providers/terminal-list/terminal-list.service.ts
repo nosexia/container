@@ -107,6 +107,7 @@ export class TerminalListService {
       journeyId: id
     })
     .subscribe(res => {
+      debugger
       res.journey.fromLatitude = Number(res.journey.fromLatitude)
       res.journey.toLatitude = Number(res.journey.toLatitude)
       res.journey.fromLongitude = Number(res.journey.fromLongitude)
@@ -121,7 +122,6 @@ export class TerminalListService {
         this.fromToMarkerService.setParams('endTime', res.journey.endTime);
         this.fromToMarkerService.setParams('fromCity', res.journey.fromCity);
         if (this.firstJouney) {
-          // 是否是第一次请求
           this.firstJouney = false
           this.fromToMarkerService.setParams('liveLatitude', res.journey.fromLatitude);
           this.fromToMarkerService.setParams('liveLongitude', res.journey.fromLongitude);

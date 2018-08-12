@@ -31,6 +31,7 @@ export class EnterpriseFormDialogComponent implements OnInit {
       contactName: [ '', [ Validators.required ] ],
       contactNo: [ '', [ Validators.required ] ],
       email: [null, [ Validators.email ]],
+      viewType: [null, [ Validators.required ]],
       enterpriseId: [null]
     });
   }
@@ -41,11 +42,13 @@ export class EnterpriseFormDialogComponent implements OnInit {
     if (!enterpriseItem) {
       this.validateForm.reset(); 
     } else {
+      console.log(enterpriseItem)
       this.validateForm.patchValue({
         enterpriseName: enterpriseItem.enterpriseName,
         contactName: enterpriseItem.contactName,
         contactNo: enterpriseItem.contactNo,
         email: enterpriseItem.email,
+        viewType: enterpriseItem.viewType,
         enterpriseId: enterpriseItem.enterpriseId
       })
     }

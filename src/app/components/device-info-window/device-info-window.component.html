@@ -1,11 +1,10 @@
-<div [ngClass]="'dev-infowindow-content'">
-  <div nz-row [ngClass]="{'window-status-bar': true, 'offline': vehicles.state === 0 || null, 'connected': vehicles.state === 1, 'attached': vehicles.state === 2, 'activated': vehicles.state === 3}">
+<div [ngClass]="'dev-info-window-content'">
+  <div nz-row [ngClass]="{'window-status-bar': true}"  [style.backgroundColor]="vehicles.state | containerStateColor">
     <div nz-col nzSpan="12">
       <span [ngClass]="'dev-name'">Device</span>
       <span [ngClass]="'dev-attached'">({{vehicles.state | deviceStatus}})</span>
     </div>
     <div nz-col nzSpan="12" class="dev-bar-icon-content">
-      <!-- <i class="anticon anticon-wifi"></i> -->
       <span>{{vehicles.startTime | date: 'yyyy-MM-dd hh:mm:ss'}}</span>
       <i class="anticon anticon-close" (click)="closeInfoWindow()"></i>
     </div>
@@ -57,7 +56,7 @@
           <span [ngClass]="'dev-info-b-title'">SIM ICCID：</span>
         </div>
         <div nz-col nzSpan="12">
-          <span [ngClass]="'dev-info-b-ftitle'">{{vehicles.simiccid}}</span>
+          <span [ngClass]="'dev-info-b-ftitle'">{{vehicles.iccid}}</span>
         </div>
       </div>
     </div>
@@ -67,7 +66,7 @@
           <span [ngClass]="'dev-info-b-title'">SIM IMSI：</span>
         </div>
         <div nz-col nzSpan="12">
-          <span [ngClass]="'dev-info-b-ftitle'">{{vehicles.simimsi}}</span>
+          <span [ngClass]="'dev-info-b-ftitle'">{{vehicles.imsi}}</span>
         </div>
       </div>
     </div>
@@ -77,7 +76,7 @@
           <span [ngClass]="'dev-info-b-title'">Module SN：</span>
         </div>
         <div nz-col nzSpan="12">
-          <span [ngClass]="'dev-info-b-ftitle'">{{vehicles.modulesn}}</span>
+          <span [ngClass]="'dev-info-b-ftitle'">{{vehicles.networkModuleSn}}</span>
         </div>
       </div>
     </div>
@@ -87,7 +86,7 @@
           <span [ngClass]="'dev-info-b-title'">Module IMEI：</span>
         </div>
         <div nz-col nzSpan="12">
-          <span [ngClass]="'dev-info-b-ftitle'">{{vehicles.moduleimei}}</span>
+          <span [ngClass]="'dev-info-b-ftitle'">{{vehicles.imei}}</span>
         </div>
       </div>
     </div>

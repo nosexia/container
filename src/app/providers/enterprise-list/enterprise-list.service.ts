@@ -48,6 +48,7 @@ export class EnterpriseListService {
           contactNo: item.contactNo,
           email: item.email,
           enterpriseId: item.enterpriseId,
+          viewType: item.viewType,
           checked: false,
           disabled: false
         }
@@ -67,6 +68,7 @@ export class EnterpriseListService {
           contactNo: item.contactNo,
           email: item.email,
           enterpriseId: item.enterpriseId,
+          viewType: item.viewType,
           checked: false,
           disabled: false
         }

@@ -12,7 +12,7 @@ export class ContainerStateColorPipe implements PipeTransform {
       return '#FD883E';
     } else if (value === 2) {
       return '#87d068'
-    } else {
+    } else if (value === 3) {
       return '#108ee9'
     }
   }

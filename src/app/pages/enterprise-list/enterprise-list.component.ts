@@ -54,25 +54,6 @@ export class EnterpriseListComponent implements OnInit {
     this.enterpriseQueryComponent.hideOneSelect();
     this.enterpriseListService.getAllEnterprise();
   }
-  // getAllEnterprise () {
-  //   this.enterpriseListService.getEnterpriseList({
-  //     token: this.storageService.getStorage.token,
-  //     opUserId: this.storageService.getStorage.userId,
-  //   }).subscribe(res => {
-  //     const newData = res.enterprises.map(item => {
-  //       return {
-  //         enterpriseName: item.enterpriseName,
-  //         contactName: item.contactName,
-  //         contactNo: item.contactNo,
-  //         email: item.email,
-  //         enterpriseId: item.enterpriseId,
-  //         checked: false,
-  //         disabled: false
-  //       }
-  //     })  
-  //     this.enterpriseListService.setEnterpriseData(newData)
-  //   });
-  // }
   queryInput (value: any) {
     if (!value.query) {
       this.enterpriseListService.getAllEnterprise()
@@ -129,6 +110,7 @@ export class EnterpriseListComponent implements OnInit {
           contactNo: item.contactNo,
           email: item.email,
           enterpriseId: item.enterpriseId,
+          viewType: item.viewType,
           checked: false,
           disabled: false
         });
@@ -147,7 +129,8 @@ export class EnterpriseListComponent implements OnInit {
       contactName: item.contactName,
       contactNo: item.contactNo,
       email: item.email,
-      enterpriseId: item.enterpriseId
+      enterpriseId: item.enterpriseId,
+      viewType: item.viewType
     }).subscribe(res => {
       if (res.respCode === '00000') {
         this.enterpriseListService.updateEnterprise(item);
@@ -164,7 +147,8 @@ export class EnterpriseListComponent implements OnInit {
       enterpriseName: item.enterpriseName,
       contactName: item.contactName,
       contactNo: item.contactNo,
-      email: item.email
+      email: item.email,
+      viewType: item.viewType
     })
     .subscribe(res => {
       if (res.respCode === '00000') {
@@ -192,7 +176,7 @@ export class EnterpriseListComponent implements OnInit {
             this.message.create('success', `This is a message of success`);          
             this.enterpriseListService.deleteEnterprise();
             this.enterpriseQueryComponent.submitForm();
-          } else if(res.respCode === '00006') {
+          } else if (res.respCode === '00006') {
             this.message.create('error', 'Conflict: object refrenced!');
           }
         })
