@@ -6,32 +6,31 @@ import { StorageService } from '../storage-type/storage.service';
 import { TerminalListBody  } from '../../model/terminal-list-body/terminal-list-body';
 import { TerminalListService } from '../terminal-list/terminal-list.service';
 import { StateBridgService } from '../state-bridge/state-bridg.service';
-// import { TemperatureService } from '../temperature/temperature.service';
-// import { HumidityService } from '../humidity/humidity.service';
-// import { AccelerationService } from '../acceleration/acceleration.service';
 import { HomeTypeService } from '../home-type/home-type.service'
+import { NzMessageService } from 'ng-zorro-antd';
+
 import { ContainerAndDeviceStatusService } from '../container-and-device-status/container-and-device-status.service'
 @Injectable({
   providedIn: 'root'
 })
 export class AllMapService {
-  // private terminalListService: TerminalListService;
+  public terminalListService: TerminalListService;
   containerList: any[] = [];
   deviceList: any[] = [];
   allShows: boolean = false;
   DallShows: boolean = true;
   clearTimer: boolean = false;
+  lat: number = 40.37;
+  lng: number = 116.85;
+  zoomValue: number = 4.5;
   constructor(
     private httpService: HttpService,
     private storageService: StorageService,
-    private stateBridgService: StateBridgService,
     private containerAndDeviceStatusService: ContainerAndDeviceStatusService,
+    private message : NzMessageService,
     private homeTypeService: HomeTypeService
   ) {
   }
-  // setTerminalListService (t: TerminalListService) {
-    // this.terminalListService = t;
-  // }
   actionTerminalList (id?: number): void {
     let bodys;
     if (id) {
@@ -89,32 +88,6 @@ export class AllMapService {
           }
         })
       }
-      // this.containerList.forEach(i => {
-      //   if (i.containerId === this.stateBridgService.containerId) {
-      //     if (i.state === 0) {
-      //       console.log('开始查device是否在线')
-      //       // this.stateBridgService.setContianerId('0');
-      //       this.deviceList.forEach(ii => {
-      //         if (ii.deviceId === this.stateBridgService.deviceId) {
-      //           if (ii.state === 0) {
-      //             console.log('device不在线')
-      //             // device状态为0的时候
-      //             this.allShows = false
-      //             this.stateBridgService.setContianerId('0');
-      //             this.stateBridgService.setDeviceId('0');
-      //             // this.terminalListService.setShowRight(false)
-      //             // this.terminalListService.seachTerminalData(1, this.stateBridgService.containerId);
-      //           } else if (ii.state === 3) {
-      //             console.log('device在线')
-      //             // this.terminalListService.setShowRight(true)
-      //             // this.terminalListService.seachTerminalData(1, this.stateBridgService.containerId);
-      //           }
-      //         }
-      //       })
-      //     }
-      //   }
-      // })
-      // console.log(this.stateBridgService.deviceId, this.stateBridgService.containerId)
     })
   }
   getTerminalList (body: TerminalListBody): Observable<any> {
@@ -124,23 +97,53 @@ export class AllMapService {
     this.allShows = show
     this.DallShows = true
   }
-  showContainer (item: any) {
-    this.containerList.forEach(i => {
-      if (i.containerId === item.containerId) {
-        i.isOpen = true
+  getContainer (item: any) {
+    debugger
+    if (item.state === 0) {
+      this.message.info('Not bind');
+      return false
+    }
+    if (item.containerId === this.containerAndDeviceStatusService.containerId) return
+    this.containerList.forEach(it => {
+      if (it.containerId === item.containerId) {
+        it.isOpen = true
+        this.zoomValue = 15;
+        this.lat = item.latitude / 1000000
+        this.lng = item.longitude / 1000000
       } else {
-        i.isOpen = false
+        it.isOpen = false
       }
     })
+    // 重置所有的状态
+    this.homeTypeService.showRight = false;
+    this.containerAndDeviceStatusService.resetData();
+    this.terminalListService.queryStatus(0, item);
+  }
+  getDevice (item: any) {
+    if (item.deviceId === this.containerAndDeviceStatusService.deviceId) return
+    if (item.state === 0) {
+      this.message.info('Not bind');
+      return false
+    } else if (item.state === 3) {
+      this.deviceList.forEach(it => {
+        if (it.deviceId === item.deviceId) {
+          it.isOpen = true
+          this.zoomValue = 15;
+          this.lat = item.latitude / 1000000
+          this.lng = item.longitude / 1000000
+        } else {
+          it.isOpen = false
+        }
+      })
+      this.containerAndDeviceStatusService.resetData()
+      this.terminalListService.queryStatus(1, item);
+    }
+  }
+  showContainer (item: any) {
+    this.getContainer(item)
   }
   showDevice (item: any) {
-    this.deviceList.forEach(i => {
-      if (i.deviceId === item.deviceId) {
-        i.isOpen = true
-      } else {
-        i.isOpen = false
-      }
-    })
+    this.getDevice(item);
   }
   closeContainer (item: any) {
     this.containerList.forEach(i => {

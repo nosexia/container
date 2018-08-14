@@ -49,6 +49,7 @@ export class TerminalListService {
     private stateBridgService: StateBridgService,
     private homeTypeService: HomeTypeService
   ) {
+    this.allMapService.terminalListService = this
   }
   setShowRight (value: boolean) {
     this.showRight = value;
@@ -107,7 +108,6 @@ export class TerminalListService {
       journeyId: id
     })
     .subscribe(res => {
-      debugger
       res.journey.fromLatitude = Number(res.journey.fromLatitude)
       res.journey.toLatitude = Number(res.journey.toLatitude)
       res.journey.fromLongitude = Number(res.journey.fromLongitude)

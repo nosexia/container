@@ -69,6 +69,16 @@ export class ContainerListLeftComponent implements OnDestroy {
       return false
     }
     if (item.containerId === this.containerAndDeviceStatusService.containerId) return
+    this.allMapService.containerList.forEach(it => {
+      if (it.containerId === item.containerId) {
+        it.isOpen = true
+        this.allMapService.zoomValue = 15;
+        this.allMapService.lat = item.latitude / 1000000
+        this.allMapService.lng = item.longitude / 1000000
+      } else {
+        it.isOpen = false
+      }
+    })
     // 重置所有的状态
     this.homeTypeService.showRight = false;
     this.containerAndDeviceStatusService.resetData();

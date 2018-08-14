@@ -37,11 +37,11 @@ export class ContainerListDeviceComponent implements OnDestroy {
     console.log(a)
   }
   showContaner (item: any) {
-    this.allMapService.setShow(true)
+    // this.allMapService.setShow(true)
     this.allMapService.showContainer(item)
   } 
   showDevice (item: any) {
     this.allMapService.showDevice(item)
-    this.allMapService.setShow(true)
+    // this.allMapService.setShow(true)
   }
 }

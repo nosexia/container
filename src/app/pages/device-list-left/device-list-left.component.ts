@@ -49,7 +49,16 @@ export class DeviceListLeftComponent implements OnInit {
       this.message.info('Not bind');
       return false
     } else if (item.state === 3) {
-      // this.homeTypeService.showRight = false
+      this.allMapService.deviceList.forEach(it => {
+        if (it.deviceId === item.deviceId) {
+          it.isOpen = true
+          this.allMapService.zoomValue = 15;
+          this.allMapService.lat = item.latitude / 1000000
+          this.allMapService.lng = item.longitude / 1000000
+        } else {
+          it.isOpen = false
+        }
+      })
       this.containerAndDeviceStatusService.resetData()
       this.terminalListService.queryStatus(1, item);
     }

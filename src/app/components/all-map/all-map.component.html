@@ -1,4 +1,4 @@
-<agm-map [ngStyle]="{'height': 'calc(100vh - 60px)'}" [latitude]="lat" [longitude]="lng" [zoom]="zoomValue">
+<agm-map [ngStyle]="{'height': 'calc(100vh - 60px)'}" [latitude]="allMapService.lat" [longitude]="allMapService.lng" [zoom]="allMapService.zoomValue">
     <agm-marker *ngFor="let item of device" [latitude]="item.latitude / 1000000" [longitude]="item.longitude / 1000000" [iconUrl]="'../../../assets/images/device_' + item.state + '.png'" (markerClick)="showView(item, 1)">
         <agm-snazzy-info-window [showCloseButton]="false"  [maxWidth]="350" [maxHeight]="370" padding="0" [isOpen]="item.isOpen">
             <ng-template>

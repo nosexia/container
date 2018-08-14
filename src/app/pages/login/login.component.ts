@@ -15,7 +15,7 @@ import { Md5 } from "md5-typescript";
 })
 export class LoginComponent implements OnInit {
   private userLoginBody: UserLoginBody
-  private showError: boolean = false
+  public showError: boolean = false
   constructor(
     private userSessionStorageService: UserSessionStorageService, 
     private userLocalStorageService: UserLocalStorageService,
